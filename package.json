@@ -1,0 +1,8 @@
+{
+  "license": "MIT",
+  "dependencies": {
+    "@react-three/fiber": "^8.15.11",
+    "three.js": "^0.77.1",
+    "vite": "^5.0.2"
+  }
+}

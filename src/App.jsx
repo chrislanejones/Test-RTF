@@ -1,6 +1,5 @@
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-
 import * as THREE from "three";
 
 function App() {
@@ -14,6 +13,10 @@ function App() {
       <mesh position-x={0.6} position-z={-1}>
         <boxGeometry />
         <meshStandardMaterial color="skyblue" side={THREE.BackSide} />
+      </mesh>
+      <mesh position-x={0.6} position-z={-1}>
+        <torusGeometry args={[6, 2, 5, 40]} />
+        <meshPhongMaterial attach="material" color={"green"} />
       </mesh>
       <ambientLight intensity={0.5} />
       <directionalLight position={[0, 0, 3]} intensity={5} />

@@ -1,5 +1,8 @@
 # Test-RTF
-## Wawa Sensei - React Three Fiber
+
+## Setup to Test Three.JS and Blender 3D animations
+
+### This is from the course Wawa Sensei - React Three Fiber
 
 I am learning how to use React Three Fiber and 3D Web Development
 

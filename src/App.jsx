@@ -5,6 +5,7 @@ import * as THREE from "three";
 function App() {
   return (
     <Canvas camera={{ position: [0, 3, 8] }}>
+      {/* This Grid adds a field for debugging */}
       <Grid
         sectionSize={3}
         sectionColor={"purple"}

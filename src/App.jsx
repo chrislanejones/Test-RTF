@@ -1,10 +1,11 @@
-import { OrbitControls, Grid } from "@react-three/drei";
+import { OrbitControls, Grid, Stats } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import * as THREE from "three";
 
 function App() {
   return (
     <Canvas camera={{ position: [0, 3, 8] }}>
+      <Stats />
       {/* This Grid adds a field for debugging */}
       <Grid
         sectionSize={3}

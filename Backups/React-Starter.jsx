@@ -2,6 +2,7 @@ import { ContactShadows, Environment, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { button, useControls } from "leva";
 import { useMemo, useRef, useState } from "react";
+import * as THREE from "three";
 
 const Cube = (props) => {
   const [color, setColor] = useState("white");
@@ -12,10 +13,16 @@ const Cube = (props) => {
     [color]
   );
 
+  var scene = new THREE.Scene();
+
+  // Change Background Color
+  scene.background = new THREE.Color(0x000000);
+
   useControls({
     changeColorToRed: button(() => setColor("red")),
     changeColorToGreen: button(() => setColor("green")),
     changeColorToBlue: button(() => setColor("blue")),
+    rotateCube: button(() => (ref.current.rotation.y += Math.PI / 4)),
   });
 
   return (

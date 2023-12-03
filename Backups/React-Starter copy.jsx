@@ -1,10 +1,11 @@
 import { ContactShadows, Environment, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { button, useControls } from "leva";
-import { useMemo, useEffect, useRef, useState } from "react";
+import { useMemo, useEffect, useRef, useState, memo, useCallback } from "react";
 import * as THREE from "three";
 
-const Cube = (props) => {
+const Cube = memo((props) => {
+  console.log("Cube Rendered");
   const [color, setColor] = useState("white");
   const ref = useRef();
 
@@ -51,14 +52,20 @@ const Cube = (props) => {
       <meshStandardMaterial color={color} />
     </mesh>
   );
-};
+});
 
 function App() {
+  const [count, setCount] = useState(0);
+  const onCubeClicked = useCallback(() => {
+    console.log(`Cube clicked ${count} time${count > 1 ? "s" : ""}`);
+    setCount((prev) => count + 1);
+  }, []);
+
   return (
     <>
       <Canvas camera={{ position: [0, 2, 6], fov: 42 }}>
         <OrbitControls />
-        <Cube rotation-y={Math.PI / 4} />
+        <Cube rotation-y={Math.PI / 4} onClick={onCubeClicked} />
         <ContactShadows
           position-y={-2}
           opacity={0.5}

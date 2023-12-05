@@ -6,8 +6,6 @@
 
 const DOFMipMapShader = {
 
-	name: 'DOFMipMapShader',
-
 	uniforms: {
 
 		'tColor': { value: null },

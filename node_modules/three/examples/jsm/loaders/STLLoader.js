@@ -274,7 +274,6 @@ class STLLoader extends Loader {
 			const geometry = new BufferGeometry();
 			const patternSolid = /solid([\s\S]*?)endsolid/g;
 			const patternFace = /facet([\s\S]*?)endfacet/g;
-			const patternName = /solid\s(.+)/;
 			let faceCounter = 0;
 
 			const patternFloat = /[\s]+([+-]?(?:\d*)(?:\.\d*)?(?:[eE][+-]?\d+)?)/.source;
@@ -283,7 +282,6 @@ class STLLoader extends Loader {
 
 			const vertices = [];
 			const normals = [];
-			const groupNames = [];
 
 			const normal = new Vector3();
 
@@ -298,9 +296,6 @@ class STLLoader extends Loader {
 				startVertex = endVertex;
 
 				const solid = result[ 0 ];
-
-				const name = ( result = patternName.exec( solid ) ) !== null ? result[ 1 ] : '';
-				groupNames.push( name );
 
 				while ( ( result = patternFace.exec( solid ) ) !== null ) {
 
@@ -349,8 +344,6 @@ class STLLoader extends Loader {
 
 				const start = startVertex;
 				const count = endVertex - startVertex;
-
-				geometry.userData.groupNames = groupNames;
 
 				geometry.addGroup( start, count, groupCount );
 				groupCount ++;

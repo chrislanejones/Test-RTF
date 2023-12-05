@@ -9,8 +9,6 @@ import { UniformsUtils, UniformsLib, ShaderMaterial, Color, MultiplyOperation } 
 
 const GouraudShader = {
 
-	name: 'GouraudShader',
-
 	uniforms: UniformsUtils.merge( [
 		UniformsLib.common,
 		UniformsLib.specularmap,
@@ -76,11 +74,15 @@ const GouraudShader = {
 
 			vec3 diffuse = vec3( 1.0 );
 
-			vec3 geometryPosition = mvPosition.xyz;
-			vec3 geometryNormal = normalize( transformedNormal );
-			vec3 geometryViewDir = ( isOrthographic ) ? vec3( 0, 0, 1 ) : normalize( -mvPosition.xyz );
+			GeometricContext geometry;
+			geometry.position = mvPosition.xyz;
+			geometry.normal = normalize( transformedNormal );
+			geometry.viewDir = ( isOrthographic ) ? vec3( 0, 0, 1 ) : normalize( -mvPosition.xyz );
 
-			vec3 backGeometryNormal = - geometryNormal;
+			GeometricContext backGeometry;
+			backGeometry.position = geometry.position;
+			backGeometry.normal = -geometry.normal;
+			backGeometry.viewDir = geometry.viewDir;
 
 			vLightFront = vec3( 0.0 );
 			vIndirectFront = vec3( 0.0 );
@@ -95,21 +97,13 @@ const GouraudShader = {
 
 			vIndirectFront += getAmbientLightIrradiance( ambientLightColor );
 
-			#if defined( USE_LIGHT_PROBES )
-
-				vIndirectFront += getLightProbeIrradiance( lightProbe, geometryNormal );
-
-			#endif
+			vIndirectFront += getLightProbeIrradiance( lightProbe, geometry.normal );
 
 			#ifdef DOUBLE_SIDED
 
 				vIndirectBack += getAmbientLightIrradiance( ambientLightColor );
 
-				#if defined( USE_LIGHT_PROBES )
-
-					vIndirectBack += getLightProbeIrradiance( lightProbe, backGeometryNormal );
-
-				#endif
+				vIndirectBack += getLightProbeIrradiance( lightProbe, backGeometry.normal );
 
 			#endif
 
@@ -118,9 +112,9 @@ const GouraudShader = {
 				#pragma unroll_loop_start
 				for ( int i = 0; i < NUM_POINT_LIGHTS; i ++ ) {
 
-					getPointLightInfo( pointLights[ i ], geometryPosition, directLight );
+					getPointLightInfo( pointLights[ i ], geometry, directLight );
 
-					dotNL = dot( geometryNormal, directLight.direction );
+					dotNL = dot( geometry.normal, directLight.direction );
 					directLightColor_Diffuse = directLight.color;
 
 					vLightFront += saturate( dotNL ) * directLightColor_Diffuse;
@@ -141,9 +135,9 @@ const GouraudShader = {
 				#pragma unroll_loop_start
 				for ( int i = 0; i < NUM_SPOT_LIGHTS; i ++ ) {
 
-					getSpotLightInfo( spotLights[ i ], geometryPosition, directLight );
+					getSpotLightInfo( spotLights[ i ], geometry, directLight );
 
-					dotNL = dot( geometryNormal, directLight.direction );
+					dotNL = dot( geometry.normal, directLight.direction );
 					directLightColor_Diffuse = directLight.color;
 
 					vLightFront += saturate( dotNL ) * directLightColor_Diffuse;
@@ -163,9 +157,9 @@ const GouraudShader = {
 				#pragma unroll_loop_start
 				for ( int i = 0; i < NUM_DIR_LIGHTS; i ++ ) {
 
-					getDirectionalLightInfo( directionalLights[ i ], directLight );
+					getDirectionalLightInfo( directionalLights[ i ], geometry, directLight );
 
-					dotNL = dot( geometryNormal, directLight.direction );
+					dotNL = dot( geometry.normal, directLight.direction );
 					directLightColor_Diffuse = directLight.color;
 
 					vLightFront += saturate( dotNL ) * directLightColor_Diffuse;
@@ -186,11 +180,11 @@ const GouraudShader = {
 				#pragma unroll_loop_start
 				for ( int i = 0; i < NUM_HEMI_LIGHTS; i ++ ) {
 
-					vIndirectFront += getHemisphereLightIrradiance( hemisphereLights[ i ], geometryNormal );
+					vIndirectFront += getHemisphereLightIrradiance( hemisphereLights[ i ], geometry.normal );
 
 					#ifdef DOUBLE_SIDED
 
-						vIndirectBack += getHemisphereLightIrradiance( hemisphereLights[ i ], backGeometryNormal );
+						vIndirectBack += getHemisphereLightIrradiance( hemisphereLights[ i ], backGeometry.normal );
 
 					#endif
 
@@ -294,9 +288,9 @@ const GouraudShader = {
 
 			#include <envmap_fragment>
 
-			#include <opaque_fragment>
+			#include <output_fragment>
 			#include <tonemapping_fragment>
-			#include <colorspace_fragment>
+			#include <encodings_fragment>
 			#include <fog_fragment>
 			#include <premultiplied_alpha_fragment>
 			#include <dithering_fragment>

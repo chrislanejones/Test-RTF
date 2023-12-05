@@ -1,26 +1,17 @@
 import TempNode from '../core/TempNode.js';
 import { mix } from '../math/MathNode.js';
 import { addNodeClass } from '../core/Node.js';
-import { addNodeElement, tslFn, nodeObject, nodeProxy, vec4 } from '../shadernode/ShaderNode.js';
+import { addNodeElement, ShaderNode, nodeObject, vec4 } from '../shadernode/ShaderNode.js';
 
-import { LinearSRGBColorSpace, SRGBColorSpace } from 'three';
+import { LinearEncoding, LinearSRGBColorSpace, sRGBEncoding, SRGBColorSpace } from 'three';
 
-const sRGBToLinearShader = tslFn( ( inputs ) => {
+export const LinearToLinear = new ShaderNode( ( inputs ) => {
 
-	const { value } = inputs;
-	const { rgb } = value;
-
-	const a = rgb.mul( 0.9478672986 ).add( 0.0521327014 ).pow( 2.4 );
-	const b = rgb.mul( 0.0773993808 );
-	const factor = rgb.lessThanEqual( 0.04045 );
-
-	const rgbResult = mix( a, b, factor );
-
-	return vec4( rgbResult, value.a );
+	return inputs.value;
 
 } );
 
-const LinearTosRGBShader = tslFn( ( inputs ) => {
+export const LinearTosRGB = new ShaderNode( ( inputs ) => {
 
 	const { value } = inputs;
 	const { rgb } = value;
@@ -35,28 +26,9 @@ const LinearTosRGBShader = tslFn( ( inputs ) => {
 
 } );
 
-const getColorSpaceMethod = ( colorSpace ) => {
-
-	let method = null;
-
-	if ( colorSpace === LinearSRGBColorSpace ) {
-
-		method = 'Linear';
-
-	} else if ( colorSpace === SRGBColorSpace ) {
-
-		method = 'sRGB';
-
-	}
-
-	return method;
-
-};
-
-const getMethod = ( source, target ) => {
-
-	return getColorSpaceMethod( source ) + 'To' + getColorSpaceMethod( target );
-
+const EncodingLib = {
+	LinearToLinear,
+	LinearTosRGB
 };
 
 class ColorSpaceNode extends TempNode {
@@ -66,43 +38,70 @@ class ColorSpaceNode extends TempNode {
 		super( 'vec4' );
 
 		this.method = method;
+
 		this.node = node;
 
 	}
 
-	setup() {
+	fromColorSpace( colorSpace ) {
+
+		let method = null;
+
+		if ( colorSpace === LinearSRGBColorSpace ) {
+
+			method = 'Linear';
+
+		} else if ( colorSpace === SRGBColorSpace ) {
+
+			method = 'sRGB';
+
+		}
+
+		this.method = 'LinearTo' + method;
+
+		return this;
+
+	}
+
+	fromEncoding( encoding ) { // @deprecated, r152
+
+		console.warn( 'THREE.ColorSpaceNode: Method .fromEncoding renamed to .fromColorSpace.' );
+
+		let method = null;
+
+		if ( encoding === LinearEncoding ) {
+
+			method = 'Linear';
+
+		} else if ( encoding === sRGBEncoding ) {
+
+			method = 'sRGB';
+
+		}
+
+		this.method = 'LinearTo' + method;
+
+		return this;
+
+	}
+
+	construct() {
 
 		const { method, node } = this;
 
-		if ( method === ColorSpaceNode.LINEAR_TO_LINEAR )
-			return node;
-
-		return Methods[ method ]( { value: node } );
+		return EncodingLib[ method ].call( { value: node } );
 
 	}
 
 }
 
 ColorSpaceNode.LINEAR_TO_LINEAR = 'LinearToLinear';
-ColorSpaceNode.LINEAR_TO_sRGB = 'LinearTosRGB';
-ColorSpaceNode.sRGB_TO_LINEAR = 'sRGBToLinear';
-
-const Methods = {
-	[ ColorSpaceNode.LINEAR_TO_sRGB ]: LinearTosRGBShader,
-	[ ColorSpaceNode.sRGB_TO_LINEAR ]: sRGBToLinearShader
-};
+ColorSpaceNode.LINEAR_TO_SRGB = 'LinearTosRGB';
 
 export default ColorSpaceNode;
 
-export const linearToColorSpace = ( node, colorSpace ) => nodeObject( new ColorSpaceNode( getMethod( LinearSRGBColorSpace, colorSpace ), nodeObject( node ) ) );
-export const colorSpaceToLinear = ( node, colorSpace ) => nodeObject( new ColorSpaceNode( getMethod( colorSpace, LinearSRGBColorSpace ), nodeObject( node ) ) );
+export const colorSpace = ( node, colorSpace ) => nodeObject( new ColorSpaceNode( null, nodeObject( node ) ).fromColorSpace( colorSpace ) );
 
-export const linearTosRGB = nodeProxy( ColorSpaceNode, ColorSpaceNode.LINEAR_TO_sRGB );
-export const sRGBToLinear = nodeProxy( ColorSpaceNode, ColorSpaceNode.sRGB_TO_LINEAR );
+addNodeElement( 'colorSpace', colorSpace );
 
-addNodeElement( 'linearTosRGB', linearTosRGB );
-addNodeElement( 'sRGBToLinear', sRGBToLinear );
-addNodeElement( 'linearToColorSpace', linearToColorSpace );
-addNodeElement( 'colorSpaceToLinear', colorSpaceToLinear );
-
-addNodeClass( 'ColorSpaceNode', ColorSpaceNode );
+addNodeClass( ColorSpaceNode );

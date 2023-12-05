@@ -18,7 +18,7 @@ class UVNode extends AttributeNode {
 
 		const index = this.index;
 
-		return 'uv' + ( index > 0 ? index : '' );
+		return 'uv' + ( index > 0 ? index + 1 : '' );
 
 	}
 
@@ -44,4 +44,4 @@ export default UVNode;
 
 export const uv = ( ...params ) => nodeObject( new UVNode( ...params ) );
 
-addNodeClass( 'UVNode', UVNode );
+addNodeClass( UVNode );

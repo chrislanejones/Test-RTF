@@ -3,8 +3,10 @@ import {
 	ClampToEdgeWrapping,
 	DataTexture,
 	FloatType,
+	LinearSRGBColorSpace,
 	Mesh,
 	NearestFilter,
+	NoToneMapping,
 	PlaneGeometry,
 	RGBAFormat,
 	Scene,
@@ -398,9 +400,14 @@ class GPUComputationRenderer {
 
 			const currentXrEnabled = renderer.xr.enabled;
 			const currentShadowAutoUpdate = renderer.shadowMap.autoUpdate;
+			const currentOutputColorSpace = renderer.outputColorSpace;
+			const currentToneMapping = renderer.toneMapping;
 
 			renderer.xr.enabled = false; // Avoid camera modification
 			renderer.shadowMap.autoUpdate = false; // Avoid re-computing shadows
+			renderer.outputColorSpace = LinearSRGBColorSpace;
+			renderer.toneMapping = NoToneMapping;
+
 			mesh.material = material;
 			renderer.setRenderTarget( output );
 			renderer.render( scene, camera );
@@ -408,6 +415,8 @@ class GPUComputationRenderer {
 
 			renderer.xr.enabled = currentXrEnabled;
 			renderer.shadowMap.autoUpdate = currentShadowAutoUpdate;
+			renderer.outputColorSpace = currentOutputColorSpace;
+			renderer.toneMapping = currentToneMapping;
 
 			renderer.setRenderTarget( currentRenderTarget );
 

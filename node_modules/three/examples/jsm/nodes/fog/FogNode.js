@@ -20,7 +20,7 @@ class FogNode extends Node {
 
 	}
 
-	setup() {
+	construct() {
 
 		return this.factorNode;
 
@@ -34,4 +34,4 @@ export const fog = nodeProxy( FogNode );
 
 addNodeElement( 'fog', fog );
 
-addNodeClass( 'FogNode', FogNode );
+addNodeClass( FogNode );

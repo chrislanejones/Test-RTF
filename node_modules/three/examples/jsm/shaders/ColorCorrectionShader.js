@@ -8,8 +8,6 @@ import {
 
 const ColorCorrectionShader = {
 
-	name: 'ColorCorrectionShader',
-
 	uniforms: {
 
 		'tDiffuse': { value: null },

@@ -1,4 +1,4 @@
-import { LightsNode } from '../../nodes/Nodes.js';
+import { lights } from '../../nodes/Nodes.js';
 
 function painterSortStable( a, b ) {
 
@@ -58,22 +58,18 @@ class RenderList {
 		this.opaque = [];
 		this.transparent = [];
 
-		this.lightsNode = new LightsNode( [] );
+		this.lightsNode = lights( [] );
 		this.lightsArray = [];
-
-		this.occlusionQueryCount = 0;
 
 	}
 
-	begin() {
+	init() {
 
 		this.renderItemsIndex = 0;
 
 		this.opaque.length = 0;
 		this.transparent.length = 0;
 		this.lightsArray.length = 0;
-
-		this.occlusionQueryCount = 0;
 
 		return this;
 
@@ -120,8 +116,6 @@ class RenderList {
 	push( object, geometry, material, groupOrder, z, group ) {
 
 		const renderItem = this.getNextRenderItem( object, geometry, material, groupOrder, z, group );
-
-		if ( object.occlusionTest === true ) this.occlusionQueryCount ++;
 
 		( material.transparent === true ? this.transparent : this.opaque ).push( renderItem );
 
@@ -172,9 +166,7 @@ class RenderList {
 			renderItem.object = null;
 			renderItem.geometry = null;
 			renderItem.material = null;
-			renderItem.groupOrder = null;
-			renderItem.renderOrder = null;
-			renderItem.z = null;
+			renderItem.program = null;
 			renderItem.group = null;
 
 		}

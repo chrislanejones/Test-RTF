@@ -14,8 +14,6 @@ import {
 
 const TriangleBlurShader = {
 
-	name: 'TriangleBlurShader',
-
 	uniforms: {
 
 		'texture': { value: null },

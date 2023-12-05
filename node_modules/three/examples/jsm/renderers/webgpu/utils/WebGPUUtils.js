@@ -16,13 +16,9 @@ class WebGPUUtils {
 
 			format = this.getTextureFormatGPU( renderContext.depthTexture );
 
-		} else if ( renderContext.depth && renderContext.stencil ) {
+		} else {
 
 			format = GPUTextureFormat.Depth24PlusStencil8;
-
-		} else if ( renderContext.depth ) {
-
-			format = GPUTextureFormat.Depth24Plus;
 
 		}
 
@@ -40,10 +36,9 @@ class WebGPUUtils {
 
 		let format;
 
-		if ( renderContext.textures !== null ) {
+		if ( renderContext.texture !== null ) {
 
-			format = this.getTextureFormatGPU( renderContext.textures[ 0 ] );
-
+			format = this.getTextureFormatGPU( renderContext.texture );
 
 		} else {
 
@@ -57,9 +52,9 @@ class WebGPUUtils {
 
 	getCurrentColorSpace( renderContext ) {
 
-		if ( renderContext.textures !== null ) {
+		if ( renderContext.texture !== null ) {
 
-			return renderContext.textures[ 0 ].colorSpace;
+			return renderContext.texture.colorSpace;
 
 		}
 
@@ -78,9 +73,9 @@ class WebGPUUtils {
 
 	getSampleCount( renderContext ) {
 
-		if ( renderContext.textures !== null ) {
+		if ( renderContext.texture !== null ) {
 
-			return renderContext.sampleCount;
+			return 1;
 
 		}
 

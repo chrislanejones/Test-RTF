@@ -34,4 +34,4 @@ export default ExpressionNode;
 
 export const expression = nodeProxy( ExpressionNode );
 
-addNodeClass( 'ExpressionNode', ExpressionNode );
+addNodeClass( ExpressionNode );

@@ -46,11 +46,9 @@ class SpotLightNode extends AnalyticLightNode {
 
 	}
 
-	setup( builder ) {
+	construct( builder ) {
 
-		super.setup( builder );
-
-		const lightingModel = builder.context.lightingModel;
+		super.construct( builder );
 
 		const { colorNode, cutoffDistanceNode, decayExponentNode, light } = this;
 
@@ -62,7 +60,7 @@ class SpotLightNode extends AnalyticLightNode {
 
 		const lightDistance = lVector.length();
 
-		const lightAttenuation = getDistanceAttenuation( {
+		const lightAttenuation = getDistanceAttenuation.call( {
 			lightDistance,
 			cutoffDistance: cutoffDistanceNode,
 			decayExponent: decayExponentNode
@@ -70,13 +68,18 @@ class SpotLightNode extends AnalyticLightNode {
 
 		const lightColor = colorNode.mul( spotAttenuation ).mul( lightAttenuation );
 
+		const lightingModelFunctionNode = builder.context.lightingModelNode;
 		const reflectedLight = builder.context.reflectedLight;
 
-		lightingModel.direct( {
-			lightDirection,
-			lightColor,
-			reflectedLight
-		}, builder.stack, builder );
+		if ( lightingModelFunctionNode && lightingModelFunctionNode.direct ) {
+
+			lightingModelFunctionNode.direct.call( {
+				lightDirection,
+				lightColor,
+				reflectedLight
+			}, builder );
+
+		}
 
 	}
 
@@ -84,6 +87,6 @@ class SpotLightNode extends AnalyticLightNode {
 
 export default SpotLightNode;
 
-addNodeClass( 'SpotLightNode', SpotLightNode );
-
 addLightNode( SpotLight, SpotLightNode );
+
+addNodeClass( SpotLightNode );

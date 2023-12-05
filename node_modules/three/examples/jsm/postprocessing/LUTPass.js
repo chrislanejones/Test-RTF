@@ -2,8 +2,6 @@ import { ShaderPass } from './ShaderPass.js';
 
 const LUTShader = {
 
-	name: 'LUTShader',
-
 	defines: {
 		USE_3DTEXTURE: 1,
 	},
@@ -30,6 +28,7 @@ const LUTShader = {
 		}
 
 	`,
+
 
 	fragmentShader: /* glsl */`
 

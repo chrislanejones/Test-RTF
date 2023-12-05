@@ -7,8 +7,6 @@
 
 const HueSaturationShader = {
 
-	name: 'HueSaturationShader',
-
 	uniforms: {
 
 		'tDiffuse': { value: null },

@@ -7,7 +7,7 @@ class Sampler extends Binding {
 		super( name );
 
 		this.texture = texture;
-		this.version = texture ? texture.version : 0;
+		this.version = texture.version;
 
 		this.isSampler = true;
 

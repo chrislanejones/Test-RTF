@@ -3,28 +3,33 @@ import { NodeUpdateType } from '../core/constants.js';
 import { addNodeClass } from '../core/Node.js';
 import { addNodeElement, nodeProxy } from '../shadernode/ShaderNode.js';
 import { viewportTopLeft } from './ViewportNode.js';
-import { Vector2, FramebufferTexture, LinearMipmapLinearFilter } from 'three';
+import { Vector2, FramebufferTexture } from 'three';
 
 const _size = new Vector2();
 
 class ViewportTextureNode extends TextureNode {
 
-	constructor( uvNode = viewportTopLeft, levelNode = null, framebufferTexture = null ) {
+	constructor( uv = viewportTopLeft, level = null ) {
 
-		if ( framebufferTexture === null ) {
-
-			framebufferTexture = new FramebufferTexture();
-			framebufferTexture.minFilter = LinearMipmapLinearFilter;
-
-		}
-
-		super( framebufferTexture, uvNode, levelNode );
-
-		this.generateMipmaps = false;
+		super( null, uv, level );
 
 		this.isOutputTextureNode = true;
 
 		this.updateBeforeType = NodeUpdateType.FRAME;
+
+	}
+
+	constructFramebuffer( /*builder*/ ) {
+
+		return new FramebufferTexture();
+
+	}
+
+	construct( builder ) {
+
+		if ( this.value === null ) this.value = this.constructFramebuffer( builder );
+
+		return super.construct( builder );
 
 	}
 
@@ -47,18 +52,7 @@ class ViewportTextureNode extends TextureNode {
 
 		//
 
-		const currentGenerateMipmaps = framebufferTexture.generateMipmaps;
-		framebufferTexture.generateMipmaps = this.generateMipmaps;
-
 		renderer.copyFramebufferToTexture( framebufferTexture );
-
-		framebufferTexture.generateMipmaps = currentGenerateMipmaps;
-
-	}
-
-	clone() {
-
-		return new this.constructor( this.uvNode, this.levelNode, this.value );
 
 	}
 
@@ -67,9 +61,7 @@ class ViewportTextureNode extends TextureNode {
 export default ViewportTextureNode;
 
 export const viewportTexture = nodeProxy( ViewportTextureNode );
-export const viewportMipTexture = nodeProxy( ViewportTextureNode, null, null, { generateMipmaps: true } );
 
 addNodeElement( 'viewportTexture', viewportTexture );
-addNodeElement( 'viewportMipTexture', viewportMipTexture );
 
-addNodeClass( 'ViewportTextureNode', ViewportTextureNode );
+addNodeClass( ViewportTextureNode );

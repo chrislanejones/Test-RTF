@@ -4,9 +4,15 @@ class NodeSampler extends Sampler {
 
 	constructor( name, textureNode ) {
 
-		super( name, textureNode ? textureNode.value : null );
+		super( name, textureNode.value );
 
 		this.textureNode = textureNode;
+
+	}
+
+	getTexture() {
+
+		return this.textureNode.value;
 
 	}
 

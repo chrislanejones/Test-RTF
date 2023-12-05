@@ -19,7 +19,7 @@ class PackingNode extends TempNode {
 
 	}
 
-	setup() {
+	construct() {
 
 		const { scope, node } = this;
 
@@ -52,4 +52,4 @@ export const colorToDirection = nodeProxy( PackingNode, PackingNode.COLOR_TO_DIR
 addNodeElement( 'directionToColor', directionToColor );
 addNodeElement( 'colorToDirection', colorToDirection );
 
-addNodeClass( 'PackingNode', PackingNode );
+addNodeClass( PackingNode );

@@ -5,9 +5,7 @@ import {
 	SphericalHarmonics3,
 	Vector3,
 	SRGBColorSpace,
-	NoColorSpace,
-	HalfFloatType,
-	DataUtils
+	NoColorSpace
 } from 'three';
 
 class LightProbeGenerator {
@@ -142,50 +140,18 @@ class LightProbeGenerator {
 		const sh = new SphericalHarmonics3();
 		const shCoefficients = sh.coefficients;
 
-		const dataType = cubeRenderTarget.texture.type;
-
 		for ( let faceIndex = 0; faceIndex < 6; faceIndex ++ ) {
 
 			const imageWidth = cubeRenderTarget.width; // assumed to be square
-
-			let data;
-
-			if ( dataType === HalfFloatType ) {
-
-				data = new Uint16Array( imageWidth * imageWidth * 4 );
-
-			} else {
-
-				// assuming UnsignedByteType
-
-				data = new Uint8Array( imageWidth * imageWidth * 4 );
-
-			}
-
+			const data = new Uint8Array( imageWidth * imageWidth * 4 );
 			renderer.readRenderTargetPixels( cubeRenderTarget, 0, 0, imageWidth, imageWidth, data, faceIndex );
 
 			const pixelSize = 2 / imageWidth;
 
 			for ( let i = 0, il = data.length; i < il; i += 4 ) { // RGBA assumed
 
-				let r, g, b;
-
-				if ( dataType === HalfFloatType ) {
-
-					r = DataUtils.fromHalfFloat( data[ i ] );
-					g = DataUtils.fromHalfFloat( data[ i + 1 ] );
-					b = DataUtils.fromHalfFloat( data[ i + 2 ] );
-
-				} else {
-
-					r = data[ i ] / 255;
-					g = data[ i + 1 ] / 255;
-					b = data[ i + 2 ] / 255;
-
-				}
-
 				// pixel color
-				color.setRGB( r, g, b );
+				color.setRGB( data[ i ] / 255, data[ i + 1 ] / 255, data[ i + 2 ] / 255 );
 
 				// convert to linear color space
 				convertColorToLinear( color, cubeRenderTarget.texture.colorSpace );

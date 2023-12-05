@@ -18,7 +18,7 @@ class ReflectVectorNode extends Node {
 
 	}
 
-	setup() {
+	construct() {
 
 		const reflectView = positionViewDirection.negate().reflect( transformedNormalView );
 
@@ -32,4 +32,4 @@ export default ReflectVectorNode;
 
 export const reflectVector = nodeImmutable( ReflectVectorNode );
 
-addNodeClass( 'ReflectVectorNode', ReflectVectorNode );
+addNodeClass( ReflectVectorNode );

@@ -465,9 +465,17 @@ class TransformControls extends Object3D {
 
 			const ROTATION_SPEED = 20 / this.worldPosition.distanceTo( _tempVector.setFromMatrixPosition( this.camera.matrixWorld ) );
 
-			let _inPlaneRotation = false;
+			if ( axis === 'E' ) {
 
-			if ( axis === 'XYZE' ) {
+				this.rotationAxis.copy( this.eye );
+				this.rotationAngle = this.pointEnd.angleTo( this.pointStart );
+
+				this._startNorm.copy( this.pointStart ).normalize();
+				this._endNorm.copy( this.pointEnd ).normalize();
+
+				this.rotationAngle *= ( this._endNorm.cross( this._startNorm ).dot( this.eye ) < 0 ? 1 : - 1 );
+
+			} else if ( axis === 'XYZE' ) {
 
 				this.rotationAxis.copy( this._offset ).cross( this.eye ).normalize();
 				this.rotationAngle = this._offset.dot( _tempVector.copy( this.rotationAxis ).cross( this.eye ) ) * ROTATION_SPEED;
@@ -484,31 +492,7 @@ class TransformControls extends Object3D {
 
 				}
 
-				_tempVector.cross( this.eye );
-
-				// When _tempVector is 0 after cross with this.eye the vectors are parallel and should use in-plane rotation logic.
-				if ( _tempVector.length() === 0 ) {
-
-					_inPlaneRotation = true;
-
-				} else {
-
-					this.rotationAngle = this._offset.dot( _tempVector.normalize() ) * ROTATION_SPEED;
-
-				}
-
-
-			}
-
-			if ( axis === 'E' || _inPlaneRotation ) {
-
-				this.rotationAxis.copy( this.eye );
-				this.rotationAngle = this.pointEnd.angleTo( this.pointStart );
-
-				this._startNorm.copy( this.pointStart ).normalize();
-				this._endNorm.copy( this.pointEnd ).normalize();
-
-				this.rotationAngle *= ( this._endNorm.cross( this._startNorm ).dot( this.eye ) < 0 ? 1 : - 1 );
+				this.rotationAngle = this._offset.dot( _tempVector.cross( this.eye ).normalize() ) * ROTATION_SPEED;
 
 			}
 

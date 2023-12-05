@@ -9,8 +9,6 @@ import {
 
 const SSRShader = {
 
-	name: 'SSRShader',
-
 	defines: {
 		MAX_STEP: 0,
 		PERSPECTIVE_CAMERA: true,
@@ -235,8 +233,6 @@ const SSRShader = {
 
 const SSRDepthShader = {
 
-	name: 'SSRDepthShader',
-
 	defines: {
 		'PERSPECTIVE_CAMERA': 1
 	},
@@ -303,8 +299,6 @@ const SSRDepthShader = {
 };
 
 const SSRBlurShader = {
-
-	name: 'SSRBlurShader',
 
 	uniforms: {
 

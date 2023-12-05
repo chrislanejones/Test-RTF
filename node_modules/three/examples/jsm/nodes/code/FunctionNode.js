@@ -4,9 +4,9 @@ import { nodeObject } from '../shadernode/ShaderNode.js';
 
 class FunctionNode extends CodeNode {
 
-	constructor( code = '', includes = [], language = '' ) {
+	constructor( code = '', includes = [] ) {
 
-		super( code, includes, language );
+		super( code, includes );
 
 		this.keywords = {};
 
@@ -81,7 +81,7 @@ class FunctionNode extends CodeNode {
 
 		}
 
-		nodeCode.code = code + '\n';
+		nodeCode.code = code;
 
 		if ( output === 'property' ) {
 
@@ -99,40 +99,8 @@ class FunctionNode extends CodeNode {
 
 export default FunctionNode;
 
-const nativeFn = ( code, includes = [], language = '' ) => {
+export const func = ( code, includes ) => nodeObject( new FunctionNode( code, includes ) );
 
-	for ( let i = 0; i < includes.length; i ++ ) {
+export const fn = ( code, includes ) => func( code, includes ).call;
 
-		const include = includes[ i ];
-
-		// TSL Function: glslFn, wgslFn
-
-		if ( typeof include === 'function' ) {
-
-			includes[ i ] = include.functionNode;
-
-		}
-
-	}
-
-	const functionNode = nodeObject( new FunctionNode( code, includes, language ) );
-
-	const fn = ( ...params ) => functionNode.call( ...params );
-	fn.functionNode = functionNode;
-
-	return fn;
-
-};
-
-export const glslFn = ( code, includes ) => nativeFn( code, includes, 'glsl' );
-export const wgslFn = ( code, includes ) => nativeFn( code, includes, 'wgsl' );
-
-export const func = ( code, includes ) => { // @deprecated, r154
-
-	console.warn( 'TSL: func() is deprecated. Use nativeFn(), wgslFn() or glslFn() instead.' );
-
-	return nodeObject( new FunctionNode( code, includes ) );
-
-};
-
-addNodeClass( 'FunctionNode', FunctionNode );
+addNodeClass( FunctionNode );

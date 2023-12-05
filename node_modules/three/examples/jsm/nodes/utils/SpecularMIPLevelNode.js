@@ -13,7 +13,7 @@ class SpecularMIPLevelNode extends Node {
 
 	}
 
-	setup() {
+	construct() {
 
 		const { textureNode, roughnessNode } = this;
 
@@ -34,4 +34,4 @@ export default SpecularMIPLevelNode;
 
 export const specularMIPLevel = nodeProxy( SpecularMIPLevelNode );
 
-addNodeClass( 'SpecularMIPLevelNode', SpecularMIPLevelNode );
+addNodeClass( SpecularMIPLevelNode );

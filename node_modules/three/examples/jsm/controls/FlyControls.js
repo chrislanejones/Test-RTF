@@ -17,9 +17,6 @@ class FlyControls extends EventDispatcher {
 
 		// API
 
-		// Set to false to disable this control
-		this.enabled = true;
-
 		this.movementSpeed = 1.0;
 		this.rollSpeed = 0.005;
 
@@ -47,7 +44,7 @@ class FlyControls extends EventDispatcher {
 
 		this.keydown = function ( event ) {
 
-			if ( event.altKey || this.enabled === false ) {
+			if ( event.altKey ) {
 
 				return;
 
@@ -85,8 +82,6 @@ class FlyControls extends EventDispatcher {
 
 		this.keyup = function ( event ) {
 
-			if ( this.enabled === false ) return;
-
 			switch ( event.code ) {
 
 				case 'ShiftLeft':
@@ -119,8 +114,6 @@ class FlyControls extends EventDispatcher {
 
 		this.pointerdown = function ( event ) {
 
-			if ( this.enabled === false ) return;
-
 			if ( this.dragToLook ) {
 
 				this.status ++;
@@ -142,8 +135,6 @@ class FlyControls extends EventDispatcher {
 
 		this.pointermove = function ( event ) {
 
-			if ( this.enabled === false ) return;
-
 			if ( ! this.dragToLook || this.status > 0 ) {
 
 				const container = this.getContainerDimensions();
@@ -160,8 +151,6 @@ class FlyControls extends EventDispatcher {
 		};
 
 		this.pointerup = function ( event ) {
-
-			if ( this.enabled === false ) return;
 
 			if ( this.dragToLook ) {
 
@@ -186,40 +175,7 @@ class FlyControls extends EventDispatcher {
 
 		};
 
-		this.pointercancel = function () {
-
-			if ( this.enabled === false ) return;
-
-			if ( this.dragToLook ) {
-
-				this.status = 0;
-
-				this.moveState.yawLeft = this.moveState.pitchDown = 0;
-
-			} else {
-
-				this.moveState.forward = 0;
-				this.moveState.back = 0;
-
-				this.updateMovementVector();
-
-			}
-
-			this.updateRotationVector();
-
-		};
-
-		this.contextMenu = function ( event ) {
-
-			if ( this.enabled === false ) return;
-
-			event.preventDefault();
-
-		};
-
 		this.update = function ( delta ) {
-
-			if ( this.enabled === false ) return;
 
 			const moveMult = delta * scope.movementSpeed;
 			const rotMult = delta * scope.rollSpeed;
@@ -288,30 +244,26 @@ class FlyControls extends EventDispatcher {
 
 		this.dispose = function () {
 
-			this.domElement.removeEventListener( 'contextmenu', _contextmenu );
+			this.domElement.removeEventListener( 'contextmenu', contextmenu );
 			this.domElement.removeEventListener( 'pointerdown', _pointerdown );
 			this.domElement.removeEventListener( 'pointermove', _pointermove );
 			this.domElement.removeEventListener( 'pointerup', _pointerup );
-			this.domElement.removeEventListener( 'pointercancel', _pointercancel );
 
 			window.removeEventListener( 'keydown', _keydown );
 			window.removeEventListener( 'keyup', _keyup );
 
 		};
 
-		const _contextmenu = this.contextMenu.bind( this );
 		const _pointermove = this.pointermove.bind( this );
 		const _pointerdown = this.pointerdown.bind( this );
 		const _pointerup = this.pointerup.bind( this );
-		const _pointercancel = this.pointercancel.bind( this );
 		const _keydown = this.keydown.bind( this );
 		const _keyup = this.keyup.bind( this );
 
-		this.domElement.addEventListener( 'contextmenu', _contextmenu );
+		this.domElement.addEventListener( 'contextmenu', contextmenu );
 		this.domElement.addEventListener( 'pointerdown', _pointerdown );
 		this.domElement.addEventListener( 'pointermove', _pointermove );
 		this.domElement.addEventListener( 'pointerup', _pointerup );
-		this.domElement.addEventListener( 'pointercancel', _pointercancel );
 
 		window.addEventListener( 'keydown', _keydown );
 		window.addEventListener( 'keyup', _keyup );
@@ -320,6 +272,12 @@ class FlyControls extends EventDispatcher {
 		this.updateRotationVector();
 
 	}
+
+}
+
+function contextmenu( event ) {
+
+	event.preventDefault();
 
 }
 

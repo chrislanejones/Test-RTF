@@ -11,8 +11,7 @@ class SampledTexture extends Binding {
 		this.id = id ++;
 
 		this.texture = texture;
-		this.version = texture ? texture.version : 0;
-		this.store = false;
+		this.version = texture.version;
 
 		this.isSampledTexture = true;
 
@@ -28,11 +27,9 @@ class SampledTexture extends Binding {
 
 	update() {
 
-		const { texture, version } = this;
+		if ( this.version !== this.texture.version ) {
 
-		if ( version !== texture.version ) {
-
-			this.version = texture.version;
+			this.version = this.texture.version;
 
 			return true;
 

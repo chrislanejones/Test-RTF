@@ -14,7 +14,7 @@ class RotateUVNode extends TempNode {
 
 	}
 
-	setup() {
+	construct() {
 
 		const { uvNode, rotationNode, centerNode } = this;
 
@@ -40,4 +40,4 @@ export const rotateUV = nodeProxy( RotateUVNode );
 
 addNodeElement( 'rotateUV', rotateUV );
 
-addNodeClass( 'RotateUVNode', RotateUVNode );
+addNodeClass( RotateUVNode );

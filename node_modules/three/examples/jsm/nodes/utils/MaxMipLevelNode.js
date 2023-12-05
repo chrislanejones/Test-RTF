@@ -43,4 +43,4 @@ export default MaxMipLevelNode;
 
 export const maxMipLevel = nodeProxy( MaxMipLevelNode );
 
-addNodeClass( 'MaxMipLevelNode', MaxMipLevelNode );
+addNodeClass( MaxMipLevelNode );

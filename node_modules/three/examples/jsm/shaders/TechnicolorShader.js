@@ -7,8 +7,6 @@
 
 const TechnicolorShader = {
 
-	name: 'TechnicolorShader',
-
 	uniforms: {
 
 		'tDiffuse': { value: null }

@@ -15,11 +15,8 @@ class SelectionHelper {
 		this.pointBottomRight = new Vector2();
 
 		this.isDown = false;
-		this.enabled = true;
 
 		this.onPointerDown = function ( event ) {
-
-			if ( this.enabled === false ) return;
 
 			this.isDown = true;
 			this.onSelectStart( event );
@@ -27,8 +24,6 @@ class SelectionHelper {
 		}.bind( this );
 
 		this.onPointerMove = function ( event ) {
-
-			if ( this.enabled === false ) return;
 
 			if ( this.isDown ) {
 
@@ -39,8 +34,6 @@ class SelectionHelper {
 		}.bind( this );
 
 		this.onPointerUp = function ( ) {
-
-			if ( this.enabled === false ) return;
 
 			this.isDown = false;
 			this.onSelectOver();

@@ -11,8 +11,6 @@ import {
 
 const SobelOperatorShader = {
 
-	name: 'SobelOperatorShader',
-
 	uniforms: {
 
 		'tDiffuse': { value: null },

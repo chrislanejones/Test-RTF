@@ -1,11 +1,11 @@
 import getGeometryRoughness from './getGeometryRoughness.js';
-import { tslFn } from '../../shadernode/ShaderNode.js';
+import { ShaderNode } from '../../shadernode/ShaderNode.js';
 
-const getRoughness = tslFn( ( inputs ) => {
+const getRoughness = new ShaderNode( ( inputs ) => {
 
 	const { roughness } = inputs;
 
-	const geometryRoughness = getGeometryRoughness();
+	const geometryRoughness = getGeometryRoughness.call();
 
 	let roughnessFactor = roughness.max( 0.0525 ); // 0.0525 corresponds to the base mip of a 256 cubemap.
 	roughnessFactor = roughnessFactor.add( geometryRoughness );

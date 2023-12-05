@@ -20,7 +20,7 @@ class ContextNode extends Node {
 
 	}
 
-	setup( builder ) {
+	construct( builder ) {
 
 		const previousContext = builder.getContext();
 
@@ -53,9 +53,7 @@ class ContextNode extends Node {
 export default ContextNode;
 
 export const context = nodeProxy( ContextNode );
-export const label = ( node, name ) => context( node, { label: name } );
 
 addNodeElement( 'context', context );
-addNodeElement( 'label', label );
 
-addNodeClass( 'ContextNode', ContextNode );
+addNodeClass( ContextNode );

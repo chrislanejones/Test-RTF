@@ -80,7 +80,7 @@ const ToonShader1 = {
 
 			}
 
-			#include <colorspace_fragment>
+			#include <encodings_fragment>
 
 		}`
 
@@ -148,7 +148,7 @@ const ToonShader2 = {
 
 			}
 
-			#include <colorspace_fragment>
+			#include <encodings_fragment>
 
 		}`
 
@@ -244,7 +244,7 @@ const ToonShaderHatching = {
 
 			}
 
-			#include <colorspace_fragment>
+			#include <encodings_fragment>
 
 		}`
 
@@ -317,7 +317,7 @@ const ToonShaderDotted = {
 
 			}
 
-			#include <colorspace_fragment>
+			#include <encodings_fragment>
 
 		}`
 

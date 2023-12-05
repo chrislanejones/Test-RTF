@@ -34,7 +34,7 @@ const GammaCorrectionShader = {
 
 			vec4 tex = texture2D( tDiffuse, vUv );
 
-			gl_FragColor = sRGBTransferOETF( tex );
+			gl_FragColor = LinearTosRGB( tex );
 
 		}`
 

@@ -9,8 +9,6 @@
 
 const HorizontalTiltShiftShader = {
 
-	name: 'HorizontalTiltShiftShader',
-
 	uniforms: {
 
 		'tDiffuse': { value: null },

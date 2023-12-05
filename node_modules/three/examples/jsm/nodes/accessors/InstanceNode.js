@@ -1,9 +1,9 @@
 import Node, { addNodeClass } from '../core/Node.js';
-import { instancedBufferAttribute, instancedDynamicBufferAttribute } from './BufferAttributeNode.js';
+import { bufferAttribute, dynamicBufferAttribute } from './BufferAttributeNode.js';
 import { normalLocal } from './NormalNode.js';
 import { positionLocal } from './PositionNode.js';
 import { nodeProxy, vec3, mat3, mat4 } from '../shadernode/ShaderNode.js';
-import { DynamicDrawUsage, InstancedInterleavedBuffer } from 'three';
+import { DynamicDrawUsage } from 'three';
 
 class InstanceNode extends Node {
 
@@ -17,24 +17,24 @@ class InstanceNode extends Node {
 
 	}
 
-	setup( /*builder*/ ) {
+	construct( builder ) {
 
 		let instanceMatrixNode = this.instanceMatrixNode;
 
 		if ( instanceMatrixNode === null ) {
 
 			const instanceMesh = this.instanceMesh;
-			const instanceAttribute = instanceMesh.instanceMatrix;
-			const buffer = new InstancedInterleavedBuffer( instanceAttribute.array, 16, 1 );
+			const instaceAttribute = instanceMesh.instanceMatrix;
+			const array = instaceAttribute.array;
 
-			const bufferFn = instanceAttribute.usage === DynamicDrawUsage ? instancedDynamicBufferAttribute : instancedBufferAttribute;
+			const bufferFn = instaceAttribute.usage === DynamicDrawUsage ? dynamicBufferAttribute : bufferAttribute;
 
 			const instanceBuffers = [
 				// F.Signature -> bufferAttribute( array, type, stride, offset )
-				bufferFn( buffer, 'vec4', 16, 0 ),
-				bufferFn( buffer, 'vec4', 16, 4 ),
-				bufferFn( buffer, 'vec4', 16, 8 ),
-				bufferFn( buffer, 'vec4', 16, 12 )
+				bufferFn( array, 'vec4', 16, 0 ),
+				bufferFn( array, 'vec4', 16, 4 ),
+				bufferFn( array, 'vec4', 16, 8 ),
+				bufferFn( array, 'vec4', 16, 12 )
 			];
 
 			instanceMatrixNode = mat4( ...instanceBuffers );
@@ -57,8 +57,10 @@ class InstanceNode extends Node {
 
 		// ASSIGNS
 
-		positionLocal.assign( instancePosition );
-		normalLocal.assign( instanceNormal );
+		builder.stack.assign( positionLocal, instancePosition );
+		builder.stack.assign( normalLocal, instanceNormal );
+
+		return builder.stack;
 
 	}
 
@@ -68,4 +70,4 @@ export default InstanceNode;
 
 export const instance = nodeProxy( InstanceNode );
 
-addNodeClass( 'InstanceNode', InstanceNode );
+addNodeClass( InstanceNode );

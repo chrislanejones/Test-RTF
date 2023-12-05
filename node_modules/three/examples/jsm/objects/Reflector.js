@@ -9,7 +9,9 @@ import {
 	Vector3,
 	Vector4,
 	WebGLRenderTarget,
-	HalfFloatType
+	HalfFloatType,
+	NoToneMapping,
+	LinearSRGBColorSpace
 } from 'three';
 
 class Reflector extends Mesh {
@@ -145,9 +147,13 @@ class Reflector extends Mesh {
 
 			const currentXrEnabled = renderer.xr.enabled;
 			const currentShadowAutoUpdate = renderer.shadowMap.autoUpdate;
+			const currentOutputColorSpace = renderer.outputColorSpace;
+			const currentToneMapping = renderer.toneMapping;
 
 			renderer.xr.enabled = false; // Avoid camera modification
 			renderer.shadowMap.autoUpdate = false; // Avoid re-computing shadows
+			renderer.outputColorSpace = LinearSRGBColorSpace;
+			renderer.toneMapping = NoToneMapping;
 
 			renderer.setRenderTarget( renderTarget );
 
@@ -158,6 +164,8 @@ class Reflector extends Mesh {
 
 			renderer.xr.enabled = currentXrEnabled;
 			renderer.shadowMap.autoUpdate = currentShadowAutoUpdate;
+			renderer.outputColorSpace = currentOutputColorSpace;
+			renderer.toneMapping = currentToneMapping;
 
 			renderer.setRenderTarget( currentRenderTarget );
 
@@ -256,7 +264,7 @@ Reflector.ReflectorShader = {
 			gl_FragColor = vec4( blendOverlay( base.rgb, color ), 1.0 );
 
 			#include <tonemapping_fragment>
-			#include <colorspace_fragment>
+			#include <encodings_fragment>
 
 		}`
 };

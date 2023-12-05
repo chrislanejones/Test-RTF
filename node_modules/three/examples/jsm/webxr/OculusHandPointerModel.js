@@ -13,8 +13,8 @@ const POINTER_LENGTH = 0.035;
 const POINTER_SEGMENTS = 16;
 const POINTER_RINGS = 12;
 const POINTER_HEMISPHERE_ANGLE = 110;
-const YAXIS = /* @__PURE__ */ new THREE.Vector3( 0, 1, 0 );
-const ZAXIS = /* @__PURE__ */ new THREE.Vector3( 0, 0, 1 );
+const YAXIS = new THREE.Vector3( 0, 1, 0 );
+const ZAXIS = new THREE.Vector3( 0, 0, 1 );
 
 const CURSOR_RADIUS = 0.02;
 const CURSOR_MAX_DISTANCE = 1.5;
@@ -27,10 +27,9 @@ class OculusHandPointerModel extends THREE.Object3D {
 
 		this.hand = hand;
 		this.controller = controller;
-
-		// Unused
 		this.motionController = null;
 		this.envMap = null;
+
 		this.mesh = null;
 
 		this.pointerGeometry = null;
@@ -44,36 +43,24 @@ class OculusHandPointerModel extends THREE.Object3D {
 
 		this.raycaster = null;
 
-		this._onConnected = this._onConnected.bind( this );
-		this._onDisconnected = this._onDisconnected.bind( this );
-		this.hand.addEventListener( 'connected', this._onConnected );
-		this.hand.addEventListener( 'disconnected', this._onDisconnected );
+		hand.addEventListener( 'connected', ( event ) => {
 
-	}
+			const xrInputSource = event.data;
 
-	_onConnected( event ) {
+			if ( xrInputSource.hand ) {
 
-		const xrInputSource = event.data;
-		if ( xrInputSource.hand ) {
+				this.visible = true;
+				this.xrInputSource = xrInputSource;
 
-			this.visible = true;
-			this.xrInputSource = xrInputSource;
+				if ( this.pointerObject === null ) {
 
-			this.createPointer();
+					this.createPointer();
 
-		}
+				}
 
-	}
+			}
 
-	_onDisconnected() {
-
-		this.visible = false;
-		this.xrInputSource = null;
-
-		if ( this.pointerGeometry ) this.pointerGeometry.dispose();
-		if ( this.pointerMesh && this.pointerMesh.material ) this.pointerMesh.material.dispose();
-
-		this.clear();
+		} );
 
 	}
 
@@ -397,14 +384,6 @@ class OculusHandPointerModel extends THREE.Object3D {
 			this.cursorObject.position.copy( direction.multiplyScalar( distance ) );
 
 		}
-
-	}
-
-	dispose() {
-
-		this._onDisconnected();
-		this.hand.removeEventListener( 'connected', this._onConnected );
-		this.hand.removeEventListener( 'disconnected', this._onDisconnected );
 
 	}
 

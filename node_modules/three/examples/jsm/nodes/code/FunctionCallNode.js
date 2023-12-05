@@ -93,4 +93,4 @@ export const call = ( func, ...params ) => {
 
 addNodeElement( 'call', call );
 
-addNodeClass( 'FunctionCallNode', FunctionCallNode );
+addNodeClass( FunctionCallNode );

@@ -20,7 +20,7 @@ class BypassNode extends Node {
 
 	}
 
-	generate( builder ) {
+	generate( builder, output ) {
 
 		const snippet = this.callNode.build( builder, 'void' );
 
@@ -30,7 +30,7 @@ class BypassNode extends Node {
 
 		}
 
-		return this.outputNode.build( builder );
+		return this.outputNode.build( builder, output );
 
 	}
 
@@ -42,4 +42,4 @@ export const bypass = nodeProxy( BypassNode );
 
 addNodeElement( 'bypass', bypass );
 
-addNodeClass( 'BypassNode', BypassNode );
+addNodeClass( BypassNode );

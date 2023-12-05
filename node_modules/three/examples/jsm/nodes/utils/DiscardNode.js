@@ -19,9 +19,8 @@ class DiscardNode extends CondNode {
 
 export default DiscardNode;
 
-export const inlineDiscard = nodeProxy( DiscardNode );
-export const discard = ( condNode ) => inlineDiscard( condNode ).append();
+export const discard = nodeProxy( DiscardNode );
 
-addNodeElement( 'discard', discard ); // @TODO: Check... this cause a little confusing using in chaining
+addNodeElement( 'discard', discard );
 
-addNodeClass( 'DiscardNode', DiscardNode );
+addNodeClass( DiscardNode );

@@ -8,8 +8,6 @@
 
 const ACESFilmicToneMappingShader = {
 
-	name: 'ACESFilmicToneMappingShader',
-
 	uniforms: {
 
 		'tDiffuse': { value: null },

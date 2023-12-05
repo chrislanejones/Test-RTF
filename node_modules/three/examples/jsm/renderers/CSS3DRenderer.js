@@ -95,7 +95,7 @@ class CSS3DRenderer {
 		let _widthHalf, _heightHalf;
 
 		const cache = {
-			camera: { style: '' },
+			camera: { fov: 0, style: '' },
 			objects: new WeakMap()
 		};
 
@@ -129,6 +129,13 @@ class CSS3DRenderer {
 
 			const fov = camera.projectionMatrix.elements[ 5 ] * _heightHalf;
 
+			if ( cache.camera.fov !== fov ) {
+
+				viewElement.style.perspective = camera.isPerspectiveCamera ? fov + 'px' : '';
+				cache.camera.fov = fov;
+
+			}
+
 			if ( camera.view && camera.view.enabled ) {
 
 				// view offset
@@ -159,9 +166,8 @@ class CSS3DRenderer {
 			const cameraCSSMatrix = camera.isOrthographicCamera ?
 				`scale( ${ scaleByViewOffset } )` + 'scale(' + fov + ')' + 'translate(' + epsilon( tx ) + 'px,' + epsilon( ty ) + 'px)' + getCameraCSSMatrix( camera.matrixWorldInverse ) :
 				`scale( ${ scaleByViewOffset } )` + 'translateZ(' + fov + 'px)' + getCameraCSSMatrix( camera.matrixWorldInverse );
-			const perspective = camera.isPerspectiveCamera ? 'perspective(' + fov + 'px) ' : '';
 
-			const style = perspective + cameraCSSMatrix +
+			const style = cameraCSSMatrix +
 				'translate(' + _widthHalf + 'px,' + _heightHalf + 'px)';
 
 			if ( cache.camera.style !== style ) {

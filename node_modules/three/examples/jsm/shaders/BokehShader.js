@@ -6,8 +6,6 @@
 
 const BokehShader = {
 
-	name: 'BokehShader',
-
 	defines: {
 		'DEPTH_PACKING': 1,
 		'PERSPECTIVE_CAMERA': 1,

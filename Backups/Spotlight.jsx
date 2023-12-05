@@ -29,6 +29,26 @@ const Lights = () => {
   );
 };
 
+
+<ambientLight intensity={0.5} />
+        <directionalLight position={[5, 5, 5]} intensity={0.5} />
+        <directionalLight position={[-5, 5, 5]} intensity={0.5} color="red" />
+
+        <mesh position={[1, 1, 1]} castShadow>
+          <sphereGeometry args={[0.5, 32, 32]} />
+          <meshStandardMaterial color="white" />
+        </mesh>
+
+        <mesh
+          rotation-y={Math.PI / 4}
+          castShadow
+          receiveShadow
+          position-y={cubeInAir ? 1 : 0}
+        >
+          <boxGeometry />
+          <meshStandardMaterial color="white" />
+        </mesh>
+
 function App() {
   return (
     <>

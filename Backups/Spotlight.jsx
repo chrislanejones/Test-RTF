@@ -46,6 +46,20 @@ function App() {
           <meshStandardMaterial color="white" />
         </mesh>
       </Canvas>
+      <Canvas camera={{ position: [0, 3, 3] }}>
+        <OrbitControls />
+
+        <Lights />
+        <mesh rotation-y={Math.PI / 4}>
+          <boxGeometry />
+          <meshStandardMaterial color="white" />
+        </mesh>
+
+        <mesh rotation-x={-Math.PI / 2} position-y={-0.5}>
+          <planeGeometry args={[5, 5]} />
+          <meshStandardMaterial color="white" />
+        </mesh>
+      </Canvas>
     </>
   );
 }

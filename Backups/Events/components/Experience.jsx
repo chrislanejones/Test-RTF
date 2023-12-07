@@ -4,6 +4,7 @@ import { MoveableSphere } from "./MoveableSphere";
 export const Experience = () => {
   return (
     <>
+      <MoveableSphere position-z={-10} scale={3} />
       <MoveableSphere />
       <MoveableSphere position-x={-2} />
       <MoveableSphere position-x={2} />

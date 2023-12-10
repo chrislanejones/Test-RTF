@@ -6,7 +6,7 @@ export const Experience = () => {
   return (
     <>
       <primitive object={scene} />
-      <primitive object={dino} />
+      <primitive object={dino} scale={0.01} position-x={-3} />
     </>
   );
 };

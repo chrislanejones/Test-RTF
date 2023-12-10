@@ -7,6 +7,7 @@ function App() {
       <Canvas camera={{ position: [-1.5, 3, 10], fov: 42 }}>
         <Experience />
         <OrbitControls />
+        <ambientLight intensity={1} />
         <Environment preset="sunset" />
       </Canvas>
     </>

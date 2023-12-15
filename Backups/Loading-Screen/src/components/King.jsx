@@ -109,3 +109,5 @@ export function King(props) {
     </group>
   );
 }
+
+useGLTF.preload("/models/King.gltf");

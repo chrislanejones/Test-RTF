@@ -13,13 +13,18 @@ const CubeLoader = () => {
 };
 
 const LoadingScreen = () => {
-  const { progress } = useProgress();
+  const { progress, active } = useProgress();
 
   return (
-    <div className="loading-screen">
+    <div className={`loading-screen ${active ? "" : "loading-screen--hidden"}`}>
       <div className="loading-screen__container">
         <h1 className="loading-screen__title">3D Web Agency</h1>
-        <p>Loading... ({Math.trunc(progress)}%)</p>
+        <div className="progress__container">
+          <div
+            className="progress__bar"
+            style={{ width: `${progress}%` }}
+          ></div>
+        </div>
       </div>
     </div>
   );

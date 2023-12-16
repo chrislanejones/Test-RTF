@@ -1,6 +1,12 @@
-import { Environment, OrbitControls, Text3D, useGLTF } from "@react-three/drei";
+import {
+  Environment,
+  OrbitControls,
+  Text3D,
+  useGLTF,
+  Scroll,
+} from "@react-three/drei";
 import { Panda } from "./Panda";
-import { Scroll } from "@react-three/drei";
+import { useThree } from "@react-three/fiber";
 import { foodItems } from "../App";
 
 export const Experience = () => {
@@ -47,10 +53,14 @@ export const Experience = () => {
 
 const FoodItem = ({ model, page }) => {
   const gltf = useGLTF(model);
+  const viewport = useThree((state) => state.viewport);
 
   return (
     <group>
-      <primitive object={gltf.scene} position={[0, -page, 0]} />
+      <primitive
+        object={gltf.scene}
+        position={[0, -viewport.height * page, 0]}
+      />
     </group>
   );
 };

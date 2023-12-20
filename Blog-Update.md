@@ -30,3 +30,4 @@ Second, once the 3D graphic is completed it can be exported as a glTF. OBJ and F
 Third, it is best to use Three.JS with a front-end framework like Angular or React. I chose React since I know it better than the other frameworks. I also started a course that uses LiNk React Three Fiber LiNk there is a lot of great documentation for using Three.js with React. Three.JS adds lights, cameras, and effects to objects. It can create shapes and import glTF objects.
 
 It is good to use Three.js in tandem with its library Drei LiNk, It adds important features like scrolling animations.
+y

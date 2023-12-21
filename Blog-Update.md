@@ -1,3 +1,13 @@
+# 3D Web is Now Commonplace on the Web... It Is No Longer Just Concept Art
+
+## Today, it's hard to see past AI's dominance but there are other technologies taking shape
+
+Apple, MailChimp, Pepsi, The Carolina Panthers, Google Earth, and the City of Palm Bay are just some of the companies that have already started adding 3D web and animated components to their websites.
+
+# 3D Web provides interactivity and information in a 3D space. It has nothing to do with 3D Glasses 👓 ...You won't need those.
+
+By clicking and holding the mouse or pinching and zooming while on a mobile device
+
 # What is Three.js and what technologies are involved
 
 Three.js, a JavaScript library, greatly expands the capabilities of website graphics by expanding 2D graphic capabilities, including 3D graphics, and in-browser games.

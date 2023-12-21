@@ -4,11 +4,11 @@
 
 Apple, MailChimp, Pepsi, The Carolina Panthers, Google Earth, and the City of Palm Bay are just some of the companies that have already started adding 3D web and animated components to their websites.
 
-# 3D Web provides interactivity and information in a 3D space. It has nothing to do with 3D Glasses 👓 ...You won't need those.
+## 3D Web provides interactivity and information in a 3D space. It has nothing to do with 3D Glasses 👓 ...You won't need those.
 
 By clicking and holding the mouse or pinching and zooming while on a mobile device
 
-# What is Three.js and what technologies are involved
+## What is Three.js and what technologies are involved
 
 Three.js, a JavaScript library, greatly expands the capabilities of website graphics by expanding 2D graphic capabilities, including 3D graphics, and in-browser games.
 
@@ -31,7 +31,7 @@ First, you need software to build 3d graphics (or enhanced 2d graphics) the defa
 
 Note Objects are exported from the Animation Software but lighting and cameras will need to be set in Three.js.
 
-### Web Rendering Engine
+### Web Rendering engine
 
 Second, once the 3D graphic is completed it can be exported as a glTF. OBJ and FBX formats can be exported but are not fully supported. Graphics works natively in the web browser because of the WebGL rendering engine that JavaScript can control. WebGL is based on OpenGL which many games use.
 
@@ -41,3 +41,9 @@ Third, it is best to use Three.JS with a front-end framework like Angular or Rea
 
 It is good to use Three.js in tandem with its library Drei LiNk, It adds important features like scrolling animations.
 y
+
+## Consider Learning Blender before Three.js
+
+Most people recommend learning Blender before learning Three.js. Blender teaches you the fundamentals of 3D modeling, animation, textures, lighting, and rendering. This knowledge transfers directly to three.js, providing a strong foundation for building 3D experiences in the browser.
+
+Blender also encompasses skills I learned prior in my career. My first job after graduating college was with

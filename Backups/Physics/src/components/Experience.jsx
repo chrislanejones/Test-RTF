@@ -10,7 +10,7 @@ export const Experience = () => {
       <OrbitControls />
       <ambientLight intensity={0.5} />
       <Player />
-      <RigidBody type="fixed">
+      <RigidBody type="fixed" friction={5}>
         <mesh position-y={-0.251} receiveShadow>
           <boxGeometry args={[20, 0.5, 20]} />
           <meshStandardMaterial color="mediumpurple" />

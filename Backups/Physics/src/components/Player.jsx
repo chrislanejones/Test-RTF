@@ -39,12 +39,19 @@ export const Player = () => {
     rb.current.setLinvel(vel, true);
   });
   return (
-    <RigidBody ref={rb} lockRotations colliders={false}>
+    <RigidBody
+      ref={rb}
+      lockRotations
+      onCollisionEnter={({ other }) => {
+        if (other.rigidBodyObject.name === "ground") {
+          inTheAir.current = false;
+        }
+      }}
+    >
       <mesh position-y={0.5} castShadow>
         <boxGeometry args={[1, 1, 1]} />
         <meshStandardMaterial color="hotpink" />
       </mesh>
-      <BallCollider args={[1.5]} />
     </RigidBody>
   );
 };

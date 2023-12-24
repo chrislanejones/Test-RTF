@@ -1,4 +1,5 @@
-import { RigidBody } from "@react-three/rapier";
+import { RigidBody, vec3 } from "@react-three/rapier";
+import { BallCollider } from "@react-three/rapier";
 import { Controls } from "../App";
 import { useKeyboardControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
@@ -38,11 +39,12 @@ export const Player = () => {
     rb.current.setLinvel(vel, true);
   });
   return (
-    <RigidBody ref={rb} lockRotations>
+    <RigidBody ref={rb} lockRotations colliders={false}>
       <mesh position-y={0.5} castShadow>
         <boxGeometry args={[1, 1, 1]} />
         <meshStandardMaterial color="hotpink" />
       </mesh>
+      <BallCollider args={[1.5]} />
     </RigidBody>
   );
 };

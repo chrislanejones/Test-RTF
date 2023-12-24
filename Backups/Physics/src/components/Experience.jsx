@@ -1,6 +1,6 @@
-import { Grid, OrbitControls } from "@react-three/drei";
+import { Gltf, Grid, OrbitControls } from "@react-three/drei";
 import { Player } from "./Player";
-import { RigidBody } from "@react-three/rapier";
+import { BallCollider, RigidBody } from "@react-three/rapier";
 
 export const Experience = () => {
   return (
@@ -15,6 +15,16 @@ export const Experience = () => {
           <boxGeometry args={[20, 0.5, 20]} />
           <meshStandardMaterial color="mediumpurple" />
         </mesh>
+      </RigidBody>
+      <RigidBody
+        colliders={false}
+        position-x={3}
+        position-y={3}
+        gravityScale={0.2}
+        restitution={1.2}
+      >
+        <Gltf src="/models/ball.glb" castShadow />
+        <BallCollider args={[1]} />
       </RigidBody>
       <Grid
         sectionSize={3}

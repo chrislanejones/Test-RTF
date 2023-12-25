@@ -1,8 +1,9 @@
-import { KeyboardControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { Physics } from "@react-three/rapier";
-import { useMemo } from "react";
 import { Experience } from "./components/Experience";
+import { Physics } from "@react-three/rapier";
+
+import { KeyboardControls } from "@react-three/drei";
+import { useMemo } from "react";
 
 export const Controls = {
   forward: "forward",
@@ -11,6 +12,7 @@ export const Controls = {
   right: "right",
   jump: "jump",
 };
+
 function App() {
   const map = useMemo(
     () => [

@@ -1,31 +1,58 @@
-import { Gltf, Grid, OrbitControls } from "@react-three/drei";
+import {
+  Gltf,
+  Grid,
+  OrbitControls,
+  PerspectiveCamera,
+  useHelper,
+} from "@react-three/drei";
+import { BallCollider, CuboidCollider, RigidBody } from "@react-three/rapier";
+import { useRef } from "react";
+import * as THREE from "three";
 import { Player } from "./Player";
-import { BallCollider, RigidBody } from "@react-three/rapier";
-
+import { Playground } from "./Playground";
 export const Experience = () => {
+  const shadowCameraRef = useRef();
+  useHelper(shadowCameraRef, THREE.CameraHelper);
+
   return (
     <>
-      <directionalLight position={[-10, 10, 5]} intensity={0.4} castShadow />
-      <directionalLight position={[10, 10, 5]} intensity={0.2} />
       <OrbitControls />
+      <directionalLight
+        position={[-50, 50, 25]}
+        intensity={0.4}
+        castShadow
+        shadow-mapSize-width={1024}
+        shadow-mapSize-height={1024}
+      >
+        <PerspectiveCamera
+          ref={shadowCameraRef}
+          attach={"shadow-camera"}
+          near={55}
+          far={86}
+          fov={80}
+        />
+      </directionalLight>
+      <directionalLight position={[10, 10, 5]} intensity={0.2} />
+
       <ambientLight intensity={0.5} />
       <Player />
-      <RigidBody type="fixed" name="ground">
+
+      {/* <RigidBody type="fixed" name="ground">
         <mesh position-y={-0.251} receiveShadow>
           <boxGeometry args={[20, 0.5, 20]} />
           <meshStandardMaterial color="mediumpurple" />
         </mesh>
-      </RigidBody>
+      </RigidBody> */}
       <RigidBody
+        type="fixed"
         colliders={false}
-        position-x={3}
-        position-y={3}
-        gravityScale={0.2}
-        restitution={1.2}
+        sensor
+        name="space"
+        position-y={-5}
       >
-        <Gltf src="/models/ball.glb" castShadow />
-        <BallCollider args={[1]} />
+        <CuboidCollider args={[50, 0.5, 50]} />
       </RigidBody>
+      <Playground />
       <Grid
         sectionSize={3}
         sectionColor={"white"}
@@ -37,6 +64,16 @@ export const Experience = () => {
         fadeDistance={100}
         fadeStrength={5}
       />
+      <RigidBody
+        colliders={false}
+        position-x={3}
+        position-y={3}
+        gravityScale={0.2}
+        restitution={1.2}
+      >
+        <Gltf src="/models/ball.glb" castShadow />
+        <BallCollider args={[1]} />
+      </RigidBody>
     </>
   );
 };

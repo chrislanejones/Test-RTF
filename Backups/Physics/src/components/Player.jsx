@@ -20,10 +20,6 @@ export const Player = () => {
   useFrame(() => {
     cameraTarget.current.lerp(vec3(rb.current.translation()), 0.5);
     camera.current.lookAt(cameraTarget.current);
-    vel.x = 0;
-    vel.y = 0;
-    vel.z = 0;
-
     const rotVel = {
       x: 0,
       y: 0,
@@ -31,6 +27,9 @@ export const Player = () => {
     };
 
     const curVel = rb.current.linvel();
+    vel.x = 0;
+    vel.y = 0;
+    vel.z = 0;
     if (get()[Controls.forward]) {
       vel.z -= MOVEMENT_SPEED;
     }
@@ -49,16 +48,14 @@ export const Player = () => {
     vel.applyEuler(eulerRot);
 
     if (get()[Controls.jump] && !inTheAir.current) {
-      vel.y += JUMP_FORCE;
       inTheAir.current = true;
+      vel.y += JUMP_FORCE;
     } else {
       vel.y = curVel.y;
     }
     if (!punched.current) {
       rb.current.setLinvel(vel, true);
     }
-
-    rb.current.setLinvel(vel, true);
   });
 
   const respawn = () => {
@@ -72,7 +69,12 @@ export const Player = () => {
   return (
     <RigidBody
       ref={rb}
-      lockRotations
+      gravityScale={2.5}
+      onIntersectionEnter={({ other }) => {
+        if (other.rigidBodyObject.name === "space") {
+          respawn();
+        }
+      }}
       onCollisionEnter={({ other }) => {
         if (other.rigidBodyObject.name === "ground") {
           inTheAir.current = false;
@@ -84,12 +86,6 @@ export const Player = () => {
           }, 200);
         }
       }}
-      onIntersectionEnter={({ other }) => {
-        if (other.rigidBodyObject.name === "space") {
-          respawn();
-        }
-      }}
-      gravityScale={2.5}
     >
       <PerspectiveCamera makeDefault position={[0, 5, 8]} ref={camera} />
       <mesh position-y={0.5} castShadow>

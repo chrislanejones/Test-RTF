@@ -5,7 +5,8 @@ Command: npx gltfjsx@6.2.3 public/models/playground.glb -o src/components/Playgr
 
 import { useGLTF } from "@react-three/drei";
 import React, { useRef, useEffect } from "react";
-import { RigidBody } from "@react-three/rapier";
+import { RigidBody, CuboidCollider } from "@react-three/rapier";
+import { useThree } from "@react-three/fiber";
 
 export function Playground(props) {
   const { nodes, materials } = useGLTF("/models/playground.glb");
@@ -15,6 +16,23 @@ export function Playground(props) {
   });
   return (
     <group {...props} dispose={null}>
+      <RigidBody
+        type="fixed"
+        name="gateIn"
+        sensor
+        colliders={false}
+        position={[-20.325, -0.249, -28.42]}
+      >
+        <mesh
+          receiveShadow
+          castShadow
+          name="gateLargeWide_teamBlue"
+          geometry={nodes.gateLargeWide_teamBlue.geometry}
+          material={materials["Blue.020"]}
+          rotation={[0, 1.571, 0]}
+        />
+        <CuboidCollider position={[-1, 0, 0]} args={[0.5, 2, 1.5]} />
+      </RigidBody>
       <RigidBody
         type="kinematicVelocity"
         colliders={"trimesh"}
@@ -102,15 +120,6 @@ export function Playground(props) {
             material={materials["Metal.050"]}
           />
         </group>
-        <mesh
-          receiveShadow
-          castShadow
-          name="gateLargeWide_teamBlue"
-          geometry={nodes.gateLargeWide_teamBlue.geometry}
-          material={materials["Blue.020"]}
-          position={[-20.325, -0.249, -28.42]}
-          rotation={[0, 1.571, 0]}
-        />
         <mesh
           receiveShadow
           castShadow

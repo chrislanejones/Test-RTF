@@ -1,12 +1,12 @@
 import { RigidBody, vec3, euler, quat } from "@react-three/rapier";
-import { Controls } from "../App";
 import { PerspectiveCamera, useKeyboardControls } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { useRef } from "react";
 import { Vector3 } from "three";
+import { Controls } from "../App";
 const MOVEMENT_SPEED = 5;
-const ROTATION_SPEED = 5;
 const JUMP_FORCE = 8;
+const ROTATION_SPEED = 5;
 
 export const Player = () => {
   const rb = useRef();
@@ -37,10 +37,10 @@ export const Player = () => {
       vel.z += MOVEMENT_SPEED;
     }
     if (get()[Controls.left]) {
-      rotVel.y -= ROTATION_SPEED;
+      rotVel.y += ROTATION_SPEED;
     }
     if (get()[Controls.right]) {
-      rotVel.y += ROTATION_SPEED;
+      rotVel.y -= ROTATION_SPEED;
     }
     rb.current.setAngvel(rotVel, true);
     // apply rotation to x and z to go in the right direction
@@ -66,6 +66,12 @@ export const Player = () => {
     });
   };
 
+  const scene = useThree((state) => state.scene);
+  const teleport = () => {
+    const gateOut = scene.getObjectByName("gateLargeWide_teamYellow");
+    rb.current.setTranslation(gateOut.position);
+  };
+
   return (
     <RigidBody
       ref={rb}
@@ -74,7 +80,11 @@ export const Player = () => {
         if (other.rigidBodyObject.name === "space") {
           respawn();
         }
+        if (other.rigidBodyObject.name === "gateIn") {
+          teleport();
+        }
       }}
+      lockRotations
       onCollisionEnter={({ other }) => {
         if (other.rigidBodyObject.name === "ground") {
           inTheAir.current = false;
@@ -87,7 +97,7 @@ export const Player = () => {
         }
       }}
     >
-      <PerspectiveCamera makeDefault position={[0, 5, 8]} ref={camera} />
+      <PerspectiveCamera ref={camera} makeDefault position={[0, 5, 8]} />
       <mesh position-y={0.5} castShadow>
         <boxGeometry args={[1, 1, 1]} />
         <meshStandardMaterial color="hotpink" />

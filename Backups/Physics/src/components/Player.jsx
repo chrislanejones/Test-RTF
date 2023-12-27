@@ -1,6 +1,6 @@
-import { RigidBody, vec3, euler, quat } from "@react-three/rapier";
 import { PerspectiveCamera, useKeyboardControls } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
+import { RigidBody, euler, quat, vec3 } from "@react-three/rapier";
 import { useRef } from "react";
 import { Vector3 } from "three";
 import { Controls } from "../App";
@@ -13,19 +13,19 @@ export const Player = () => {
   const camera = useRef();
   const cameraTarget = useRef(new Vector3(0, 0, 0));
   const [, get] = useKeyboardControls();
+  const inTheAir = useRef(false);
   const punched = useRef(false);
   const vel = new Vector3();
-  const inTheAir = useRef(false);
 
   useFrame(() => {
     cameraTarget.current.lerp(vec3(rb.current.translation()), 0.5);
     camera.current.lookAt(cameraTarget.current);
+
     const rotVel = {
       x: 0,
       y: 0,
       z: 0,
     };
-
     const curVel = rb.current.linvel();
     vel.x = 0;
     vel.y = 0;
@@ -42,8 +42,11 @@ export const Player = () => {
     if (get()[Controls.right]) {
       rotVel.y -= ROTATION_SPEED;
     }
+
     rb.current.setAngvel(rotVel, true);
+
     // apply rotation to x and z to go in the right direction
+
     const eulerRot = euler().setFromQuaternion(quat(rb.current.rotation()));
     vel.applyEuler(eulerRot);
 

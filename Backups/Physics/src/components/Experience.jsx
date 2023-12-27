@@ -10,10 +10,10 @@ import { useRef } from "react";
 import * as THREE from "three";
 import { Player } from "./Player";
 import { Playground } from "./Playground";
-
 export const Experience = () => {
   const shadowCameraRef = useRef();
   useHelper(shadowCameraRef, THREE.CameraHelper);
+
   return (
     <>
       <OrbitControls />
@@ -37,6 +37,12 @@ export const Experience = () => {
       <ambientLight intensity={0.5} />
       <Player />
 
+      {/* <RigidBody type="fixed" name="ground">
+        <mesh position-y={-0.251} receiveShadow>
+          <boxGeometry args={[20, 0.5, 20]} />
+          <meshStandardMaterial color="mediumpurple" />
+        </mesh>
+      </RigidBody> */}
       <RigidBody
         type="fixed"
         colliders={false}

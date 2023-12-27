@@ -11,7 +11,6 @@ export const Controls = {
   right: "right",
   jump: "jump",
 };
-
 function App() {
   const map = useMemo(
     () => [

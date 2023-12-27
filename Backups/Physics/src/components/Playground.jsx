@@ -4,35 +4,19 @@ Command: npx gltfjsx@6.2.3 public/models/playground.glb -o src/components/Playgr
 */
 
 import { useGLTF } from "@react-three/drei";
-import React, { useRef, useEffect } from "react";
-import { RigidBody, CuboidCollider } from "@react-three/rapier";
-import { useThree } from "@react-three/fiber";
+import { CuboidCollider, RigidBody } from "@react-three/rapier";
+import React, { useEffect, useRef } from "react";
 
 export function Playground(props) {
   const { nodes, materials } = useGLTF("/models/playground.glb");
+
   const swiper = useRef();
   useEffect(() => {
     swiper.current.setAngvel({ x: 0, y: 3, z: 0 }, true);
   });
+
   return (
     <group {...props} dispose={null}>
-      <RigidBody
-        type="fixed"
-        name="gateIn"
-        sensor
-        colliders={false}
-        position={[-20.325, -0.249, -28.42]}
-      >
-        <mesh
-          receiveShadow
-          castShadow
-          name="gateLargeWide_teamBlue"
-          geometry={nodes.gateLargeWide_teamBlue.geometry}
-          material={materials["Blue.020"]}
-          rotation={[0, 1.571, 0]}
-        />
-        <CuboidCollider position={[-1, 0, 0]} args={[0.5, 2, 1.5]} />
-      </RigidBody>
       <RigidBody
         type="kinematicVelocity"
         colliders={"trimesh"}
@@ -75,8 +59,24 @@ export function Playground(props) {
           />
         </group>
       </RigidBody>
-
-      <RigidBody type="fixed" name="Ground" colliders={"trimesh"}>
+      <RigidBody
+        type="fixed"
+        name="gateIn"
+        sensor
+        colliders={false}
+        position={[-20.325, -0.249, -28.42]}
+      >
+        <mesh
+          receiveShadow
+          castShadow
+          name="gateLargeWide_teamBlue"
+          geometry={nodes.gateLargeWide_teamBlue.geometry}
+          material={materials["Blue.020"]}
+          rotation={[0, 1.571, 0]}
+        />
+        <CuboidCollider position={[-1, 0, 0]} args={[0.5, 2, 1.5]} />
+      </RigidBody>
+      <RigidBody type="fixed" colliders="trimesh" name="ground">
         <group name="button_teamYellow" position={[-39.612, -0.038, -27.712]}>
           <mesh
             receiveShadow
@@ -123,6 +123,15 @@ export function Playground(props) {
         <mesh
           receiveShadow
           castShadow
+          name="gateLargeWide_teamBlue"
+          geometry={nodes.gateLargeWide_teamBlue.geometry}
+          material={materials["Blue.020"]}
+          position={[-20.325, -0.249, -28.42]}
+          rotation={[0, 1.571, 0]}
+        />
+        <mesh
+          receiveShadow
+          castShadow
           name="gateLargeWide_teamYellow"
           geometry={nodes.gateLargeWide_teamYellow.geometry}
           material={materials["Yellow.024"]}
@@ -151,8 +160,10 @@ export function Playground(props) {
           name="rocksB_forest"
           geometry={nodes.rocksB_forest.geometry}
           material={materials["Stone.001"]}
-          position={[-0.454, -0.031, 1.748]}
+          position={[2.317, -0.084, -0.53]}
+          rotation={[0, 0.463, 0]}
         />
+
         <group name="tileHigh_forest" position={[-0.077, -1.023, -15.377]}>
           <mesh
             receiveShadow

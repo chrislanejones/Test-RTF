@@ -1,4 +1,4 @@
-import { RigidBody, vec3 } from "@react-three/rapier";
+import { RigidBody, vec3, euler, quat } from "@react-three/rapier";
 import { Controls } from "../App";
 import { PerspectiveCamera, useKeyboardControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
@@ -13,6 +13,7 @@ export const Player = () => {
   const camera = useRef();
   const cameraTarget = useRef(new Vector3(0, 0, 0));
   const [, get] = useKeyboardControls();
+  const punched = useRef(false);
   const vel = new Vector3();
   const inTheAir = useRef(false);
 
@@ -40,9 +41,12 @@ export const Player = () => {
       rotVel.y -= ROTATION_SPEED;
     }
     if (get()[Controls.right]) {
-      rotVel.x += ROTATION_SPEED;
+      rotVel.y += ROTATION_SPEED;
     }
     rb.current.setAngvel(rotVel, true);
+    // apply rotation to x and z to go in the right direction
+    const eulerRot = euler().setFromQuaternion(quat(rb.current.rotation()));
+    vel.applyEuler(eulerRot);
 
     if (get()[Controls.jump] && !inTheAir.current) {
       vel.y += JUMP_FORCE;
@@ -50,8 +54,21 @@ export const Player = () => {
     } else {
       vel.y = curVel.y;
     }
+    if (!punched.current) {
+      rb.current.setLinvel(vel, true);
+    }
+
     rb.current.setLinvel(vel, true);
   });
+
+  const respawn = () => {
+    rb.current.setTranslation({
+      x: 0,
+      y: 5,
+      z: 0,
+    });
+  };
+
   return (
     <RigidBody
       ref={rb}
@@ -59,6 +76,17 @@ export const Player = () => {
       onCollisionEnter={({ other }) => {
         if (other.rigidBodyObject.name === "ground") {
           inTheAir.current = false;
+        }
+        if (other.rigidBodyObject.name === "swiper") {
+          punched.current = true;
+          setTimeout(() => {
+            punched.current = false;
+          }, 200);
+        }
+      }}
+      onIntersectionEnter={({ other }) => {
+        if (other.rigidBodyObject.name === "space") {
+          respawn();
         }
       }}
       gravityScale={2.5}

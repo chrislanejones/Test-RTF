@@ -5,6 +5,7 @@ import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import { Vector3 } from "three";
 const MOVEMENT_SPEED = 5;
+const ROTATION_SPEED = 5;
 const JUMP_FORCE = 8;
 
 export const Player = () => {
@@ -12,14 +13,23 @@ export const Player = () => {
   const camera = useRef();
   const cameraTarget = useRef(new Vector3(0, 0, 0));
   const [, get] = useKeyboardControls();
-  const inTheAir = useRef(false);
   const vel = new Vector3();
+  const inTheAir = useRef(false);
+
   useFrame(() => {
     cameraTarget.current.lerp(vec3(rb.current.translation()), 0.5);
     camera.current.lookAt(cameraTarget.current);
     vel.x = 0;
     vel.y = 0;
     vel.z = 0;
+
+    const rotVel = {
+      x: 0,
+      y: 0,
+      z: 0,
+    };
+
+    const curVel = rb.current.linvel();
     if (get()[Controls.forward]) {
       vel.z -= MOVEMENT_SPEED;
     }
@@ -27,12 +37,13 @@ export const Player = () => {
       vel.z += MOVEMENT_SPEED;
     }
     if (get()[Controls.left]) {
-      vel.x -= MOVEMENT_SPEED;
+      rotVel.y -= ROTATION_SPEED;
     }
     if (get()[Controls.right]) {
-      vel.x += MOVEMENT_SPEED;
+      rotVel.x += ROTATION_SPEED;
     }
-    const curVel = rb.current.linvel();
+    rb.current.setAngvel(rotVel, true);
+
     if (get()[Controls.jump] && !inTheAir.current) {
       vel.y += JUMP_FORCE;
       inTheAir.current = true;

@@ -3,9 +3,18 @@ import { Hero } from "./Hero";
 import { Canvas } from "@react-three/fiber";
 import { Hero3D } from "./Hero3D";
 import { View } from "@react-three/drei";
+import { Portfolio3D } from "./Portfolio3D";
+import { Services3D } from "./Services3D";
+import { TeamMember } from "./TeamMember";
 
 export const HomePage = () => {
   const heroContainer = useRef();
+  const servicesContainer = useRef();
+  const johnDoeContainer = useRef();
+  const juliaDoeContainer = useRef();
+  const lindaDoeContainer = useRef();
+  const portfolioContainer = useRef();
+
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const onScroll = () => {
@@ -49,7 +58,10 @@ export const HomePage = () => {
       <section className="services" id="services">
         <h2 className="services__title">Our Services</h2>
         <div className="services__slider">
-          <div className="services__slider__display"></div>
+          <div
+            className="services__slider__display"
+            ref={servicesContainer}
+          ></div>
           <div className="services__slider__list">
             <div
               className={`services__slider__list__service ${
@@ -128,7 +140,10 @@ export const HomePage = () => {
               voluptatibus quia quos molestiae natus?”
             </p>
           </div>
-          <div className="team__member__display team__member__display--blue"></div>
+          <div
+            className="team__member__display team__member__display--blue"
+            ref={johnDoeContainer}
+          ></div>
         </div>
         <div className="team__member team__member--reverse">
           <div className="team__member__body">
@@ -140,7 +155,10 @@ export const HomePage = () => {
               voluptatibus quia quos molestiae natus?”
             </p>
           </div>
-          <div className="team__member__display team__member__display--pink"></div>
+          <div
+            className="team__member__display team__member__display--pink"
+            ref={juliaDoeContainer}
+          ></div>
         </div>
         <div className="team__member">
           <div className="team__member__body">
@@ -152,7 +170,10 @@ export const HomePage = () => {
               voluptatibus quia quos molestiae natus?”
             </p>
           </div>
-          <div className="team__member__display team__member__display--orange"></div>
+          <div
+            className="team__member__display team__member__display--orange"
+            ref={lindaDoeContainer}
+          ></div>
         </div>
       </section>
       <section className="portfolio" id="portfolio">
@@ -161,7 +182,7 @@ export const HomePage = () => {
           We have worked on amazing projects for our clients. Here are some of
           them.
         </p>
-        <div className="portfolio__display"></div>
+        <div className="portfolio__display" ref={portfolioContainer}></div>
       </section>
       <section className="contact" id="contact">
         <h2 className="contact__title">Contact Us</h2>

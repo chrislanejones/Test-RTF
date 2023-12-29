@@ -9,6 +9,7 @@ import { Services3D } from "./Services3D";
 import { TeamMember } from "./TeamMember";
 
 export const HomePage = () => {
+  const container = useRef();
   const heroContainer = useRef();
   const servicesContainer = useRef();
   const johnDoeContainer = useRef();
@@ -29,8 +30,15 @@ export const HomePage = () => {
   const [currentService, setCurrentService] = useState(0);
 
   return (
-    <main>
-      <Canvas className="canvas" camera={{ position: [0, 0, 1.5], fov: 30 }}>
+    <main ref={container}>
+      <Canvas
+        className="canvas"
+        camera={{
+          position: [0, 0, 1.5],
+          fov: 30,
+        }}
+        eventSource={container}
+      >
         <View track={heroContainer}>
           <Hero3D />
         </View>

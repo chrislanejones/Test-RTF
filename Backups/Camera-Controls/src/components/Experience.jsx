@@ -1,14 +1,28 @@
 import { Environment, Gltf, OrbitControls } from "@react-three/drei";
 import { CameraControls } from "@react-three/drei";
 import { useRef } from "react";
-import { useControls } from "leva";
+import { button, useControls } from "leva";
 
 export const Experience = () => {
   const controls = useRef();
 
   useControls("Dolly", {
     in: button(() => controls.current.dolly(1, true)),
-    in: button(() => controls.current.dolly(2, true)),
+    out: button(() => controls.current.dolly(-1, true)),
+  });
+  useControls("truck", {
+    up: button(() => {
+      controls.current.truck(0, -0.5, true);
+    }),
+    left: button(() => {
+      controls.current.truck(-0.5, 0, true);
+    }),
+    down: button(() => {
+      controls.current.truck(0, 0.5, true);
+    }),
+    right: button(() => {
+      controls.current.truck(0.5, 0, true);
+    }),
   });
 
   return (

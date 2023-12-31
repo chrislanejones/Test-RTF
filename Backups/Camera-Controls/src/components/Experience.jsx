@@ -24,6 +24,20 @@ export const Experience = () => {
       controls.current.truck(0.5, 0, true);
     }),
   });
+  useControls("rotate", {
+    up: button(() => {
+      controls.current.rotate(0, -0.5, true);
+    }),
+    down: button(() => {
+      controls.current.rotate(0, 0.5, true);
+    }),
+    left: button(() => {
+      controls.current.rotate(-0.5, 0, true);
+    }),
+    right: button(() => {
+      controls.current.rotate(0.5, 0, true);
+    }),
+  });
 
   return (
     <>

@@ -1,10 +1,12 @@
 import { Environment, Gltf, OrbitControls } from "@react-three/drei";
 import { CameraControls } from "@react-three/drei";
+import { useRef } from "react";
 
 export const Experience = () => {
+  const controls = useRef();
   return (
     <>
-      <OrbitControls />
+      <CameraControls ref={controls} />
       <Gltf
         position={[0, 0, 0]}
         src="models/apple_iphone_15_pro_max_black.glb"

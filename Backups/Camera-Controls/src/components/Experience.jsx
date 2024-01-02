@@ -143,11 +143,27 @@ export const Experience = ({ section }) => {
       const target = controls.current.getTarget();
       console.log([...position, ...target]);
     }),
+    toJson: button(() => console.log(controls.current.toJSON())),
   });
 
   return (
     <>
-      <CameraControls ref={controls} />
+      <CameraControls
+        ref={controls}
+        // disable all mouse buttons
+        mouseButtons={{
+          left: 0,
+          middle: 0,
+          right: 0,
+          wheel: 0,
+        }}
+        // disable all touch gestures
+        touches={{
+          one: 0,
+          two: 0,
+          three: 0,
+        }}
+      />
       <mesh ref={box} visible={false}>
         <boxGeometry args={[0.5, 1, 0.2]} />
         <meshBasicMaterial color="hotpink" wireframe />

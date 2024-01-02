@@ -6,10 +6,22 @@ import { degToRad } from "three/src/math/MathUtils";
 import { sections } from "./UI";
 
 const cameraPositions = {
-  intro: [0, 0, 3, 0, 0, 0],
-  titanium: [0, 0, 3, 0, 0, 0],
-  camera: [0, 0, 3, 0, 0, 0],
-  "action-button": [0, 0, 3, 0, 0, 0],
+  intro: [
+    -0.8408130777453015, -0.5579311237409535, -1.2494838493879465,
+    0.09186000885066517, -0.013170057989714374, -0.15707536590700685,
+  ],
+  titanium: [
+    -0.33845493114618996, -0.38300322828293054, 0.23117101681493882,
+    0.0907781098318133, 0.14091696753514726, -0.09426415209367653,
+  ],
+  camera: [
+    -0.2816817625748494, -0.017347003209647244, 0.3065631638865963,
+    -0.036054404825409433, 0.2469066391985735, 0.01959945436374355,
+  ],
+  "action-button": [
+    -0.88612937193474, -0.4964915367233699, 0.003459464080557469,
+    -0.015160554557400105, 0.16977404132378549, 0.0015889919991764756,
+  ],
 };
 
 export const Experience = ({ section }) => {
@@ -34,6 +46,10 @@ export const Experience = ({ section }) => {
   useControls("truck", {
     up: button(() => {
       controls.current.truck(0, -0.5, true);
+      onChange: (v) => {
+        // imperatively update the world after Leva input changes
+        divRef.current.truck = v;
+      };
     }),
     left: button(() => {
       controls.current.truck(-0.5, 0, true);
@@ -93,6 +109,14 @@ export const Experience = ({ section }) => {
     }
     playTransition();
   }, [section]);
+
+  useControls("helper", {
+    getLookAt: button(() => {
+      const position = controls.current.getPosition();
+      const target = controls.current.getTarget();
+      console.log([...position, ...target]);
+    }),
+  });
 
   return (
     <>

@@ -11,7 +11,7 @@ export const Experience = () => {
   useControls("settings", {
     smoothTime: {
       value: 0.35,
-      min: 0.1,
+      min: 0.5,
       max: 2,
       step: 0.1,
       onChange: (value) => (controls.current.smoothTime = value),
@@ -54,6 +54,9 @@ export const Experience = () => {
   useControls("fit", {
     fitToBox: button(() => {
       controls.current.fitToBox(box.current, true);
+    }),
+    fitToSphere: button(() => {
+      controls.current.fitToSphere(sphere.current, false);
     }),
   });
 

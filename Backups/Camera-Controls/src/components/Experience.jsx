@@ -1,7 +1,8 @@
 import { Environment, Gltf, OrbitControls } from "@react-three/drei";
 import { CameraControls } from "@react-three/drei";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { button, useControls } from "leva";
+import { degToRad } from "three/src/math/MathUtils";
 
 export const Experience = () => {
   const controls = useRef();
@@ -60,14 +61,24 @@ export const Experience = () => {
     }),
   });
 
+  const intro = async () => {
+    controls.current.setLookAt(0, 0, 5, 0, 0, 0, false);
+    await controls.current.dolly(3, true);
+    await controls.current.rotate(degToRad(45), degToRad(25), true);
+  };
+
+  useEffect(() => {
+    intro();
+  }, {});
+
   return (
     <>
       <CameraControls ref={controls} />
-      <mesh ref={box}>
+      <mesh ref={box} visible={false}>
         <boxGeometry args={[0.5, 1, 0.2]} />
         <meshBasicMaterial color="hotpink" wireframe />
       </mesh>
-      <mesh ref={sphere}>
+      <mesh ref={sphere} visible={false}>
         <sphereGeometry args={[0.3, 64]} />
         <meshBasicMaterial color="hotpink" wireframe />
       </mesh>

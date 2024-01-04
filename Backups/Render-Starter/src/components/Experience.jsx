@@ -19,12 +19,14 @@ export const Experience = () => {
   const videoTexture = useVideoTexture("/textures/bounce-patrick.mp4");
   const cornerRenderTarget = useFBO();
 
-  tvMaterial.current.map = cornerRenderTarget.texture;
-
   useFrame(({ gl, camera, scene }) => {
+    tvMaterial.current.map = videoTexture;
+
     gl.setRenderTarget(cornerRenderTarget);
     gl.render(scene, camera);
     gl.setRenderTarget(null);
+
+    tvMaterial.current.map = cornerRenderTarget.texture;
   });
 
   return (

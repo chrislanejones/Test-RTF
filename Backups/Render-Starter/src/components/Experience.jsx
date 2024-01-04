@@ -3,15 +3,16 @@ import {
   Environment,
   Gltf,
   OrbitControls,
+  PerspectiveCamera,
   Sky,
+  useFBO,
   useVideoTexture,
 } from "@react-three/drei";
-import { Vector3 } from "three";
-import { Avatar } from "./Avatar";
-import { useFBO } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
+import { Vector3 } from "three";
 import { useRemote } from "../hooks/useRemote";
+import { Avatar } from "./Avatar";
 
 const VECTOR_ZERO = new Vector3(0, 0, 0);
 
@@ -29,14 +30,12 @@ export const Experience = () => {
 
   const tvMaterial = useRef();
 
-  const { mode } = useRemote();
-
-  useFrame(({ gl, scene }) => {
-    tvMaterial.current.map = videoTexture;
-
+  useFrame(({ camera, gl, scene }) => {
     topCamera.current.lookAt(VECTOR_ZERO);
     cornerCamera.current.lookAt(VECTOR_ZERO);
     frontCamera.current.lookAt(VECTOR_ZERO);
+
+    tvMaterial.current.map = videoTexture;
 
     let currentScreenTexture = videoTexture;
 
@@ -56,6 +55,17 @@ export const Experience = () => {
 
     if (mode === "front") {
       currentScreenTexture = frontRenderTarget.texture;
+      // Open mouth of the avatar
+      scene.traverse((node) => {
+        if (node.morphTargetInfluences) {
+          node.morphTargetInfluences[
+            node.morphTargetDictionary["mouthSmile"]
+          ] = 1;
+          node.morphTargetInfluences[
+            node.morphTargetDictionary["mouthOpen"]
+          ] = 1;
+        }
+      });
       gl.setRenderTarget(frontRenderTarget);
       gl.render(scene, frontCamera.current);
     }
@@ -64,7 +74,18 @@ export const Experience = () => {
 
     // Reset tvMaterial to the current screen texture
     tvMaterial.current.map = currentScreenTexture;
+    // Reset avatar mouth
+    scene.traverse((node) => {
+      if (node.morphTargetInfluences) {
+        node.morphTargetInfluences[
+          node.morphTargetDictionary["mouthSmile"]
+        ] = 0;
+        node.morphTargetInfluences[node.morphTargetDictionary["mouthOpen"]] = 0;
+      }
+    });
   });
+
+  const { mode } = useRemote();
 
   return (
     <>
@@ -72,24 +93,6 @@ export const Experience = () => {
         maxPolarAngle={Math.PI / 2}
         minDistance={2}
         maxDistance={5}
-      />
-      <perspectiveCamera
-        position={[0, 0, -0.3]}
-        fov={50}
-        near={0.1}
-        ref={frontCamera}
-      />
-      <perspectiveCamera
-        position={[0, 2.2, 0]}
-        fov={30}
-        near={0.1}
-        ref={topCamera}
-      />
-      <perspectiveCamera
-        position={[2, 1.2, 0]}
-        fov={30}
-        near={0.1}
-        ref={cornerCamera}
       />
       <group position-y={-0.5}>
         <group>
@@ -104,6 +107,24 @@ export const Experience = () => {
       </group>
       <Environment preset="sunset" />
       <ContactShadows position-y={-1} blur={2} opacity={0.42} />
+      <PerspectiveCamera
+        position={[0, 0, -0.3]}
+        fov={50}
+        near={0.1}
+        ref={frontCamera}
+      />
+      <PerspectiveCamera
+        position={[0, 2.2, 0]}
+        fov={30}
+        near={0.1}
+        ref={topCamera}
+      />
+      <PerspectiveCamera
+        position={[2, 1.2, 2]}
+        fov={30}
+        near={0.1}
+        ref={cornerCamera}
+      />
     </>
   );
 };

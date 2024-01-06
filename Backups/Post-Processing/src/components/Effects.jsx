@@ -34,7 +34,7 @@ export const Effects = () => {
       max: 1,
     },
     contrast: {
-      value: 1.28,
+      value: 0.2,
       min: 0,
       max: 1,
     },

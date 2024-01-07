@@ -11,7 +11,7 @@ const mesh = new THREE.Mesh(geometry, material);
 scene.add(mesh);
 
 const sizes = {
-  width: window.interWidth,
+  width: window.innerWidth,
   height: window.innerHeight,
 };
 

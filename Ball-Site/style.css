@@ -7,3 +7,8 @@
 canvas {
   display: block;
 }
+
+body,
+html {
+  overflow-x: hidden;
+}

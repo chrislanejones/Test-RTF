@@ -9,7 +9,16 @@ const material = new THREE.MeshStandardMaterial({
 const mesh = new THREE.Mesh(geometry, material);
 scene.add(mesh);
 
-const camera = new THREE.PerspectiveCamera(45, 800, 600);
+const sizes = {
+  width: window.interWidth,
+  height: window.innerHeight,
+};
+
+const light = new THREE.PointLight(0xffffff, 1, 100);
+light.position.set(0, 5, 10);
+scene.add(light);
+
+const camera = new THREE.PerspectiveCamera(45, 800 / 600, 0.1, 100);
 camera.position.z = 20;
 scene.add(camera);
 

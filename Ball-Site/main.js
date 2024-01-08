@@ -32,10 +32,15 @@ scene.add(camera);
 const canvas = document.querySelector(".webgl");
 const renderer = new THREE.WebGLRenderer({ canvas });
 renderer.setSize(sizes.width, sizes.height);
+renderer.setPixelRatio(2);
 renderer.render(scene, camera);
 
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
+controls.enablePan = false;
+controls.enableZoom = false;
+controls.autoRotata = true;
+controls.autoRotateSpeed = 5;
 
 window.addEventListener("resize", () => {
   sizes.width = window.innerWidth;

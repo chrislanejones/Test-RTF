@@ -11,4 +11,45 @@ canvas {
 body,
 html {
   overflow-x: hidden;
+  font-family: "PT Serif", serif;
+}
+
+.webgl {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+nav {
+  color: #fff;
+  z-index: 2;
+  position: relative;
+  padding: 4rem 8rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 1.6rem;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  font-size: 1.2rem;
+}
+
+.title {
+  color: #fff;
+  z-index: 2;
+  position: absolute;
+  font-size: 3rem;
+  left: 50%;
+  bottom: 10%;
+  transform: translate(-50%, -75%);
 }

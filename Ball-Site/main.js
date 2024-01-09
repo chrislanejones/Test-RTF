@@ -70,7 +70,19 @@ window.addEventListener("mouseup", () => (mouseDown = false));
 
 window.addEventListener("mousemove", (e) => {
   if (mouseDown) {
-    rgb = [Math.round((e.pageX / sizes.width) * 255)];
+    rgb = [
+      Math.round((e.pageX / sizes.width) * 255),
+      Math.round((e.pageX / sizes.height) * 255),
+      150,
+    ];
     console.log(rgb);
+    let newColor = new THREE.Color(`rgb(${rgb.join(",")})`);
+    new THREE.Color(`rgb(0,100,150)`);
+    gsap.to(mesh.material.color, {
+      r: newColor.r,
+      g: newColor.g,
+      b: newColor.b,
+    });
+    console.log(mesh.material.color);
   }
 });

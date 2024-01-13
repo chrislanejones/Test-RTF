@@ -27,7 +27,11 @@ function App() {
         onScreenChange={setTargetScreen}
         isAnimating={currentScreen !== targetScreen}
       />
-      <Canvas camera={{ position: [5, 5, 10], fov: 30, near: 1 }} shadows>
+      <Canvas
+        camera={{ position: [5, 5, 10], fov: 30, near: 1 }}
+        shadows
+        gl={{ preserveDrawingBuffer: true }}
+      >
         <SoftShadows />
         <SheetProvider sheet={mainSheet}>
           <Experience />

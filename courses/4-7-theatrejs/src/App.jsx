@@ -7,8 +7,14 @@ import { Experience } from "./components/Experience";
 import { getProject } from "@theatre/core";
 import { SheetProvider } from "@theatre/r3f";
 
+import extension from "@theatre/r3f/dist/extension";
+import studio from "@theatre/studio";
+
 const project = getProject("MedievalTownThreejs");
 const mainSheet = project.sheet("Main");
+
+studio.initialize();
+studio.extend(extension);
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState("Intro");

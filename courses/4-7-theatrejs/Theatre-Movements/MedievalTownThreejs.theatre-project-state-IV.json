@@ -23,7 +23,7 @@
       },
       "sequence": {
         "subUnitsPerUnit": 30,
-        "length": 12,
+        "length": 19.95,
         "type": "PositionalSequence",
         "tracksByObject": {
           "MedievalFantasyBook": {
@@ -89,7 +89,19 @@
                     "value": -0.8453455858132917
                   },
                   {
-                    "id": "Pr3UCFMibk",
+                    "id": "m9M7BQ25fs",
+                    "position": 10,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "value": 1.7913822488162907
+                  },
+                  {
+                    "id": "JLxyLu8mg0",
                     "position": 12,
                     "connectedRight": true,
                     "handles": [
@@ -98,7 +110,19 @@
                       0.5,
                       0
                     ],
-                    "value": 2.877415497987268
+                    "value": 1.8495954432782873
+                  },
+                  {
+                    "id": "kDthXQfdVc",
+                    "position": 18,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "value": -4.308228262729858
                   }
                 ]
               },
@@ -155,6 +179,18 @@
                     "value": 2.2867096434375944
                   },
                   {
+                    "id": "pHP-ul8-UR",
+                    "position": 10,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "value": 0.8381698145278669
+                  },
+                  {
                     "id": "wCRtAxPttF",
                     "position": 12,
                     "connectedRight": true,
@@ -164,7 +200,19 @@
                       0.5,
                       0
                     ],
-                    "value": 0.8489556597266557
+                    "value": 0.3761985978180318
+                  },
+                  {
+                    "id": "98DsVT1A3P",
+                    "position": 18,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "value": -0.11082891507923964
                   }
                 ]
               },
@@ -209,8 +257,8 @@
                     "value": 8.658194807971189
                   },
                   {
-                    "id": "EsabNFQzFi",
-                    "position": 6.433,
+                    "id": "bVthJflsLY",
+                    "position": 10,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -218,7 +266,7 @@
                       0.5,
                       0
                     ],
-                    "value": 8.658194807971189
+                    "value": -0.8988255919697927
                   },
                   {
                     "id": "ZyNkpFzPpk",
@@ -230,7 +278,19 @@
                       0.5,
                       0
                     ],
-                    "value": -1.243187301966005
+                    "value": -2.8500646147344124
+                  },
+                  {
+                    "id": "H4UY663aB7",
+                    "position": 18,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "value": 5.131031545248229
                   }
                 ]
               }
@@ -296,6 +356,30 @@
                     "value": 0.4058252431836573
                   },
                   {
+                    "id": "M66mRu_FBx",
+                    "position": 7.967,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "value": -2.189320337339549
+                  },
+                  {
+                    "id": "OOEDsSHO5R",
+                    "position": 10,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "value": -1.4368801085592866
+                  },
+                  {
                     "id": "6KXJMFHQeH",
                     "position": 12,
                     "connectedRight": true,
@@ -305,7 +389,19 @@
                       0.5,
                       0
                     ],
-                    "value": 0.7304736946796373
+                    "value": -0.7112366240727546
+                  },
+                  {
+                    "id": "H9OsVN43O5",
+                    "position": 18,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "value": -3.5291455395132276
                   }
                 ]
               },
@@ -362,6 +458,30 @@
                     "value": 0.20872651818138843
                   },
                   {
+                    "id": "S5Hph3-57f",
+                    "position": 7.967,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "value": 1.0189358653705778
+                  },
+                  {
+                    "id": "KVycADQImu",
+                    "position": 10,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "value": 1.0208537639937616
+                  },
+                  {
                     "id": "fe5iRSU3Iw",
                     "position": 12,
                     "connectedRight": true,
@@ -371,7 +491,19 @@
                       0.5,
                       0
                     ],
-                    "value": 0.551110739043561
+                    "value": 0.5172364563458363
+                  },
+                  {
+                    "id": "3p_AvSu050",
+                    "position": 18,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "value": 0.3396716684289933
                   }
                 ]
               },
@@ -428,6 +560,30 @@
                     "value": -0.639649273661925
                   },
                   {
+                    "id": "5tX0fSgdMd",
+                    "position": 7.967,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "value": -0.7677215034866836
+                  },
+                  {
+                    "id": "LFGAVN7ySi",
+                    "position": 10,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "value": -0.5392655260801167
+                  },
+                  {
                     "id": "uU6tOnmBZo",
                     "position": 12,
                     "connectedRight": true,
@@ -437,7 +593,19 @@
                       0.5,
                       0
                     ],
-                    "value": -1.2492754455575283
+                    "value": -1.5924898753197911
+                  },
+                  {
+                    "id": "6oPryIn-eD",
+                    "position": 18,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "value": 2.377106725685399
                   }
                 ]
               }
@@ -454,6 +622,7 @@
   },
   "definitionVersion": "0.4.0",
   "revisionHistory": [
+    "GcWjiL0fSqf7lo9S",
     "eLw-dByPwTMPLLu6",
     "5SETDgaIsEXtaKU8",
     "yZa5MlUYxVEoGchC"

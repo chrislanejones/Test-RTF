@@ -1,6 +1,6 @@
 import { SoftShadows } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { UI } from "./UI";
 import { Experience } from "./components/Experience";
 
@@ -17,11 +17,46 @@ const mainSheet = project.sheet("Main");
 studio.initialize();
 studio.extend(extension);
 
+const transitions = {
+  Home: [0, 5],
+  Castle: [6, 12 + 22 / 30],
+  Windmill: [13 + 2 / 30, 17 + 23 / 30],
+};
+
 function App() {
+  const cameraTargetRef = useRef();
   const [currentScreen, setCurrentScreen] = useState("Intro");
   const [targetScreen, setTargetScreen] = useState("Home");
 
-  const cameraTargetRef = useRef();
+  const isSetup = useRef(false);
+
+  useEffect(() => {
+    project.ready.then(() => {
+      if (currentScreen === targetScreen) {
+        return;
+      }
+      if (isSetup.current && currentScreen === "Intro") {
+        // Strict mode in development will trigger the useEffect twice, so we need to check if it's already setup
+        return;
+      }
+      isSetup.current = true;
+      const reverse = targetScreen === "Home" && currentScreen !== "Intro";
+      const transition = transitions[reverse ? currentScreen : targetScreen];
+      if (!transition) {
+        return;
+      }
+
+      mainSheet.sequence
+        .play({
+          range: transition,
+          direction: reverse ? "reverse" : "normal",
+          rate: reverse ? 2 : 1,
+        })
+        .then(() => {
+          setCurrentScreen(targetScreen);
+        });
+    });
+  }, [targetScreen]);
 
   return (
     <>

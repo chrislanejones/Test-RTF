@@ -1,6 +1,7 @@
 import { Environment } from "@react-three/drei";
 import { MedievalFantasyBook } from "./MedievalFantasyBook";
 import { editable as e } from "@theatre/r3f";
+import { Autofocus, EffectComposer } from "@react-three/postprocessing";
 
 export const Experience = () => {
   return (

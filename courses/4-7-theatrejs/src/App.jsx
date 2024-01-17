@@ -1,32 +1,23 @@
 import { SoftShadows } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { useRef, useState, useEffect } from "react";
-import { UI } from "./UI";
-import { Experience } from "./components/Experience";
-
 import { getProject } from "@theatre/core";
-import { PerspectiveCamera, SheetProvider } from "@theatre/r3f";
-
+import { PerspectiveCamera, SheetProvider, editable as e } from "@theatre/r3f";
 import extension from "@theatre/r3f/dist/extension";
 import studio from "@theatre/studio";
-import { editable as e } from "@theatre/r3f";
-
+import { useEffect, useRef, useState } from "react";
+import { UI } from "./UI";
 import projectState from "./assets/MedievalTownThreejs.theatre-project-state-main.json";
+import { Experience } from "./components/Experience";
 
-export const isProd = import.meta.env.MODE === "production";
+// https://www.theatrejs.com/docs/latest/getting-started/with-react-three-fiber - The Lesson version did not work needed to use the version from Theatre JS's website
 
-const project = getProject(
-  "MedievalTownThreejs",
-  isProd
-    ? {
-        state: projectState,
-      }
-    : undefined
-);
-const mainSheet = project.sheet("Main");
-
-studio.initialize();
-studio.extend(extension);
+if (import.meta.env.DEV) {
+  studio.initialize();
+  studio.extend(extension);
+}
+const mainSheet = getProject("MedievalTownThreejs", {
+  state: projectState,
+}).sheet("Main");
 
 const transitions = {
   Home: [0, 2 + 29 / 30],
@@ -42,7 +33,7 @@ function App() {
   const isSetup = useRef(false);
 
   useEffect(() => {
-    project.ready.then(() => {
+    mainSheet.project.ready.then(() => {
       if (currentScreen === targetScreen) {
         return;
       }

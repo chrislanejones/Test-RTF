@@ -42,7 +42,7 @@ export const Experience = () => {
       <EffectComposer>
         <Autofocus
           smoothTime={0.1}
-          debug={isProd ? undefined : 0.04}
+          // isProd is broken so I removed this line
           focusRange={0.002}
           bokehScale={8}
           target={focusTargetref.current}

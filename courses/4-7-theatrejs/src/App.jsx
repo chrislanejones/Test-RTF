@@ -18,7 +18,7 @@ studio.initialize();
 studio.extend(extension);
 
 const transitions = {
-  Home: [0, 4],
+  Home: [0, 2 + 29 / 30],
   Castle: [6, 10],
   Windmill: [16, 19],
 };

@@ -3,10 +3,19 @@ import { MedievalFantasyBook } from "./MedievalFantasyBook";
 import { editable as e } from "@theatre/r3f";
 import { Autofocus, EffectComposer } from "@react-three/postprocessing";
 import { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
+import { Vector3 } from "three";
 
 export const Experience = () => {
   const focusTargetref = useRef(new Vector3(0, 0, 0));
   const focusTargetVisualizerRef = useRef();
+
+  useFrame(() => {
+    if (focusTargetVisualizerRef.current) {
+      focusTargetref.current.copy(focusTargetVisualizerRef.current.position);
+    }
+  });
+
   return (
     <>
       <e.directionalLight

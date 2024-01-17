@@ -11,7 +11,18 @@ import extension from "@theatre/r3f/dist/extension";
 import studio from "@theatre/studio";
 import { editable as e } from "@theatre/r3f";
 
-const project = getProject("MedievalTownThreejs");
+import projectState from "./assets/MedievalTownThreejs.theatre-project-state-main.json";
+
+export const isProd = import.meta.env.MODE === "production";
+
+const project = getProject(
+  "MedievalTownThreejs",
+  isProd
+    ? {
+        state: projectState,
+      }
+    : undefined
+);
 const mainSheet = project.sheet("Main");
 
 studio.initialize();

@@ -18,6 +18,14 @@ export const Experience = () => {
         <MedievalFantasyBook scale={0.1} envMapIntensity={0.3} />
       </e.group>
       <Environment preset="dawn" background blur={4} />
+      <EffectComposer>
+        <Autofocus
+          smoothTime={0.1}
+          debug={0.04}
+          focusRange={0.002}
+          bokehScale={8}
+        />
+      </EffectComposer>
     </>
   );
 };

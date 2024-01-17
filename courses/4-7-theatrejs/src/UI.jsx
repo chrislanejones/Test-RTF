@@ -53,13 +53,13 @@ export const UI = ({ currentScreen, onScreenChange, isAnimating }) => {
         >
           <button
             onClick={() => onScreenChange("Castle")}
-            className="bg-yellow-900 bg-opacity-80 p-3 rounded-full text-white font-medium"
+            className="bg-yellow-900 bg-opacity-80 p-3 rounded-full text-white font-bold"
           >
             Visit the historic castle
           </button>
           <button
             onClick={() => onScreenChange("Windmill")}
-            className="bg-yellow-900 bg-opacity-80 p-3 rounded-full text-white font-medium"
+            className="bg-yellow-900 bg-opacity-80 p-3 rounded-full text-white font-bold"
           >
             Discover the town windmill
           </button>

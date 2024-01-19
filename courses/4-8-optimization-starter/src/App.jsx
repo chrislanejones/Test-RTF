@@ -1,6 +1,6 @@
-import { Environment } from "@react-three/drei";
+import { Environment, PerformanceMonitor } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-// import { Effects } from "./components/Effects";
+import { Effects } from "./components/Effects";
 import { Experience } from "./components/Experience";
 
 function App() {
@@ -10,10 +10,23 @@ function App() {
         <color attach="background" args={["#ffffff"]} />
         <fog attach="fog" args={["#ffffff", 10, 50]} />
         <group position-y={-2}>
+          <PerformanceMonitor
+            onChange={(api) => {
+              console.log("Perfomance Monitor (FPS)", api.fps);
+              console.log("Perfoamnce Monitor (Factor)", api.factor);
+            }}
+            onIncline={() => {
+              console.log("Perfoamnce Monitor (Inclined)");
+            }}
+            onDecline={() => {
+              console.log("Perfoamnce Monitor (Declined)");
+            }}
+          />
+
           <Experience />
         </group>
         <Environment preset="sunset" />
-        {/* <Effects /> */}
+        <Effects />
       </Canvas>
     </>
   );

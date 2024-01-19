@@ -22,7 +22,7 @@ const Box = ({ scale, position, color, speed }) => {
 };
 
 export const Experience = () => {
-  const boxes = Array.from({ length: 40 }, () => ({
+  const boxes = Array.from({ length: 1000 }, () => ({
     position: [
       THREE.MathUtils.randFloat(2, 20) *
         (THREE.MathUtils.randInt(0, 1) ? -1 : 1),

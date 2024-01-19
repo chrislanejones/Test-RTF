@@ -6,7 +6,7 @@ import { useState } from "react";
 
 function App() {
   const [effect, setEffect] = useState(true);
-  const [nbBoxes, setNbBoxes] = useState(10);
+  const [nbBoxes, setNbBoxes] = useState(100);
   return (
     <>
       <Canvas camera={{ position: [0, 2, 10], fov: 42 }}>
@@ -26,9 +26,10 @@ function App() {
               setNbBoxes(nbBoxes / 2);
               console.log("Perfoamnce Monitor (Declined)");
             }}
+            flipflops={3}
           />
 
-          <Experience />
+          <Experience nbBoxes={nbBoxes} />
         </group>
         <Environment preset="sunset" />
         {effect && <Effects />}

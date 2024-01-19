@@ -21,8 +21,8 @@ const Box = ({ scale, position, color, speed }) => {
   return <Instance ref={ref} position={position} scale={scale} color={color} />;
 };
 
-export const Experience = () => {
-  const boxes = Array.from({ length: 1000 }, () => ({
+export const Experience = ({ nbBoxes }) => {
+  const boxes = Array.from({ length: nbBoxes }, () => ({
     position: [
       THREE.MathUtils.randFloat(2, 20) *
         (THREE.MathUtils.randInt(0, 1) ? -1 : 1),

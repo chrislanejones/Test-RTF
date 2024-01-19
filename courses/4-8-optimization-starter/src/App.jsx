@@ -2,8 +2,11 @@ import { Environment, PerformanceMonitor } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Effects } from "./components/Effects";
 import { Experience } from "./components/Experience";
+import { useState } from "react";
 
 function App() {
+  const [effect, setEffect] = useState(true);
+  const [nbBoxes, setNbBoxes] = useState(10);
   return (
     <>
       <Canvas camera={{ position: [0, 2, 10], fov: 42 }}>
@@ -19,6 +22,8 @@ function App() {
               console.log("Perfoamnce Monitor (Inclined)");
             }}
             onDecline={() => {
+              setEffect(false);
+              setNbBoxes(nbBoxes / 2);
               console.log("Perfoamnce Monitor (Declined)");
             }}
           />
@@ -26,7 +31,7 @@ function App() {
           <Experience />
         </group>
         <Environment preset="sunset" />
-        <Effects />
+        {effect && <Effects />}
       </Canvas>
     </>
   );

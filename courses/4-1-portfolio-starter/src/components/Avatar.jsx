@@ -69,4 +69,4 @@ export function Avatar(props) {
   );
 }
 
-useGLTF.preload("/models/65afac3917afdc08ee4635b1.glb");
+useGLTF.preload("/models/chrislanejones.glb");

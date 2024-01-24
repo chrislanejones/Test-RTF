@@ -1,4 +1,3 @@
-import { MeshStandardMaterial } from "three";
 import { Text3D } from "@react-three/drei";
 
 export const SectionTitle = ({ children, ...props }) => {

@@ -27,7 +27,10 @@ export function Avatar(props) {
 
   const [animation, setAnimations] = useState("Idle");
 
-  useEffect(() => {}, [animations]);
+  useEffect(() => {
+    actions[animation].reset().fadeIn(0.5).play();
+    return () => actions[animation].fadeOut(0.5);
+  }, [animation]);
 
   return (
     <group {...props} dispose={null} ref={group}>

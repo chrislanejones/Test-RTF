@@ -88,6 +88,6 @@ export function Avatar(props) {
   );
 }
 
-useGLTF.preload("/models/chrislanejones.glb");
-useFBX.preload("/animations/clj-idle.fbx");
-useFBX.preload("/animations/clj-strut-walking.fbx");
+useGLTF.preload("/models/646d9dcdc8a5f5bddbfac913.glb");
+useFBX.preload("/animations/idle.fbx");
+useFBX.preload("/animations/walking.fbx");

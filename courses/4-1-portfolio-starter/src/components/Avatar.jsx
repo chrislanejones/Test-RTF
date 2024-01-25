@@ -8,10 +8,8 @@ import { useAnimations, useFBX, useGLTF } from "@react-three/drei";
 
 export function Avatar(props) {
   const { nodes, materials } = useGLTF("/models/chrislanejones.glb");
-  const { animations: idleAnimation } = useFBX("/animations/clj-idle.fbx");
-  const { animations: walkingAnimation } = useFBX(
-    "/animations/clj-strut-walking.fbx"
-  );
+  const { animations: idleAnimation } = useFBX("/animations/idle.fbx");
+  const { animations: walkingAnimation } = useFBX("/animations/walking.fbx");
 
   const group = useRef();
   idleAnimation[0].name = "Idle";

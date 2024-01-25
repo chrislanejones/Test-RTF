@@ -6,9 +6,6 @@ Command: npx gltfjsx@6.2.16 public/models/65afac3917afdc08ee4635b1.glb -o src/co
 import React, { useEffect, useRef, useState } from "react";
 import { useAnimations, useFBX, useGLTF } from "@react-three/drei";
 
-useEffect;
-useState;
-
 export function Avatar(props) {
   const { nodes, materials } = useGLTF("/models/chrislanejones.glb");
   const { animations: idleAnimation } = useFBX("/animations/clj-idle.fbx");

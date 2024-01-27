@@ -3,10 +3,10 @@ import { Avatar } from "./Avatar";
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Center, Float } from "@react-three/drei";
+import * as THREE from "three";
 import { MacBookPro } from "./MacBookPro";
 import { PalmTree } from "./PalmTree";
 import { Star } from "./Star";
-
 import { SectionTitle } from "./SectionTitle";
 
 const SECTIONS_DISTANCE = 10;
@@ -50,9 +50,7 @@ export const Experience = () => {
                 position-z={-3}
                 bevelEnabled
                 bevelThickness={0.3}
-              >
-                {config.home.title}
-              </SectionTitle>
+              ></SectionTitle>
             </Center>
           </Float>
           <Center disableY disableZ>
@@ -63,9 +61,7 @@ export const Experience = () => {
               bevelEnabled
               bevelThickness={0.3}
               rotation-y={Math.PI / 10}
-            >
-              {config.home.subtitle}
-            </SectionTitle>
+            ></SectionTitle>
           </Center>
         </group>
         <group>

@@ -8,6 +8,7 @@ import { MacBookPro } from "./MacBookPro";
 import { PalmTree } from "./PalmTree";
 import { Star } from "./Star";
 import { SectionTitle } from "./SectionTitle";
+import { config } from "../config";
 
 const SECTIONS_DISTANCE = 10;
 
@@ -46,11 +47,28 @@ export const Experience = () => {
             <Center disableY disableZ>
               <SectionTitle
                 size={0.8}
-                position-y={1.6}
+                position-y={2.5}
                 position-z={-3}
+                position-x={-3}
                 bevelEnabled
                 bevelThickness={0.3}
-              ></SectionTitle>
+              >
+                {config.home.title}
+              </SectionTitle>
+            </Center>
+          </Float>
+          <Float floatIntensity={0.6}>
+            <Center disableY disableZ>
+              <SectionTitle
+                size={0.8}
+                position-y={1.5}
+                position-z={-2}
+                position-x={-1}
+                bevelEnabled
+                bevelThickness={0.3}
+              >
+                {config.home.midtitle}
+              </SectionTitle>
             </Center>
           </Float>
           <Center disableY disableZ>
@@ -61,7 +79,9 @@ export const Experience = () => {
               bevelEnabled
               bevelThickness={0.3}
               rotation-y={Math.PI / 10}
-            ></SectionTitle>
+            >
+              {config.home.subtitle}
+            </SectionTitle>
           </Center>
         </group>
         <group>

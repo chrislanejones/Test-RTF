@@ -2,7 +2,9 @@ import { Environment, useScroll } from "@react-three/drei";
 import { Avatar } from "./Avatar";
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
+import { Center, Float } from "@react-three/drei";
 import { SectionTitle } from "./SectionTitle";
+import { Star } from "./Star";
 
 const SECTIONS_DISTANCE = 10;
 
@@ -36,6 +38,8 @@ export const Experience = () => {
         <group position-z={3 * SECTIONS_DISTANCE}>
           <SectionTitle position-x={0.5}>CONTACT</SectionTitle>
         </group>
+        <Star position-z={0} position-y={2.2} scale={0.3} />
+        <Star position-z={0} position-y={2.2} scale={0.3} />
       </group>
     </>
   );

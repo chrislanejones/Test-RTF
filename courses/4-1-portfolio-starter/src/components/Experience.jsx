@@ -1,14 +1,24 @@
-import { Environment, useScroll } from "@react-three/drei";
+import {
+  Environment,
+  useScroll,
+  MeshDistortMaterial,
+  Center,
+  Float,
+  RoundedBox,
+} from "@react-three/drei";
 import { Avatar } from "./Avatar";
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
-import { Center, Float } from "@react-three/drei";
 import * as THREE from "three";
 import { MacBookPro } from "./MacBookPro";
 import { PalmTree } from "./PalmTree";
 import { Star } from "./Star";
 import { SectionTitle } from "./SectionTitle";
+import { BookCase } from "./BookCase";
+import { CouchSmall } from "./CouchSmall";
+import { Lamp } from "./Lamp";
 import { config } from "../config";
+import { Monitor } from "./Monitor";
 
 const SECTIONS_DISTANCE = 10;
 
@@ -89,11 +99,63 @@ export const Experience = () => {
         </group>
         {/* SKILLS */}
         <group position-z={SECTIONS_DISTANCE}>
-          <SectionTitle position-x={0.5}>SKILLS</SectionTitle>
+          <group position-x={-2}>
+            <SectionTitle position-z={1.5} rotation-y={Math.PI / 6}>
+              SKILLS
+            </SectionTitle>
+            <BookCase position-z={-2} />
+            <CouchSmall
+              scale={0.4}
+              position-z={0}
+              position-x={-0.2}
+              rotation-y={Math.PI / 3}
+            />
+            <Lamp
+              position-z={0.6}
+              position-x={-0.4}
+              position-y={-0.8}
+              rotation-y={-Math.PI}
+            />
+          </group>
+          <mesh position-y={2} position-z={-4} position-x={2}>
+            <sphereGeometry args={[1, 64, 64]} />
+            <MeshDistortMaterial
+              opacity={0.8}
+              transparent
+              distort={1}
+              speed={5}
+              color="yellow"
+            />
+          </mesh>
         </group>
         {/* PROJECTS */}
         <group position-z={2 * SECTIONS_DISTANCE}>
-          <SectionTitle position-x={0.5}>PROJECTS</SectionTitle>
+          <group position-x={1}>
+            <SectionTitle
+              position-x={-0.5}
+              position-z={0}
+              rotation-y={-Math.PI / 6}
+            >
+              PROJECTS
+            </SectionTitle>
+
+            <group
+              position-x={0.5}
+              position-z={0}
+              rotation-y={-Math.PI / 6}
+              scale={0.8}
+            >
+              <Monitor
+                scale={0.02}
+                position-y={1}
+                rotation-y={-Math.PI / 2}
+                position-z={-1}
+              />
+              <RoundedBox scale-x={2} position-y={0.5} position-z={-1}>
+                <meshStandardMaterial color="white" />
+              </RoundedBox>
+            </group>
+          </group>
         </group>
         {/* CONTACT */}
         <group position-z={3 * SECTIONS_DISTANCE}>

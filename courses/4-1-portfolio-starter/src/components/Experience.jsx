@@ -122,7 +122,7 @@ export const Experience = () => {
           </Center>
         </motion.group>
         <group>
-          <SectionTitle position-x={0.5}>HOME</SectionTitle>
+          <SectionTitle position-x={0.5}></SectionTitle>
         </group>
         {/* SKILLS */}
         <motion.group

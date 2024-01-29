@@ -10,6 +10,7 @@ import { Avatar } from "./Avatar";
 import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { motion } from "framer-motion-3d";
 import { MacBookPro } from "./MacBookPro";
 import { PalmTree } from "./PalmTree";
 import { Star } from "./Star";
@@ -40,13 +41,12 @@ export const Experience = () => {
       config.sections[Math.round(scrollData.offset * (scrollData.pages - 1))]
     );
   });
-  console.log(section);
 
   return (
     <>
       <Environment preset="sunset" />
       <Avatar />
-      <group ref={sceneContainer}>
+      <motion.group ref={sceneContainer} animate={section}>
         {/* HOME */}
         <group>
           <Star position-z={0} position-y={2.2} scale={0.3} />
@@ -213,7 +213,7 @@ export const Experience = () => {
             />
           </Float>
         </group>
-      </group>
+      </motion.group>
     </>
   );
 };

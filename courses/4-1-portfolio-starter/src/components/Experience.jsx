@@ -48,7 +48,14 @@ export const Experience = () => {
       <Avatar />
       <motion.group ref={sceneContainer} animate={section}>
         {/* HOME */}
-        <group>
+        <motion.group
+          position-y={-5}
+          variants={{
+            home: {
+              y: 0,
+            },
+          }}
+        >
           <Star position-z={0} position-y={2.2} scale={0.3} />
           <Float floatIntensity={2} speed={2}>
             <MacBookPro
@@ -104,12 +111,20 @@ export const Experience = () => {
               {config.home.subtitle}
             </SectionTitle>
           </Center>
-        </group>
+        </motion.group>
         <group>
           <SectionTitle position-x={0.5}>HOME</SectionTitle>
         </group>
         {/* SKILLS */}
-        <group position-z={SECTIONS_DISTANCE}>
+        <motion.group
+          position-z={SECTIONS_DISTANCE}
+          position-y={-5}
+          variants={{
+            skills: {
+              y: 0,
+            },
+          }}
+        >
           <group position-x={-2}>
             <SectionTitle position-z={1.5} rotation-y={Math.PI / 6}>
               SKILLS
@@ -138,9 +153,17 @@ export const Experience = () => {
               color="yellow"
             />
           </mesh>
-        </group>
+        </motion.group>
         {/* PROJECTS */}
-        <group position-z={2 * SECTIONS_DISTANCE}>
+        <motion.group
+          position-z={2 * SECTIONS_DISTANCE}
+          position-y={-5}
+          variants={{
+            projects: {
+              y: 0,
+            },
+          }}
+        >
           <group position-x={1}>
             <SectionTitle
               position-x={-0.5}
@@ -167,9 +190,17 @@ export const Experience = () => {
               </RoundedBox>
             </group>
           </group>
-        </group>
+        </motion.group>
         {/* CONTACT */}
-        <group position-z={3 * SECTIONS_DISTANCE}>
+        <motion.group
+          position-z={3 * SECTIONS_DISTANCE}
+          position-y={-5}
+          variants={{
+            contact: {
+              y: 0,
+            },
+          }}
+        >
           <SectionTitle position-x={-2} position-z={0.6}>
             CONTACT
           </SectionTitle>
@@ -212,7 +243,7 @@ export const Experience = () => {
               scale={0.3}
             />
           </Float>
-        </group>
+        </motion.group>
       </motion.group>
     </>
   );

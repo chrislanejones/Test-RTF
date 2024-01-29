@@ -19,6 +19,9 @@ import { CouchSmall } from "./CouchSmall";
 import { Lamp } from "./Lamp";
 import { config } from "../config";
 import { Monitor } from "./Monitor";
+import { Balloon } from "./Balloon";
+
+import { ParkBench } from "./ParkBench";
 
 const SECTIONS_DISTANCE = 10;
 
@@ -159,7 +162,32 @@ export const Experience = () => {
         </group>
         {/* CONTACT */}
         <group position-z={3 * SECTIONS_DISTANCE}>
-          <SectionTitle position-x={0.5}>CONTACT</SectionTitle>
+          <SectionTitle position-x={-2} position-z={0.6}>
+            CONTACT
+          </SectionTitle>
+          <group position-x={-2}>
+            <ParkBench
+              scale={0.5}
+              position-x={-0.5}
+              position-z={-2.5}
+              rotation-y={-Math.PI / 4}
+            />
+            <group position-y={2.2} position-z={-0.5}>
+              <Float floatIntensity={2} rotationIntensity={1.5}>
+                <Balloon scale={1.5} position-x={-0.5} color="#71a2d9" />
+              </Float>
+              <Float
+                floatIntensity={1.5}
+                rotationIntensity={2}
+                position-z={0.5}
+              >
+                <Balloon scale={1.3} color="#d97183" />
+              </Float>
+              <Float speed={2} rotationIntensity={2}>
+                <Balloon scale={1.6} position-x={0.4} color="yellow" />
+              </Float>
+            </group>
+          </group>
         </group>
       </group>
     </>

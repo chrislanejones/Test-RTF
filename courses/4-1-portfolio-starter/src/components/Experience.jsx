@@ -22,6 +22,7 @@ import { Balloon } from "./Balloon";
 import { Mailbox } from "./Mailbox";
 import { ParkBench } from "./ParkBench";
 import { Pigeon } from "./Pigeon";
+import { Monitor } from "./Monitor";
 
 const SECTIONS_DISTANCE = 10;
 

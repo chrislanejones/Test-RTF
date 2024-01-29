@@ -18,10 +18,10 @@ import { BookCase } from "./BookCase";
 import { CouchSmall } from "./CouchSmall";
 import { Lamp } from "./Lamp";
 import { config } from "../config";
-import { Monitor } from "./Monitor";
 import { Balloon } from "./Balloon";
-
+import { Mailbox } from "./Mailbox";
 import { ParkBench } from "./ParkBench";
+import { Pigeon } from "./Pigeon";
 
 const SECTIONS_DISTANCE = 10;
 
@@ -188,6 +188,22 @@ export const Experience = () => {
               </Float>
             </group>
           </group>
+
+          <Mailbox
+            scale={0.25}
+            rotation-y={1.25 * Math.PI}
+            position-x={1}
+            position-y={0.25}
+            position-z={0.5}
+          />
+          <Float floatIntensity={1.5} speed={3}>
+            <Pigeon
+              position-x={2}
+              position-y={1.5}
+              position-z={-0.5}
+              scale={0.3}
+            />
+          </Float>
         </group>
       </group>
     </>

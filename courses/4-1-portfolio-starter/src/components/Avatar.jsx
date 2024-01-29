@@ -11,9 +11,7 @@ import { lerp } from "three/src/math/MathUtils";
 export function Avatar(props) {
   const { nodes, materials } = useGLTF("/models/chrislanejones.glb");
   const { animations: idleAnimation } = useFBX("/animations/clj-idle.fbx");
-  const { animations: walkingAnimation } = useFBX(
-    "/animations/clj-walking.fbx"
-  );
+  const { animations: walkingAnimation } = useFBX("/animations/Walking.fbx");
 
   idleAnimation[0].name = "Idle";
   walkingAnimation[0].name = "Walking";
@@ -120,4 +118,4 @@ export function Avatar(props) {
 
 useGLTF.preload("/models/646d9dcdc8a5f5bddbfac913.glb");
 useFBX.preload("/animations/clj-idle.fbx");
-useFBX.preload("/animations/clj-walking.fbx");
+useFBX.preload("/animations/Walking.fbx");

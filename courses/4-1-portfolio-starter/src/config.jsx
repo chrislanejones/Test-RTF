@@ -5,4 +5,7 @@ export const config = {
     midtitle: "Lane",
     subtitle: "Jones",
   },
+  contact: {
+    mail: "chrilanejones@gmail.com",
+  },
 };

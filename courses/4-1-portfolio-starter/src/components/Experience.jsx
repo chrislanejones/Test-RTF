@@ -7,7 +7,7 @@ import {
   RoundedBox,
 } from "@react-three/drei";
 import { Avatar } from "./Avatar";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { MacBookPro } from "./MacBookPro";
@@ -27,13 +27,20 @@ import { Monitor } from "./Monitor";
 const SECTIONS_DISTANCE = 10;
 
 export const Experience = () => {
+  const [section, setSection] = useState(config.sections[0]);
+
   const sceneContainer = useRef();
   const scrollData = useScroll();
 
   useFrame(() => {
     sceneContainer.current.position.z =
       -scrollData.offset * SECTIONS_DISTANCE * (scrollData.pages - 1);
+
+    setSection(
+      config.sections[Math.round(scrollData.offset * (scrollData.pages - 1))]
+    );
   });
+  console.log(section);
 
   return (
     <>

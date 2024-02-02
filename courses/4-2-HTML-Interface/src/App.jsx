@@ -3,6 +3,7 @@ import { Experience } from "./components/Experience";
 import { ScrollControls } from "@react-three/drei";
 import { config } from "./config";
 import { MotionConfig } from "framer-motion";
+import { Interface } from "./components/Interface";
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
               <Experience />
             </group>
           </MotionConfig>
+          <Scroll html>
+            <Interface />
+          </Scroll>
         </ScrollControls>
       </Canvas>
     </>

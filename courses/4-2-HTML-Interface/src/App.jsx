@@ -22,7 +22,9 @@ function App() {
             </group>
           </MotionConfig>
           <Scroll html>
-            <Interface />
+            <MotionConfig transition={{ duration: 1 }}>
+              <Interface />
+            </MotionConfig>
           </Scroll>
         </ScrollControls>
       </Canvas>

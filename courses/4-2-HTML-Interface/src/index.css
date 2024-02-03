@@ -71,3 +71,38 @@ body {
   border-radius: 2px;
   margin-top: 4px;
 }
+
+/* SKILLS SECTION */
+
+.skills {
+  padding: 1rem;
+}
+
+.skill {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  width: 320px;
+  max-width: 100%;
+}
+
+.skill__label {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.skill__label__image {
+  height: 32px;
+  width: 32px;
+}
+
+.skill__label__name {
+  color: var(--text-color);
+  font-weight: bold;
+  font-size: 1.25rem;
+  margin: 0;
+}

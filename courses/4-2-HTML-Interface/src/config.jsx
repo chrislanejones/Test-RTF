@@ -23,7 +23,7 @@ export const config = {
     },
     {
       name: "Blender",
-      icon: "icons/blender.png",
+      icon: "icons/blender-3d.png",
       level: 50,
     },
   ],

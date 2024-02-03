@@ -106,3 +106,17 @@ body {
   font-size: 1.25rem;
   margin: 0;
 }
+
+.skill__level {
+  background: #000;
+  height: 8px;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.skill__level__bar {
+  background: var(--primary-color);
+  height: 100%;
+  border-radius: 8px;
+  width: 0px;
+}

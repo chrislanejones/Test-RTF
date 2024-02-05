@@ -27,6 +27,32 @@ export const config = {
       level: 50,
     },
   ],
+  projects: [
+    {
+      name: "Dissolve tutorial",
+      description: "Create a dissolve effect with React Three Fiber",
+      image: "projects/project1.jpg",
+      link: "https://www.youtube.com/watch?v=ma9t7HAOZRg",
+    },
+    {
+      name: "Transition effect",
+      description: "Shader based transition effect",
+      image: "projects/project2.jpg",
+      link: "https://www.youtube.com/watch?v=SOF7GBmC6gE",
+    },
+    {
+      name: "Portals",
+      description: "Create portals with React Three Fiber",
+      image: "projects/project3.jpg",
+      link: "https://www.youtube.com/watch?v=2W_VR92Pqgs",
+    },
+    {
+      name: "3D Portfolio",
+      description: "Learn how to build a 3D portfolio",
+      image: "projects/project4.jpg",
+      link: "https://www.youtube.com/watch?v=pGMKIyALcK0",
+    },
+  ],
   contact: {
     mail: "chrilanejones@gmail.com",
   },

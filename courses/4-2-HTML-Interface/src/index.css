@@ -120,3 +120,51 @@ body {
   border-radius: 8px;
   width: 0px;
 }
+
+/* PROJECTS */
+
+.projects {
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 220px);
+  width: 500px;
+  max-width: 100%;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.project {
+  background: rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+  border-radius: 8px;
+  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+.project:hover {
+  background: white;
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.project__image {
+  width: 100%;
+  object-fit: cover;
+}
+
+.project__details {
+  padding: 0.5rem;
+}
+
+.project__details__name {
+  color: var(--text-color);
+  font-weight: bold;
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.project__details__description {
+  color: var(--text-light-color);
+  font-size: 1rem;
+  margin: 0;
+}

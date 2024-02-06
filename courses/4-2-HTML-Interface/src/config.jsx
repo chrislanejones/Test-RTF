@@ -54,6 +54,12 @@ export const config = {
     },
   ],
   contact: {
-    mail: "chrilanejones@gmail.com",
+    name: "Chris Lane Jones",
+    address: "Richmond, Virginia",
+    socials: {
+      linkedin: "https://www.linkedin.com/in/chrislanejones/",
+      X: "https://x.com/cljwebdev",
+    },
+    mail: "chrislanejones@gmail.com",
   },
 };

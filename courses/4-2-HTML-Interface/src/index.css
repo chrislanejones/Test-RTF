@@ -168,3 +168,38 @@ body {
   font-size: 1rem;
   margin: 0;
 }
+
+/* CONTACT */
+
+.contact {
+  margin: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  border-radius: 8px;
+  min-width: 280px;
+}
+
+.contact__name {
+  color: var(--text-color);
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.contact__address {
+  color: var(--text-light-color);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.contact__socials {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.contact__socials__icon {
+  height: 32px;
+  width: 32px;
+}

@@ -111,6 +111,7 @@ export const Interface = () => {
             initial={{
               opacity: 0,
             }}
+            onMouseEnter={() => setProject(project)}
             variants={{
               visible: {
                 opacity: 1,

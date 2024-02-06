@@ -4,9 +4,9 @@ import { useTexture } from "@react-three/drei";
 import { config } from "../config";
 
 export const MonitorScreen = ({ ...props }) => {
-  const [project] = useAtom[projectAtom];
-
+  const [project] = useAtom(projectAtom);
   const projectTexture = useTexture(project.image);
+
   return (
     <group {...props}>
       <mesh>
@@ -17,6 +17,6 @@ export const MonitorScreen = ({ ...props }) => {
   );
 };
 
-config.projects.foreach(() => {
+config.projects.forEach((project) => {
   useTexture.preload(project.image);
 });

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { config } from "../config";
 import { atom, useAtom } from "jotai";
 
-export const projectAtom = atom(config.projects(0));
+export const projectAtom = atom(config.projects[0]);
 
 export const Interface = () => {
   const [hasScrolled, SetHasScrolled] = useState(false);
@@ -111,7 +111,6 @@ export const Interface = () => {
             initial={{
               opacity: 0,
             }}
-            onMouseEnter={() => setProject(project)}
             variants={{
               visible: {
                 opacity: 1,
@@ -120,6 +119,7 @@ export const Interface = () => {
           >
             {config.projects.map((project, idx) => (
               <motion.div
+                onMouseEnter={() => setProject(project)}
                 key={project.name}
                 className="project"
                 initial={{ opacity: 0 }}

@@ -3,10 +3,14 @@ import { useFrame } from "@react-three/fiber";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { config } from "../config";
+import { atom, useAtom } from "jotai";
+
+export const projectAtom = atom(config.projects(0));
 
 export const Interface = () => {
   const [hasScrolled, SetHasScrolled] = useState(false);
   const scrollData = useScroll();
+  const [_project, setProject] = useAtom(projectAtom);
 
   useFrame(() => {
     SetHasScrolled(scrollData.offset > 0);

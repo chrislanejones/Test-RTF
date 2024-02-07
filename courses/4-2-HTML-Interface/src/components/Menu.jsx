@@ -1,7 +1,7 @@
 export const Menu = () => {
   return (
     <div className="menu">
-      <img className="menu__logo" src="logo.png" alt="logo" />
+      <img className="menu__logo" src="logo.svg" />
       <div className="menu__buttons">
         <a className="menu__button" href="#home">
           Home

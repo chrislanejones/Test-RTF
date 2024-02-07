@@ -203,3 +203,40 @@ body {
   height: 32px;
   width: 32px;
 }
+
+/* MENU */
+
+.menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  position: fixed;
+  top: 0;
+  left: 4rem;
+  right: 4rem;
+  background: #f5f3ef8a;
+  backdrop-filter: blur(8px);
+}
+
+.menu__logo {
+  height: 42px;
+  width: 120px;
+  object-fit: contain;
+}
+
+.menu__buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.menu__button {
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.menu__button:hover {
+  color: var(--primary-color);
+  cursor: pointer;
+}

@@ -30,26 +30,6 @@ import { MonitorScreen } from "./MonitorScreen";
 const SECTIONS_DISTANCE = 10;
 
 export const Experience = () => {
-  useEffect(() => {
-    const handleHashChange = () => {
-      const sectionIndex = config.sections.indexOf(
-        window.location.hash.replace("#", "")
-      );
-      if (sectionIndex !== -1) {
-        scrollData.el.scrollTo(
-          0,
-          (sectionIndex / (config.sections.length - 1)) *
-            (scrollData.el.scrollHeight - scrollData.el.clientHeight)
-        );
-      }
-    };
-    window.addEventListener("hashchange", handleHashChange);
-    handleHashChange();
-    return () => window.removeEventListener("hashchange", handleHashChange);
-  }, []);
-  // ...
-};
-
   const [section, setSection] = useState(config.sections[0]);
 
   const sceneContainer = useRef();
@@ -63,6 +43,24 @@ export const Experience = () => {
       config.sections[Math.round(scrollData.offset * (scrollData.pages - 1))]
     );
   });
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const sectionIndex = config.sections.indexOf(
+        window.location.hash.replace("#", "")
+      );
+      if (sectionIndex >= 0) {
+        scrollData.el.scrollTo(
+          0,
+          (sectionIndex / (config.sections.length - 1)) *
+            (scrollData.el.scrollHeight - scrollData.el.clientHeight)
+        );
+      }
+    };
+    window.addEventListener("hashchange", handleHashChange);
+    handleHashChange();
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
 
   return (
     <>

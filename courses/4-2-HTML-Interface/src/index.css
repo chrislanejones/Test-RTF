@@ -215,7 +215,7 @@ body {
   top: 0;
   left: 4rem;
   right: 4rem;
-  background: #f5f3ef8a;
+  background: rgb(51, 91, 100, 0.1);
   backdrop-filter: blur(8px);
 }
 
@@ -238,11 +238,69 @@ body {
 }
 
 .menu__button {
-  font-weight: bold;
+  font-weight: 700;
   color: var(--text-color);
+  font-size: 1.5rem;
 }
 
 .menu__button:hover {
   color: var(--primary-color);
   cursor: pointer;
+}
+
+/* LOADING SCREEN */
+
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 4rem;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  background-color: #b8c6db;
+  background-image: linear-gradient(0deg, #b8c6db 0%, #f5f7fa 74%);
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+}
+
+.loading-screen--hidden {
+  animation: fade-out 0.5s ease-in-out forwards 1s;
+  pointer-events: none;
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.loading-screen__title {
+  font-size: 4rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.progress__container {
+  width: 100%;
+  height: 1rem;
+  background-color: rgb(102 106 113 / 42%);
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.progress__bar {
+  width: 0;
+  height: 100%;
+  background-color: var(--text-color);
+  transition: width 0.5s ease-in-out;
 }

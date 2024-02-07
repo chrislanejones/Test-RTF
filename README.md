@@ -4,11 +4,11 @@
 
 ## This is from several courses
 
-### Wawa Sensei - React Three Fiber
+### Wawa Sensei - React Three Fiber (in courses 📁)
 
 Here is a link to the course [Wawa Sensei: React Three Fiber](https://lessons.wawasensei.dev/courses/react-three-fiber/lessons/intro)
 
-### Ball-Site - Three.js Crash Course For Beginners | Create This Awesome 3D Website
+### Three.js Crash Course For Beginners | Create This Awesome 3D Website (in Ball-Site 📁)
 
 Here is a link to the course [3D Ball Site](https://www.youtube.com/watch?v=_OwJV2xL8M8)
 

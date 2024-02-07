@@ -225,6 +225,12 @@ body {
   object-fit: contain;
 }
 
+.menu__logo svg {
+  background-color: #000;
+  -webkit-mask-image: url(logo.svg);
+  mask-image: url(logo.svg);
+}
+
 .menu__buttons {
   display: flex;
   gap: 1rem;

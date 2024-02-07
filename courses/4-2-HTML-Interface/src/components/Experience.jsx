@@ -8,7 +8,7 @@ import {
   ContactShadows,
 } from "@react-three/drei";
 import { Avatar } from "./Avatar";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { motion } from "framer-motion-3d";
@@ -43,8 +43,12 @@ export const Experience = () => {
         );
       }
     };
-
-
+    window.addEventListener("hashchange", handleHashChange);
+    handleHashChange();
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
+  // ...
+};
 
   const [section, setSection] = useState(config.sections[0]);
 

@@ -96,9 +96,9 @@ export const Experience = () => {
           <Star position-z={isMobile ? -5 : 0} position-y={2.2} scale={0.3} />
           <Float floatIntensity={2} speed={2}>
             <MacBookPro
-              position-x={-1}
-              position-y={0.5}
-              position-z={0}
+              position-x={isMobile ? -0.5 : -1}
+              position-y={isMobile ? 1 : 0.5}
+              position-z={isMobile ? -2 : 0}
               scale={0.3}
               rotation-y={Math.PI / 4}
             />
@@ -113,7 +113,7 @@ export const Experience = () => {
               <Center disableY disableZ>
                 <SectionTitle
                   size={0.8}
-                  position-y={2.5}
+                  position-y={isMobile ? 2.2 : 2.5}
                   position-z={-3}
                   position-x={-3}
                   bevelEnabled
@@ -127,7 +127,7 @@ export const Experience = () => {
               <Center disableY disableZ>
                 <SectionTitle
                   size={0.8}
-                  position-y={1.5}
+                  position-y={isMobile ? 1.5 : 1.5}
                   position-z={-2}
                   position-x={-1}
                   bevelEnabled
@@ -140,7 +140,7 @@ export const Experience = () => {
             <Center disableY disableZ>
               <SectionTitle
                 size={1.2}
-                position-x={-2.6}
+                position-x={isMobile ? -4 : -2.6}
                 position-z={-3}
                 bevelEnabled
                 bevelThickness={0.3}

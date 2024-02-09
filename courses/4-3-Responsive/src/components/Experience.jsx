@@ -39,16 +39,39 @@ export const Experience = () => {
 
   useFrame(() => {
     if (isMobile) {
-      sceneContainer.current.position.z =
+      sceneContainer.current.position.x =
         -scrollData.offset * SECTIONS_DISTANCE * (scrollData.pages - 1);
+      sceneContainer.current.position.z = 0;
     } else {
       sceneContainer.current.position.z =
         -scrollData.offset * SECTIONS_DISTANCE * (scrollData.pages - 1);
+      sceneContainer.current.position.x = 0;
     }
 
     setSection(
       config.sections[Math.round(scrollData.offset * (scrollData.pages - 1))]
     );
+  });
+
+  useFrame(() => {
+    const scrollDelta = scrollData.offset - lastScroll.current;
+    let rotationTarget = 0;
+    if (Math.abs(scrollDelta) > 0.00001) {
+      setAnimation("Walking");
+      if (scrollDelta > 0) {
+        rotationTarget = isMobile ? Math.PI / 2 : 0;
+      } else {
+        rotationTarget = isMobile ? -Math.PI / 2 : Math.PI;
+      }
+    } else {
+      setAnimation("Idle");
+    }
+    group.current.rotation.y = THREE.MathUtils.lerp(
+      group.current.rotation.y,
+      rotationTarget,
+      0.1
+    );
+    lastScroll.current = scrollData.offset;
   });
 
   useEffect(() => {

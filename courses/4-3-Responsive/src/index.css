@@ -357,6 +357,12 @@ body {
     gap: 0.5rem;
   }
 
+  .menu__button {
+    font-weight: 700;
+    color: var(--text-color);
+    font-size: 1rem;
+  }
+
   .loading-screen__title {
     font-size: 2rem;
   }

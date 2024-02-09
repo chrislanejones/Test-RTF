@@ -28,7 +28,6 @@ import { Monitor } from "./Monitor";
 import { MonitorScreen } from "./MonitorScreen";
 import { useMobile } from "../hooks/useMobile";
 
-
 const SECTIONS_DISTANCE = 10;
 
 export const Experience = () => {
@@ -36,11 +35,16 @@ export const Experience = () => {
 
   const sceneContainer = useRef();
   const scrollData = useScroll();
-    const { isMobile } = useMobile();
+  const { isMobile } = useMobile();
 
   useFrame(() => {
-    sceneContainer.current.position.z =
-      -scrollData.offset * SECTIONS_DISTANCE * (scrollData.pages - 1);
+    if (isMobile) {
+      sceneContainer.current.position.z =
+        -scrollData.offset * SECTIONS_DISTANCE * (scrollData.pages - 1);
+    } else {
+      sceneContainer.current.position.z =
+        -scrollData.offset * SECTIONS_DISTANCE * (scrollData.pages - 1);
+    }
 
     setSection(
       config.sections[Math.round(scrollData.offset * (scrollData.pages - 1))]
@@ -148,7 +152,8 @@ export const Experience = () => {
         </group>
         {/* SKILLS */}
         <motion.group
-          position-z={SECTIONS_DISTANCE}
+          position-x={isMobile ? SECTIONS_DISTANCE : 0}
+          position-z={isMobile ? -4 : SECTIONS_DISTANCE}
           position-y={-5}
           variants={{
             skills: {
@@ -187,7 +192,8 @@ export const Experience = () => {
         </motion.group>
         {/* PROJECTS */}
         <motion.group
-          position-z={2 * SECTIONS_DISTANCE}
+          position-x={isMobile ? 2 * SECTIONS_DISTANCE : 0}
+          position-z={isMobile ? -3 : 2 * SECTIONS_DISTANCE}
           position-y={-5}
           variants={{
             projects: {
@@ -229,7 +235,8 @@ export const Experience = () => {
         </motion.group>
         {/* CONTACT */}
         <motion.group
-          position-z={3 * SECTIONS_DISTANCE}
+          position-x={isMobile ? 3 * SECTIONS_DISTANCE : 0}
+          position-z={isMobile ? -4 : 3 * SECTIONS_DISTANCE}
           position-y={-5}
           variants={{
             contact: {

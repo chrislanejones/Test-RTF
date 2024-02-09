@@ -165,7 +165,7 @@ export const Experience = () => {
             },
           }}
         >
-          <group position-x={-2}>
+          <group position-x={isMobile ? 0 : -2}>
             <SectionTitle position-z={1.5} rotation-y={Math.PI / 6}>
               SKILLS
             </SectionTitle>
@@ -205,7 +205,7 @@ export const Experience = () => {
             },
           }}
         >
-          <group position-x={1}>
+          <group position-x={isMobile ? -0.25 : 1}>
             <SectionTitle
               position-x={-0.5}
               position-z={0}
@@ -248,10 +248,13 @@ export const Experience = () => {
             },
           }}
         >
-          <SectionTitle position-x={-2} position-z={0.6}>
+          <SectionTitle
+            position-x={isMobile ? -1.1 : -2 * scaleFactor}
+            position-z={0.6}
+          >
             CONTACT
           </SectionTitle>
-          <group position-x={-2}>
+          <group position-x={-2 * scaleFactor}>
             <ParkBench
               scale={0.5}
               position-x={-0.5}
@@ -284,8 +287,8 @@ export const Experience = () => {
           />
           <Float floatIntensity={1.5} speed={3}>
             <Pigeon
-              position-x={2}
-              position-y={1.5}
+              position-x={isMobile ? 0 : 2}
+              position-y={isMobile ? 2.2 : 1.5}
               position-z={-0.5}
               scale={0.3}
             />

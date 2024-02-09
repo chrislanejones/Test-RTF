@@ -6,9 +6,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { useAnimations, useFBX, useGLTF, useScroll } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import * as Three from "three";
-import { lerp } from "three/src/math/MathUtils";
+import { useMobile } from "../hooks/useMobile";
 
 export function Avatar(props) {
+  const { isMobile } = useMobile();
   const { nodes, materials } = useGLTF("/models/chrislanejones.glb");
   const { animations: idleAnimation } = useFBX("/animations/clj-idle.fbx");
   const { animations: walkingAnimation } = useFBX("/animations/Walking.fbx");
@@ -37,9 +38,9 @@ export function Avatar(props) {
     if (Math.abs(scrollDelta) > 0.00001) {
       setAnimation("Walking");
       if (scrollDelta > 0) {
-        rotationTarget = 0;
+        rotationTarget = isMobile ? Math.PI / 3 : 0;
       } else {
-        rotationTarget = Math.PI;
+        rotationTarget = isMobile ? -Math.PI / 2 : Math.PI;
       }
     } else {
       setAnimation("Idle");

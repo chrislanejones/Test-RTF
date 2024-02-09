@@ -304,3 +304,60 @@ body {
   background-color: var(--text-color);
   transition: width 0.5s ease-in-out;
 }
+
+/* RESPONSIVE */
+
+@media (max-width: 990px) {
+  .mobile--section--top {
+    align-items: flex-start;
+  }
+
+  .mobile--section--bottom {
+    align-items: flex-end;
+  }
+
+  .mobile--section--right {
+    justify-content: flex-end;
+  }
+
+  .mobile--section--left {
+    justify-content: flex-start;
+  }
+
+  .skills {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    width: 100%;
+  }
+
+  .skill {
+    padding: 0.5rem;
+    min-width: 220px;
+    margin: 0;
+  }
+
+  .projects {
+    display: flex;
+    justify-content: flex-start;
+    overflow-x: auto;
+    width: 100%;
+  }
+
+  .project {
+    min-width: 220px;
+  }
+
+  .contact {
+    width: 100%;
+  }
+
+  .menu {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .loading-screen__title {
+    font-size: 2rem;
+  }
+}

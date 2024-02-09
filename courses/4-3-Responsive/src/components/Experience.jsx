@@ -31,11 +31,11 @@ import { useMobile } from "../hooks/useMobile";
 const SECTIONS_DISTANCE = 10;
 
 export const Experience = () => {
+  const { isMobile, scaleFactor } = useMobile();
   const [section, setSection] = useState(config.sections[0]);
 
   const sceneContainer = useRef();
   const scrollData = useScroll();
-  const { isMobile } = useMobile();
 
   useFrame(() => {
     if (isMobile) {
@@ -74,7 +74,7 @@ export const Experience = () => {
   return (
     <>
       <Environment preset="sunset" />
-      <Avatar />
+      <Avatar position-z={isMobile ? -5 : 0} />
 
       {/* SHADOWS & FLOOR */}
       <ContactShadows opacity={0.5} scale={[30, 30]} color="#9c8e66" />
@@ -93,7 +93,7 @@ export const Experience = () => {
             },
           }}
         >
-          <Star position-z={0} position-y={2.2} scale={0.3} />
+          <Star position-z={isMobile ? -5 : 0} position-y={2.2} scale={0.3} />
           <Float floatIntensity={2} speed={2}>
             <MacBookPro
               position-x={-1}
@@ -106,48 +106,50 @@ export const Experience = () => {
           <PalmTree
             scale={0.018}
             rotation-y={THREE.MathUtils.degToRad(140)}
-            position={[4, 0, -5]}
+            position={isMobile ? [1, 0, -4] : [4 * scaleFactor, 0, -5]}
           />
-          <Float floatIntensity={0.6}>
+          <group scale={isMobile ? 0.3 : 1}>
+            <Float floatIntensity={0.6}>
+              <Center disableY disableZ>
+                <SectionTitle
+                  size={0.8}
+                  position-y={2.5}
+                  position-z={-3}
+                  position-x={-3}
+                  bevelEnabled
+                  bevelThickness={0.3}
+                >
+                  {config.home.title}
+                </SectionTitle>
+              </Center>
+            </Float>
+            <Float floatIntensity={0.6}>
+              <Center disableY disableZ>
+                <SectionTitle
+                  size={0.8}
+                  position-y={1.5}
+                  position-z={-2}
+                  position-x={-1}
+                  bevelEnabled
+                  bevelThickness={0.3}
+                >
+                  {config.home.midtitle}
+                </SectionTitle>
+              </Center>
+            </Float>
             <Center disableY disableZ>
               <SectionTitle
-                size={0.8}
-                position-y={2.5}
+                size={1.2}
+                position-x={-2.6}
                 position-z={-3}
-                position-x={-3}
                 bevelEnabled
                 bevelThickness={0.3}
+                rotation-y={Math.PI / 10}
               >
-                {config.home.title}
+                {config.home.subtitle}
               </SectionTitle>
             </Center>
-          </Float>
-          <Float floatIntensity={0.6}>
-            <Center disableY disableZ>
-              <SectionTitle
-                size={0.8}
-                position-y={1.5}
-                position-z={-2}
-                position-x={-1}
-                bevelEnabled
-                bevelThickness={0.3}
-              >
-                {config.home.midtitle}
-              </SectionTitle>
-            </Center>
-          </Float>
-          <Center disableY disableZ>
-            <SectionTitle
-              size={1.2}
-              position-x={-2.6}
-              position-z={-3}
-              bevelEnabled
-              bevelThickness={0.3}
-              rotation-y={Math.PI / 10}
-            >
-              {config.home.subtitle}
-            </SectionTitle>
-          </Center>
+          </group>
         </motion.group>
         <group>
           <SectionTitle position-x={0.5}></SectionTitle>

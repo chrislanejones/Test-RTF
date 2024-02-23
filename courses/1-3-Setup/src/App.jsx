@@ -2,7 +2,7 @@ import { Canvas } from "@react-three/fiber";
 
 const App = () => {
   return (
-    <Canvas>
+    <Canvas camera={{ position: [3, 3, 3] }}>
       <mesh>
         <boxGeometry />
         <meshNormalMaterial />

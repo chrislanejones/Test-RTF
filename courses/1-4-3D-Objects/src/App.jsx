@@ -1,9 +1,10 @@
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
+import * as THREE from "three";
 
 function App() {
   return (
-    <Canvas camera={{ position: [0, 3, 3] }} style={{ background: "#5aa38b" }}>
+    <Canvas camera={{ position: [0, 5, 3] }} style={{ background: "#20222B" }}>
       <OrbitControls />
       <mesh position={[0, 0, 0]}>
         <boxGeometry args={[1, 1, 1]} />
@@ -24,6 +25,21 @@ function App() {
       <mesh position={[0, 0, 2]}>
         <boxGeometry args={[1, 1, 1]} />
         <meshStandardMaterial color="green" />
+      </mesh>
+      <mesh position={[0, 3, 0]}>
+        <torusKnotGeometry args={[1, 0.3, 200, 32]} />
+        <meshToonMaterial color="green" />
+      </mesh>
+      <mesh position={[0, -3, 0]}>
+        <boxGeometry />
+        <meshStandardMaterial
+          color="green"
+          side={THREE.FrontSide} // Optional as it's the default
+        />
+      </mesh>
+      <mesh position={[-2, -3, 0]}>
+        <boxGeometry />
+        <meshStandardMaterial color="green" side={THREE.BackSide} />
       </mesh>
       <ambientLight intensity={0.5} />
       <directionalLight position={[0, 0, 3]} intensity={1} />

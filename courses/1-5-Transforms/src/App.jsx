@@ -8,15 +8,15 @@ function App() {
       <directionalLight position={[0, 3, 5]} intensity={0.5} />
 
       {/* Objects */}
-      <mesh position={[0, 0, -3]} scale={[0.5, 0.5, 0.5]}>
+      <mesh position={[-3, 0, 0]} scale={[0.5, 0.5, 0.5]}>
         <boxGeometry />
         <meshStandardMaterial color="red" />
       </mesh>
-      <mesh position={[0, 0, 0]}>
+      <mesh scale-y={4}>
         <boxGeometry />
         <meshStandardMaterial color="blue" />
       </mesh>
-      <mesh position={[0, 0, 3]}>
+      <mesh position={[3, 0, 0]} scale-z={3}>
         <boxGeometry />
         <meshStandardMaterial color="green" />
       </mesh>

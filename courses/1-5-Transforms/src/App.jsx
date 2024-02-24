@@ -26,18 +26,20 @@ function App() {
         <boxGeometry />
         <meshStandardMaterial color="green" />
       </mesh>
-      <mesh position={[1, -4, 0]}>
-        <boxGeometry />
-        <meshStandardMaterial color="red" />
-      </mesh>
-      <mesh position={[0, -4, 0]}>
-        <boxGeometry />
-        <meshStandardMaterial color="blue" />
-      </mesh>
-      <mesh position={[-1, -4, 0]}>
-        <boxGeometry />
-        <meshStandardMaterial color="green" />
-      </mesh>
+      <group position={[-2, -2, 0]} scale={[1, 1, 1]} rotation-y={Math.PI / 4}>
+        <mesh position={[1, -4, 0]}>
+          <boxGeometry />
+          <meshStandardMaterial color="red" />
+        </mesh>
+        <mesh position={[0, -4, 0]}>
+          <boxGeometry />
+          <meshStandardMaterial color="blue" />
+        </mesh>
+        <mesh position={[-1, -4, 0]}>
+          <boxGeometry />
+          <meshStandardMaterial color="green" />
+        </mesh>
+      </group>
     </Canvas>
   );
 }

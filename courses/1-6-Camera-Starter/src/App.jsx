@@ -5,6 +5,10 @@ import {
 } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { City } from "./components/City";
+import { useControls } from "leva";
+
+const pA = useControls("Camera1", options);
+const pB = useControls("Camera2", options);
 
 function App() {
   return (

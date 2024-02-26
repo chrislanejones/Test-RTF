@@ -10,6 +10,12 @@ import { useControls } from "leva";
 const pA = useControls("Camera1", options);
 const pB = useControls("Camera2", options);
 
+const [ortho, set] = useState(false);
+useEffect(() => {
+  const interval = setInterval(() => set((state) => !state), 1000);
+  return () => clearInterval(interval);
+}, []);
+
 function App() {
   return (
     <Canvas>

@@ -9,7 +9,7 @@ import { City } from "./components/City";
 function App() {
   return (
     <Canvas>
-      <PerspectiveCamera makeDefault position={[3, 3, 3]} near={5} far={8} />
+      <OrthographicCamera makeDefault position={[1, 1, 1]} />
       <OrbitControls />
       {/* IGNORE FOR NOW */}
       <City />

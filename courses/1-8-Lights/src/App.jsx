@@ -1,4 +1,10 @@
-import { OrbitControls, useHelper, Lightformer } from "@react-three/drei";
+import {
+  OrbitControls,
+  Sky,
+  Lightformer,
+  useHelper,
+  SpotLight,
+} from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useControls } from "leva";
 import { useRef } from "react";
@@ -6,20 +12,25 @@ useControls;
 import * as THREE from "three";
 
 const Lights = () => {
+  const ref = useRef();
+  const helper = useHelper(ref, THREE.SpotLightHelper, "red");
+  const { color, distance, attenuation, angle, anglePower } = useControls({
+    color: "#876ae5",
+    distance: 6,
+    attenuation: 2.2,
+    angle: 1,
+    anglePower: 1,
+  });
+
   return (
     <>
-      <hemisphereLight
-        color={"deepskyblue"}
-        groundColor={"sandybrown"}
-        intensity={1}
-      />
-      <Lightformer
-        position={[0, 2, 3]}
-        form="ring" // circle | ring | rect (optional, default = rect)
-        intensity={1} // power level (optional = 1)
-        color="white" // (optional = white)
-        scale={[5, 5]} // Scale it any way you prefer (optional = [1, 1])
-        target={[0, 0, 0]} // Target position (optional = undefined)
+      <SpotLight
+        ref={ref}
+        color={color}
+        distance={distance}
+        angle={angle}
+        attenuation={attenuation}
+        anglePower={anglePower}
       />
     </>
   );
@@ -28,10 +39,8 @@ const Lights = () => {
 function App() {
   return (
     <>
-      <Canvas
-        camera={{ position: [0, 3, 3] }}
-        style={{ background: "DodgerBlue" }}
-      >
+      <Canvas camera={{ position: [0, 3, 3] }}>
+        <Sky distance={45000} sunPosition={[0, 1, 0]} inclination={0} />
         <OrbitControls />
         <Lights />
         <mesh rotation-y={Math.PI / 4}>

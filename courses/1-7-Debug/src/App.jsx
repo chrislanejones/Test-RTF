@@ -1,6 +1,6 @@
-import { Grid, useHelper } from "@react-three/drei";
+import { Grid, useHelper, Stats } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { useControls } from "leva";
+import { Leva, useControls } from "leva";
 import { useRef } from "react";
 import * as THREE from "three";
 
@@ -10,7 +10,7 @@ const Box = () => {
 
   // Leva
 
-  const { position, color } = useControls({
+  const { position, transparent, color } = useControls({
     position: {
       x: 0,
       y: 0,
@@ -23,7 +23,7 @@ const Box = () => {
   return (
     <mesh ref={ref} position={[position.x, position.y, position.z]}>
       <boxGeometry />
-      <meshBasicMaterial color={color} />
+      <meshBasicMaterial color={color} transparent={transparent} />
     </mesh>
   );
 };
@@ -31,6 +31,8 @@ const Box = () => {
 function App() {
   return (
     <>
+      <Leva hidden />
+      <Stats />
       <Canvas camera={{ position: [3, 3, 3] }}>
         <axesHelper />
         {/* <gridHelper args={[10, 10, "green", "blue"]} /> */}

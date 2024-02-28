@@ -1,5 +1,23 @@
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, useHelper } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
+import { useRef } from "react";
+import * as THREE from "three";
+
+const Lights = () => {
+  const ref = useRef();
+  const helper = useHelper(ref, THREE.PointLightHelper, 0.5, "red");
+
+  return (
+    <pointLight
+      ref={ref}
+      position={[1, 1, 0]}
+      intensity={0.5}
+      distance={3}
+      decay={2}
+    />
+  );
+};
+
 function App() {
   return (
     <>
@@ -8,12 +26,7 @@ function App() {
         style={{ background: "DodgerBlue" }}
       >
         <OrbitControls />
-
-        <ambientLight intensity={0.2} />
-        <directionalLight intensity={0.5} position={[3, 3, 3]} color="red" />
-        <directionalLight intensity={0.5} position={[0, 3, -3]} color="green" />
-        <directionalLight intensity={0.5} position={[-3, 3, 3]} color="blue" />
-
+        <Lights />
         <mesh rotation-y={Math.PI / 4}>
           <boxGeometry />
           <meshStandardMaterial color="white" />

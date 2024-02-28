@@ -18,4 +18,4 @@ There is so much you can build with React Three Fiber
 
 ![Mutiple Images of 3D Graphics](https://assets.wawasensei.dev/react-three-fiber/intro/react-three-fiber-ultimate.jpg)
 
-New course coming soon 
+New course coming soon - another github

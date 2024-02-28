@@ -9,11 +9,14 @@ function App() {
       >
         <OrbitControls />
 
-        <ambientLight intensity={0.5} color={"royalblue"} />
+        <ambientLight intensity={0.2} />
+        <directionalLight intensity={0.5} position={[3, 3, 3]} color="red" />
+        <directionalLight intensity={0.5} position={[0, 3, -3]} color="green" />
+        <directionalLight intensity={0.5} position={[-3, 3, 3]} color="blue" />
 
         <mesh rotation-y={Math.PI / 4}>
           <boxGeometry />
-          <meshStandardMaterial color="red" />
+          <meshStandardMaterial color="white" />
         </mesh>
 
         <mesh rotation-x={-Math.PI / 2} position-y={-0.5}>

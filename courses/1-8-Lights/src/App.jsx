@@ -45,12 +45,12 @@ function App() {
         <Lights />
         <mesh rotation-y={Math.PI / 4}>
           <boxGeometry />
-          <meshStandardMaterial color="white" />
+          <meshStandardMaterial color="white" roughness={1} metalness={0} />
         </mesh>
 
         <mesh rotation-x={-Math.PI / 2} position-y={-0.5}>
           <planeGeometry args={[5, 5]} />
-          <meshStandardMaterial color="white" />
+          <meshStandardMaterial color="white" roughness={0.2} metalness={0.8} />
         </mesh>
       </Canvas>
     </>

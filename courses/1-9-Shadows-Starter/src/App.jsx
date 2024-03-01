@@ -1,7 +1,11 @@
-import { OrbitControls } from "@react-three/drei";
+import { BakeShadows, OrbitControls, SoftShadows } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
+import { useControls } from "leva";
 
 function App() {
+  const { cubeInAir } = useControls({
+    cubeInAir: false,
+  });
   return (
     <>
       <Canvas
@@ -9,6 +13,8 @@ function App() {
         style={{ background: "#20222B" }}
         shadows
       >
+        <SoftShadows />
+        <BakeShadows />
         <OrbitControls />
         <ambientLight intensity={0.5} />
         <directionalLight
@@ -17,18 +23,22 @@ function App() {
           castShadow
           shadow-mapSize={[2048, 2048]}
         />
-        <directionalLight position={[5, 5, 5]} intensity={0.5} castShadow>
-          <orthographicCamera
-            attach="shadow-camera"
-            args={[-10, 10, 10, -10]}
-          />
-        </directionalLight>
+        <directionalLight
+          position={[5, 5, 5]}
+          intensity={0.5}
+          castShadow
+        ></directionalLight>
         <mesh position={[1, 1, 1]} castShadow>
           <sphereGeometry args={[0.5, 32, 32]} />
           <meshStandardMaterial color="white" />
         </mesh>
 
-        <mesh rotation-y={Math.PI / 4} castShadow receiveShadow>
+        <mesh
+          rotation-y={Math.PI / 4}
+          castShadow
+          receiveShadow
+          position-y={cubeInAir ? 1 : 0}
+        >
           <boxGeometry />
           <meshStandardMaterial color="white" />
         </mesh>
@@ -37,22 +47,6 @@ function App() {
           <planeGeometry args={[5, 5]} />
           <meshStandardMaterial color="white" />
         </mesh>
-        <group position-x={8}>
-          <mesh position={[1, 1, 1]} castShadow>
-            <sphereGeometry args={[0.5, 32, 32]} />
-            <meshStandardMaterial color="white" />
-          </mesh>
-
-          <mesh rotation-y={Math.PI / 4} castShadow receiveShadow>
-            <boxGeometry />
-            <meshStandardMaterial color="white" />
-          </mesh>
-
-          <mesh rotation-x={-Math.PI / 2} position-y={-0.5} receiveShadow>
-            <planeGeometry args={[5, 5]} />
-            <meshStandardMaterial color="white" />
-          </mesh>
-        </group>
       </Canvas>
     </>
   );

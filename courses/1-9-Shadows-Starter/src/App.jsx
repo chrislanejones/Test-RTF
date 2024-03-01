@@ -1,4 +1,9 @@
-import { BakeShadows, OrbitControls, SoftShadows } from "@react-three/drei";
+import {
+  BakeShadows,
+  ContactShadows,
+  OrbitControls,
+  SoftShadows,
+} from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useControls } from "leva";
 
@@ -11,8 +16,15 @@ function App() {
       <Canvas
         camera={{ position: [0, 3, 3] }}
         style={{ background: "#20222B" }}
-        shadows
       >
+        <ContactShadows
+          frames={1}
+          position-y={-0.49}
+          opacity={0.5}
+          blur={2}
+          color={"pink"}
+          scale={10}
+        />
         <SoftShadows />
         <BakeShadows />
         <OrbitControls />

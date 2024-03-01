@@ -28,6 +28,11 @@ function App() {
           <planeGeometry args={[5, 5]} />
           <meshStandardMaterial color="white" />
         </mesh>
+
+        <mesh rotation-x={-Math.PI / 2} position-y={-0.5} receiveShadow>
+          <planeGeometry args={[5, 5]} />
+          <meshStandardMaterial color="white" />
+        </mesh>
       </Canvas>
     </>
   );

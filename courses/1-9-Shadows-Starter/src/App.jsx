@@ -6,15 +6,20 @@ function App() {
     <>
       <Canvas
         camera={{ position: [0, 3, 3] }}
-        shadows
         style={{ background: "#20222B" }}
+        shadows
       >
         <OrbitControls />
         <ambientLight intensity={0.5} />
         <directionalLight position={[5, 5, 5]} intensity={0.5} castShadow />
-        <directionalLight position={[-5, 5, 5]} intensity={0.5} color="red" />
+        <directionalLight
+          position={[-5, 5, 5]}
+          intensity={0.5}
+          color="red"
+          castShadow
+        />
 
-        <mesh rotation-y={Math.PI / 4}>
+        <mesh rotation-y={Math.PI / 4} castShadow>
           <boxGeometry />
           <meshStandardMaterial color="white" />
         </mesh>

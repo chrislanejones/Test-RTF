@@ -2,10 +2,21 @@ import { ContactShadows, Environment, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useMemo, useRef, useState, useEffect, useCallback, memo } from "react";
 import { button, useControls } from "leva";
+import { ThemeProvider, useTheme } from "./hooks/useTheme";
+
+const UI = () => {
+  const { setColor } = useTheme();
+
+  useControls({
+    changeColorToRed: button(() => setColor("red")),
+    changeColorToBlue: button(() => setColor("blue")),
+    changeColorToGreen: button(() => setColor("green")),
+  });
+};
 
 const Cube = memo((props) => {
   console.log("cube rendered");
-  const [color, setColor] = useState("red");
+  const { color } = useTheme();
   const ref = useRef();
   const myNumber = useRef(0);
 
@@ -15,9 +26,6 @@ const Cube = memo((props) => {
   );
 
   useControls({
-    changeColorToRed: button(() => setColor("red")),
-    changeColorToGreen: button(() => setColor("green")),
-    changeColorToBlue: button(() => setColor("blue")),
     rotateCube: button(() => (ref.current.rotation.y += Math.PI / 4)),
   });
 
@@ -54,21 +62,24 @@ function App() {
   }, [count]);
   return (
     <>
-      <Canvas
-        style={{ background: "#cccccc" }}
-        camera={{ position: [0, 2, 6], fov: 42 }}
-      >
-        <OrbitControls />
-        <Cube rotation-y={Math.PI / 4} onClick={onCubeClicked} />
-        <ContactShadows
-          position-y={-2}
-          opacity={0.5}
-          blur={2}
-          color={"pink"}
-          scale={10}
-        />
-        <Environment preset="city" />
-      </Canvas>
+      <ThemeProvider>
+        <UI />
+        <Canvas
+          style={{ background: "#cccccc" }}
+          camera={{ position: [0, 2, 6], fov: 42 }}
+        >
+          <OrbitControls />
+          <Cube rotation-y={Math.PI / 4} onClick={onCubeClicked} />
+          <ContactShadows
+            position-y={-2}
+            opacity={0.5}
+            blur={2}
+            color={"pink"}
+            scale={10}
+          />
+          <Environment preset="city" />
+        </Canvas>
+      </ThemeProvider>
     </>
   );
 }

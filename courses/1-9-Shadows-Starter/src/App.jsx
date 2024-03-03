@@ -21,7 +21,7 @@ function App() {
       <Canvas
         shadows
         camera={{ position: [0, 3, 3] }}
-        style={{ background: "#20222B" }}
+        style={{ background: "#cccccc" }}
       >
         <OrbitControls />
         <OrbitControls />

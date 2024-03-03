@@ -48,10 +48,10 @@ const Cube = memo((props) => {
 
 function App() {
   const [count, setCount] = useState(0);
-  const onCubeClicked = () => {
+  const onCubeClicked = useCallback(() => {
     console.log(`Cube clicked ${count} time${count > 1 ? "s" : ""}`);
     setCount((prev) => prev + 1);
-  };
+  }, [count]);
   return (
     <>
       <Canvas

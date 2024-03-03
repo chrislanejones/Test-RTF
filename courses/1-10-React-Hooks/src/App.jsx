@@ -1,8 +1,7 @@
 import { ContactShadows, Environment, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useState } from "react";
-
-import { button, useControls } from "react";
+import { button, useControls } from "leva";
 
 const Cube = (props) => {
   const [color, setColor] = useState("white");
@@ -10,7 +9,7 @@ const Cube = (props) => {
   useControls({
     changeColorToRed: button(() => setColor("red")),
     changeColorToGreen: button(() => setColor("green")),
-    changeColorToGreen: button(() => setColor("blue")),
+    changeColorToBlue: button(() => setColor("blue")),
   });
 
   return (

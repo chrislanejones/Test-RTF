@@ -29,6 +29,12 @@ const Cube = (props) => {
     };
     const position = colorsPositions[color];
     ref.current.position.set(...position);
+
+    const interval = setInterval(() => {
+      ref.current.rotation.y += Math.PI / 4;
+    }, 1000);
+
+    return () => clearInterval(interval);
   }, [color]);
 
   return (

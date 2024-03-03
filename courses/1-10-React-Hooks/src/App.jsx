@@ -1,6 +1,6 @@
 import { ContactShadows, Environment, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, useEffect } from "react";
 import { button, useControls } from "leva";
 
 const Cube = (props) => {
@@ -17,7 +17,19 @@ const Cube = (props) => {
     changeColorToRed: button(() => setColor("red")),
     changeColorToGreen: button(() => setColor("green")),
     changeColorToBlue: button(() => setColor("blue")),
+    rotateCube: button(() => (ref.current.rotation.y += Math.PI / 4)),
   });
+
+  useEffect(() => {
+    const colorsPositions = {
+      white: [0, 0, 0],
+      red: [-1, 0, 0],
+      blue: [0, 1, 0],
+      green: [1, 0, 0],
+    };
+    const position = colorsPositions[color];
+    ref.current.position.set(...position);
+  }, [color]);
 
   return (
     <mesh {...props} ref={ref}>

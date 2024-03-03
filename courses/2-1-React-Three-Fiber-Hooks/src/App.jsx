@@ -1,6 +1,6 @@
 import { ContactShadows, Environment, OrbitControls } from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
-import { useControls } from "leva";
+import { useControls, button } from "leva";
 
 const Cube = (props) => {
   // const { camera } = useThree(); changes to below to prevent re-rendering
@@ -29,7 +29,10 @@ const Cube = (props) => {
 function App() {
   return (
     <>
-      <Canvas camera={{ position: [0, 2, 6], fov: 42 }}>
+      <Canvas
+        style={{ background: "#6a6a6a" }}
+        camera={{ position: [0, 2, 6], fov: 42 }}
+      >
         <OrbitControls />
         <Cube rotation-y={Math.PI / 4} />
         <ContactShadows

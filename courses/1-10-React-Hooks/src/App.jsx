@@ -1,10 +1,12 @@
 import { ContactShadows, Environment, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { button, useControls } from "leva";
 
 const Cube = (props) => {
-  const [color, setColor] = useState("white");
+  const [color, setColor] = useState("red");
+  const ref = useRef();
+  const myNumber = useRef(0);
 
   const material = useMemo(
     () => <meshStandardMaterial color={color} />,
@@ -18,7 +20,7 @@ const Cube = (props) => {
   });
 
   return (
-    <mesh {...props}>
+    <mesh {...props} ref={ref}>
       <boxGeometry />
       {material}
     </mesh>
@@ -28,7 +30,10 @@ const Cube = (props) => {
 function App() {
   return (
     <>
-      <Canvas camera={{ position: [0, 2, 6], fov: 42 }}>
+      <Canvas
+        style={{ background: "#cccccc" }}
+        camera={{ position: [0, 2, 6], fov: 42 }}
+      >
         <OrbitControls />
         <Cube rotation-y={Math.PI / 4} />
         <ContactShadows

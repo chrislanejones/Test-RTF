@@ -1,4 +1,4 @@
-import { ContactShadows, Environment, OrbitControls } from "@react-three/drei";
+import { ContactShadows, Environment } from "@react-three/drei";
 import { MoveableSphere } from "./MoveableSphere";
 
 export const Experience = () => {

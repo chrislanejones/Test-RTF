@@ -10,7 +10,8 @@ function App() {
       >
         <Experience />
         <OrbitControls />
-        <ambientLight intensity={0.8} />
+        {/* <ambientLight intensity={1} /> */}
+        <pointLight position={[10, 10, 10]} />
         <Environment preset="sunset" />
       </Canvas>
     </>

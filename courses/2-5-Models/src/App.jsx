@@ -1,4 +1,4 @@
-import { Environment, OrbitControls } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Experience } from "./components/Experience";
 function App() {
@@ -14,7 +14,6 @@ function App() {
         <pointLight position={[-60, 10, 10]} intensity={0.2} />
         <pointLight position={[-15, 10, 10]} intensity={0.3} />
         <pointLight position={[50, 10, 10]} intensity={0.3} />
-        <Environment preset="sunset" />
       </Canvas>
     </>
   );

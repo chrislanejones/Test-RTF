@@ -8,7 +8,12 @@ export const Experience = () => {
     <>
       <Gltf src="models/Fish.gltf" />
       <primitive object={dino} scale={0.01} position-x={-3} />
-      <primitive object={store} scale={0.05} position-x={15} />
+      <primitive
+        object={store}
+        scale={0.03}
+        position-z={-10}
+        rotation-y={Math.PI / 2}
+      />
     </>
   );
 };

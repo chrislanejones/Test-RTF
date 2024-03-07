@@ -1,11 +1,11 @@
-import { useLoader } from "@react-three/fiber";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { useGLTF } from "@react-three/drei";
 
 export const Experience = () => {
-  const model = useLoader(GLTFLoader, "models/fish.gltf");
+  const { scene } = useGLTF("models/Fish.gltf");
+
   return (
     <>
-      <primitive object={model.scene} />
+      <primitive object={scene} />
     </>
   );
 };

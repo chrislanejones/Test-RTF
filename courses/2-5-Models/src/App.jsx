@@ -10,6 +10,7 @@ function App() {
       >
         <Experience />
         <OrbitControls />
+        <ambientLight intensity={0.8} />
         <Environment preset="sunset" />
       </Canvas>
     </>

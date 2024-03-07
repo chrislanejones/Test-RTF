@@ -1,10 +1,11 @@
+import { useLoader } from "@react-three/fiber";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+
 export const Experience = () => {
+  const model = useLoader(GLTFLoader, "models/fish.gltf");
   return (
     <>
-      <mesh>
-        <boxGeometry />
-        <meshStandardMaterial color="white" />
-      </mesh>
+      <primitive object={model.scene} />
     </>
   );
 };

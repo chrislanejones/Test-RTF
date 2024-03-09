@@ -5,7 +5,7 @@ Command: npx gltfjsx@6.2.3 public/models/Fish.gltf -o src/components/Fish.jsx -r
 
 import { useAnimations, useGLTF } from "@react-three/drei";
 import { useControls } from "leva";
-import React, { useEffect, useRef } from "react";
+import React, { useRef, useEffect } from "react";
 
 export function Fish(props) {
   const group = useRef();
@@ -15,10 +15,11 @@ export function Fish(props) {
     animation: { value: "", options: Object.keys(actions) },
   });
 
-  // useEffect(() => {
-  //   actions[animation].play();
-  // }, [animation]);
-
+  /* Doesn't stop between animantions
+  (() => {
+    actions[animation].play();
+  }, [animation]);
+*/
   useEffect(() => {
     actions[animation].play();
     return () => actions[animation].stop();

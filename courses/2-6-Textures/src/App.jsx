@@ -4,7 +4,10 @@ import { Experience } from "./components/Experience";
 function App() {
   return (
     <>
-      <Canvas camera={{ position: [3, 3, 3], fov: 42 }}>
+      <Canvas
+        camera={{ position: [3, 3, 3], fov: 42 }}
+        style={{ background: "#20222B" }}
+      >
         <Experience />
         <OrbitControls />
         <Environment preset="sunset" />

@@ -6,13 +6,13 @@ export const Experience = () => {
 
   return (
     <>
-      {/* <Gltf
+      <Gltf
         src="models/breakroom.gltf"
         scale={0.01}
         position-z={-1}
         rotation-y={Math.PI / 2}
       />
-      <primitive object={dino} scale={0.01} position-x={-3} /> */}
+      <primitive object={dino} scale={0.01} position-x={-3} />
       <Fish />
     </>
   );

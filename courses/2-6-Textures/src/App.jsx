@@ -10,7 +10,7 @@ function App() {
       >
         <Experience />
         <OrbitControls />
-        {/* <Environment preset="sunset" /> */}
+        <Environment preset="sunset" />
       </Canvas>
     </>
   );

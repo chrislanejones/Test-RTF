@@ -1,13 +1,13 @@
-import { useTexture } from "@react-three/drei";
+import { useVideoTexture } from "@react-three/drei";
 
 export const Experience = () => {
-  const texture = useTexture("textures/matcapTexture.png");
+  const videoTexture = useVideoTexture("textures/spongebob-squarepants.mp4");
 
   return (
     <>
       <mesh>
         <boxGeometry />
-        <meshMatcapMaterial matcap={texture} />
+        <meshBasicMaterial map={videoTexture} />
       </mesh>
     </>
   );

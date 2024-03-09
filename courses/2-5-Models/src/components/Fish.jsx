@@ -4,29 +4,21 @@ Command: npx gltfjsx@6.2.3 public/models/Fish.gltf -o src/components/Fish.jsx -r
 */
 
 import { useAnimations, useGLTF } from "@react-three/drei";
-import { useControls } from "leva";
+// import { useControls } from "leva";
 import React, { useRef, useEffect } from "react";
 
 export function Fish(props) {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF("/models/Fish.gltf");
-  const { actions } = useAnimations(animations, group);
-  const { animation } = useControls({
-    animation: { value: "", options: Object.keys(actions) },
-  });
 
-  /* Doesn't stop between animantions
-  (() => {
-    actions[animation].play();
-  }, [animation]);
-*/
+  const { ref, mixer, names, actions } = useAnimations(animations);
+  console.log(actions);
   useEffect(() => {
-    actions[animation].play();
-    return () => actions[animation].stop();
-  }, [animation]);
+    actions.Jump.play();
+  }, [actions]);
 
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={ref} {...props} dispose={null}>
       <group name="Scene">
         <group name="CharacterArmature">
           <primitive object={nodes.Root} />

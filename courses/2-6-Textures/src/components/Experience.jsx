@@ -21,6 +21,14 @@ export const Experience = () => {
         <boxGeometry />
         <meshStandardMaterial {...props} />
       </mesh>
+      <mesh position={[0.9, 0.9, -0.7]}>
+        <boxGeometry />
+        <meshStandardMaterial {...props} />
+      </mesh>
+      <mesh position={[-1, 2, 0.5]}>
+        <boxGeometry />
+        <meshStandardMaterial {...props} />
+      </mesh>
     </>
   );
 };

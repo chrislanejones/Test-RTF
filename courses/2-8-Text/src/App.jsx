@@ -4,13 +4,16 @@ import { Experience } from "./components/Experience";
 function App() {
   return (
     <>
-      <Canvas camera={{ position: [0, 2, 12], fov: 42 }}>
+      <Canvas
+        style={{ background: "#7a7a7a" }}
+        camera={{ position: [0, 2, 12], fov: 42 }}
+      >
         <group position-y={-1.5}>
           <Experience />
         </group>
         <OrbitControls />
         <Environment preset="sunset" />
-        <Sky />
+        {/* <Sky /> */}
       </Canvas>
     </>
   );

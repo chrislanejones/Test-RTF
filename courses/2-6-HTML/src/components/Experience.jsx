@@ -61,7 +61,7 @@ const Item = ({ model, position, rotation, price, name, props }) => {
     <group position={position} rotation={rotation}>
       <primitive object={gltf.scene} {...props} />
       <Html>
-        <div className="label">
+        <div className="label noselect">
           <div className="label__price">${price}</div>
           <div className="label__name">{name}</div>
         </div>

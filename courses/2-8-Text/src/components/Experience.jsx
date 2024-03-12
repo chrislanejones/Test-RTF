@@ -1,4 +1,10 @@
-import { Billboard, ContactShadows, Text, useGLTF } from "@react-three/drei";
+import {
+  Billboard,
+  ContactShadows,
+  Text,
+  Text3D,
+  useGLTF,
+} from "@react-three/drei";
 import { Character } from "./Character";
 import * as THREE from "three";
 
@@ -7,6 +13,19 @@ export const Experience = () => {
 
   return (
     <>
+      <Text3D
+        font={"fonts/Inter_Bold.json"}
+        rotation-y={THREE.MathUtils.degToRad(30)}
+        position={[-8, 0, -5]}
+        size={4}
+        bevelEnabled
+        bevelThickness={0.5}
+        bevelSize={0.1}
+        bevelSegments={10}
+      >
+        ZELDA
+        <meshStandardMaterial color={"#a1bb6f"} />
+      </Text3D>
       <group position-x={-1.5} rotation-y={THREE.MathUtils.degToRad(15)}>
         <primitive object={woodenSign.scene} />
         <Text

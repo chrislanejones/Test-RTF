@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700");
+
 #root {
   width: 100vw;
   height: 100vh;
@@ -5,4 +7,30 @@
 
 body {
   margin: 0;
+  font-family: "Inter", sans-serif;
+}
+
+.label {
+  padding: 0.5rem 1.5rem;
+  background-color: rgb(255 255 255 / 80%);
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  text-align: center;
+  transition: opacity 0.42s, transform 0.2s;
+}
+
+.label--hidden {
+  opacity: 0;
+  transform: scale(0.42);
+}
+
+.label__price {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.label__name {
+  font-size: 1rem;
+  color: #999;
 }

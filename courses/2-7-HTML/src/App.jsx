@@ -5,7 +5,10 @@ import { Experience } from "./components/Experience";
 function App() {
   return (
     <>
-      <Canvas camera={{ position: [0, 2, 12], fov: 42 }}>
+      <Canvas
+        style={{ background: "#cccccc" }}
+        camera={{ position: [0, 2, 12], fov: 42 }}
+      >
         <group position-y={-2}>
           <Experience />
           <ContactShadows opacity={0.32} blur={2} />

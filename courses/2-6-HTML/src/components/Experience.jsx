@@ -1,4 +1,4 @@
-import { useGLTF } from "@react-three/drei";
+import { Html, useGLTF } from "@react-three/drei";
 
 const sceneItems = [
   {
@@ -54,12 +54,18 @@ export const Experience = () => {
   );
 };
 
-const Item = ({ model, position, rotation, ...props }) => {
+const Item = ({ model, position, rotation, price, name, props }) => {
   const gltf = useGLTF(`models/${model}`);
 
   return (
     <group position={position} rotation={rotation}>
       <primitive object={gltf.scene} {...props} />
+      <Html>
+        <div className="label">
+          <div className="label__price">${price}</div>
+          <div className="label__name">{name}</div>
+        </div>
+      </Html>
     </group>
   );
 };

@@ -17,7 +17,14 @@ body {
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
   pointer-events: none;
   text-align: center;
+  transition: opacity 0.42s, transform 0.2s;
 }
+
+.label--hidden {
+  opacity: 0;
+  transform: scale(0.42);
+}
+
 .label__price {
   font-size: 2rem;
   font-weight: bold;

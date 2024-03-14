@@ -8,7 +8,16 @@ import { Adventurer } from "./Adventurer";
 import { CasualHoodie } from "./CasualHoodie";
 import { King } from "./King";
 import { Spacesuit } from "./Spacesuit";
+import { useState } from "react";
 export const Experience = () => {
+  const [kingVisible, setKingVisible] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setKingVisible(true);
+    }, 1000);
+  }, []);
+
   return (
     <>
       <OrbitControls
@@ -40,7 +49,7 @@ export const Experience = () => {
         TEAM
         <meshStandardMaterial color="white" />
       </Text3D>
-      <King position-x={-3} rotation-y={-Math.PI / 4} />
+      {kingVisible && <King position-x={-3} rotation-y={-Math.PI / 4} />}
       <Adventurer position-x={-1} />
       <Spacesuit position-x={1} />
       <CasualHoodie position-x={3} rotation-y={Math.PI / 4} />

@@ -47,3 +47,21 @@ body {
   background-color: #1a202c;
   transition: width 0.5s ease-in-out;
 }
+.loading-screen {
+  /* ... */
+  opacity: 1;
+}
+
+.loading-screen--hidden {
+  animation: fade-out 0.5s ease-in-out forwards 1s;
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

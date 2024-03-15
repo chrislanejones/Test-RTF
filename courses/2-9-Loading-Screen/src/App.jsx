@@ -16,10 +16,10 @@ const LoadingScreen = () => {
   const { progress } = useProgress();
 
   return (
-    <div className="loading-screen">
-      <div className="loading-screen__container">
-        <h1 className="loading-screen__title">3D Web Agency</h1>
-        <p>Loading... ({parseInt(progress)}%)</p>
+    <div className="loading-screen__container">
+      <h1 className="loading-screen__title">3D Web Agency</h1>
+      <div className="progress__container">
+        <div className="progress__bar" style={{ width: `${progress}%` }}></div>
       </div>
     </div>
   );

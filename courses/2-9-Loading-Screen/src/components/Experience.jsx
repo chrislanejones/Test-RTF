@@ -8,7 +8,7 @@ import { Adventurer } from "./Adventurer";
 import { CasualHoodie } from "./CasualHoodie";
 import { King } from "./King";
 import { Spacesuit } from "./Spacesuit";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 export const Experience = () => {
   const [kingVisible, setKingVisible] = useState(false);
 

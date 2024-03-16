@@ -38,6 +38,9 @@ function App() {
       <Canvas camera={{ position: [0, 4, 12], fov: 30 }}>
         <ScrollControls pages={5}>
           <Experience />
+          <Scroll html>
+            <Interface />
+          </Scroll>
         </ScrollControls>
       </Canvas>
     </>

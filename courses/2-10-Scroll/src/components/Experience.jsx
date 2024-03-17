@@ -12,9 +12,6 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useRef } from "react";
 
 export const Experience = () => {
-  const scrollData = useScroll();
-  useFrame((state) => {
-    state.camera.position.x = -2 + scrollData.offset * 4;
   return (
     <>
       <OrbitControls
@@ -67,11 +64,11 @@ const FoodItem = ({ model, page }) => {
     ref.current.rotation.y = pageScroll * Math.PI * 2;
     const pages = scrollData.pages - 1;
     const offsetX = 2;
-  
+
     ref.current.position.x =
-  scrollData.curve((page - 1) / pages, 2 / pages) * offsetX;
+      scrollData.curve((page - 1) / pages, 2 / pages) * offsetX;
   });
-  
+
   return (
     <group ref={ref}>
       <primitive

@@ -4,10 +4,12 @@ import {
   Scroll,
   Text3D,
   useGLTF,
+  useScroll,
 } from "@react-three/drei";
 import { Panda } from "./Panda";
 import { foodItems } from "../App";
 import { useThree } from "@react-three/fiber";
+import { useRef } from "react";
 
 export const Experience = () => {
   return (
@@ -54,8 +56,10 @@ export const Experience = () => {
 const FoodItem = ({ model, page }) => {
   const gltf = useGLTF(model);
   const viewport = useThree((state) => state.viewport);
+  const scrollData = useScroll();
+  const ref = useRef();
   return (
-    <group>
+    <group ref={ref}>
       <primitive
         object={gltf.scene}
         position={[0, -viewport.height * page, 0]}

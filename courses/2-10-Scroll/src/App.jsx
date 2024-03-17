@@ -1,6 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 import { Experience } from "./components/Experience";
-import { ScrollControls } from "@react-three/drei";
+import { Scroll, ScrollControls } from "@react-three/drei";
+import { Interface } from "./components/Interface";
 
 export const foodItems = [
   {

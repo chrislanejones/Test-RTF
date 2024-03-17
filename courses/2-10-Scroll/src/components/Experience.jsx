@@ -8,7 +8,7 @@ import {
 } from "@react-three/drei";
 import { Panda } from "./Panda";
 import { foodItems } from "../App";
-import { useThree } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { useRef } from "react";
 
 export const Experience = () => {
@@ -58,6 +58,13 @@ const FoodItem = ({ model, page }) => {
   const viewport = useThree((state) => state.viewport);
   const scrollData = useScroll();
   const ref = useRef();
+
+  useFrame(() => {
+    ref.current.position.x = 2;
+    const pageScroll = scrollData.offset;
+    ref.current.rotation.y = pageScroll * Math.PI * 2;
+  });
+
   return (
     <group ref={ref}>
       <primitive

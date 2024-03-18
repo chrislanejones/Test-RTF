@@ -8,10 +8,21 @@ export const AnimatedBox = ({ boxPositions, ...props }) => {
   useFrame(({ clock }) => {
     const seconds = parseInt(clock.getElapsedTime());
     const targetPosition = boxPositions[seconds % boxPositions.length];
-
-    box.current.position.x = targetPosition.x;
-    box.current.position.y = targetPosition.y;
-    box.current.position.z = targetPosition.z;
+    box.current.position.x = THREE.MathUtils.lerp(
+      box.current.position.x,
+      targetPosition.x,
+      0.05
+    );
+    box.current.position.y = THREE.MathUtils.lerp(
+      box.current.position.y,
+      targetPosition.y,
+      0.05
+    );
+    box.current.position.z = THREE.MathUtils.lerp(
+      box.current.position.z,
+      targetPosition.z,
+      0.05
+    );
   });
 
   return (

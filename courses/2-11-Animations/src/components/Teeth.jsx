@@ -22,6 +22,35 @@ export const Teeth = () => {
     >
       <motion.group animate={variant}>
         <motion.mesh
+          position-x={-2}
+          position-y={0}
+          rotation-x={Math.PI}
+          variants={{
+            closed: {
+              y: 1,
+              rotateY: 0,
+            },
+            opened: {
+              scale: 1.2,
+              y: 0,
+              rotateY: Math.PI / 2,
+            },
+          }}
+        >
+          <coneGeometry args={[0.5, 1, 4]} />
+          <motion.meshStandardMaterial
+            color="#ffffff"
+            variants={{
+              closed: {
+                color: "#ffffff",
+              },
+              opened: {
+                color: "#7c5ecf",
+              },
+            }}
+          />
+        </motion.mesh>
+        <motion.mesh
           position-x={-1}
           position-y={-1}
           variants={{
@@ -102,6 +131,35 @@ export const Teeth = () => {
               },
               opened: {
                 color: "#6232e6",
+              },
+            }}
+          />
+        </motion.mesh>
+        <motion.mesh
+          position-x={2}
+          position-y={2}
+          rotation-x={Math.PI}
+          variants={{
+            closed: {
+              y: 1,
+              rotateY: 0,
+            },
+            opened: {
+              scale: 1.2,
+              y: 0,
+              rotateY: Math.PI / 2,
+            },
+          }}
+        >
+          <coneGeometry args={[0.5, 1, 4]} />
+          <motion.meshStandardMaterial
+            color="#ffffff"
+            variants={{
+              closed: {
+                color: "#ffffff",
+              },
+              opened: {
+                color: "#7c5ecf",
               },
             }}
           />

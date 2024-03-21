@@ -16,6 +16,12 @@ export const Teeth = () => {
   useRef() {
     useSpring(x, { stiffness: 1000, damping: 10 })
   }
+
+  export const Interface = () => {
+    const introductionRef = useRef();
+    const scrollData = useScroll();
+
+    
   useSpring(x, { stiffness: 1000, damping: 10 })
   return (
     <MotionConfig

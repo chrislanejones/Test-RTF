@@ -1,7 +1,6 @@
-import { useSpring } from "@react-spring/three";
 import { MotionConfig } from "framer-motion";
 import { motion } from "framer-motion-3d";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 export const Teeth = () => {
   const [variant, setVariant] = useState("closed");
@@ -13,16 +12,6 @@ export const Teeth = () => {
     return () => clearInterval(interval);
   });
 
-  useRef() {
-    useSpring(x, { stiffness: 1000, damping: 10 })
-  }
-
-  export const Interface = () => {
-    const introductionRef = useRef();
-    const scrollData = useScroll();
-
-    
-  useSpring(x, { stiffness: 1000, damping: 10 })
   return (
     <MotionConfig
       transition={{

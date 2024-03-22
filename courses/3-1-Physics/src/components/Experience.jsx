@@ -2,6 +2,27 @@ import { Grid, OrbitControls } from "@react-three/drei";
 import { Player } from "./Player";
 import { RigidBody } from "@react-three/rapier";
 
+export const Controls = {
+  forward: "forward",
+  back: "back",
+  left: "left",
+  jump: "jump",
+};
+
+function App() {
+  const map = useMemo(
+    () => [
+      { name: Controls.forward, keys: ["ArrowUp", "KeyW"] },
+      { name: Controls.back, keys: ["ArrowDown", "KeyS"] },
+      { name: Controls.left, keys: ["ArrowLeft", "KeyA"] },
+      { name: Controls.right, keys: ["ArrowRight", "KeyD"] },
+      { name: Controls.jump, keys: ["Space"] },
+    ],
+    []
+  );
+  return <KeyboardControls map={map}>{/* ... */}</KeyboardControls>;
+}
+
 export const Experience = () => {
   return (
     <>
@@ -10,7 +31,7 @@ export const Experience = () => {
       <OrbitControls />
       <ambientLight intensity={0.5} />
       <Player />
-      <RigidBody>
+      <RigidBody type="fixed">
         <mesh position-y={-0.251} receiveShadow>
           <boxGeometry args={[20, 0.5, 20]} />
           <meshStandardMaterial color="mediumpurple" />

@@ -1,16 +1,16 @@
-import { Canvas } from "@react-three/fiber";
-import { Experience } from "./components/Experience";
-import { Physics } from "@react-three/rapier";
 import { KeyboardControls } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import { Physics } from "@react-three/rapier";
 import { useMemo } from "react";
+import { Experience } from "./components/Experience";
 
 export const Controls = {
   forward: "forward",
   back: "back",
   left: "left",
+  right: "right",
   jump: "jump",
 };
-
 function App() {
   const map = useMemo(
     () => [
@@ -22,12 +22,11 @@ function App() {
     ],
     []
   );
-
   return (
     <KeyboardControls map={map}>
       <Canvas camera={{ position: [0, 6, 6], fov: 60 }} shadows>
         <color attach="background" args={["#171720"]} />
-        <Physics>
+        <Physics debug>
           <Experience />
         </Physics>
       </Canvas>

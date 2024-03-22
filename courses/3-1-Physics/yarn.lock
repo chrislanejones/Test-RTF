@@ -758,7 +758,7 @@
     suspend-react "^0.1.3"
     zustand "^3.7.1"
 
-"@react-three/rapier@^1.3.0":
+"@react-three/rapier@^1.1.0":
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@react-three/rapier/-/rapier-1.3.0.tgz#c6232da7abb2a7d0c6e7673439831bac8f146858"
   integrity sha512-nQor1pbGFu1mp585bGR719yAEnEYeu2LvsxP4RaWXP7XHBqv2p0l9/ttDQBZzivqRT142icut2tdo6vgtW+XyA==

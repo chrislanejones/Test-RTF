@@ -40,7 +40,7 @@ export const Player = () => {
     rb.current.setLinvel(vel, true);
   });
   return (
-    <RigidBody ref={rb} lockRotations colliders={"ball"}>
+    <RigidBody ref={rb} colliders={false}>
       <mesh position-y={0.5} castShadow>
         <boxGeometry args={[1, 1, 1]} />
         <meshStandardMaterial color="hotpink" />

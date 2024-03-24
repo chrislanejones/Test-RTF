@@ -26,7 +26,7 @@ function App() {
     <KeyboardControls map={map}>
       <Canvas camera={{ position: [0, 6, 6], fov: 60 }} shadows>
         <color attach="background" args={["#171720"]} />
-        <Physics debug gravity={[0, -50, 0]}>
+        <Physics debug>
           <Experience />
         </Physics>
       </Canvas>

@@ -48,6 +48,7 @@ export const Player = () => {
           inTheAir.current = false;
         }
       }}
+      gravityScale={2.5}
     >
       <mesh position-y={0.5} castShadow>
         <boxGeometry args={[1, 1, 1]} />

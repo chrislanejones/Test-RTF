@@ -4,6 +4,7 @@ import { useKeyboardControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import { Vector3 } from "three";
+import { BallCollider } from "@react-three/rapier";
 
 const MOVEMENT_SPEED = 5;
 const JUMP_FORCE = 8;
@@ -39,11 +40,12 @@ export const Player = () => {
     rb.current.setLinvel(vel, true);
   });
   return (
-    <RigidBody ref={rb} lockRotations>
+    <RigidBody ref={rb} lockRotations colliders={"ball"}>
       <mesh position-y={0.5} castShadow>
         <boxGeometry args={[1, 1, 1]} />
         <meshStandardMaterial color="hotpink" />
       </mesh>
+      <BallCollider args={[1.5]} />
     </RigidBody>
   );
 };

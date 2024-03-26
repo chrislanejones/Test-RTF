@@ -4,15 +4,17 @@ Command: npx gltfjsx@6.2.3 public/models/playground.glb -o src/components/Playgr
 */
 
 import { useGLTF } from "@react-three/drei";
-import { RigidBody } from "@react-three/rapier";
+import { CuboidCollider, RigidBody } from "@react-three/rapier";
 import React, { useEffect, useRef } from "react";
 
 export function Playground(props) {
   const { nodes, materials } = useGLTF("/models/playground.glb");
-  const swiper = useRef;
+
+  const swiper = useRef();
   useEffect(() => {
     swiper.current.setAngvel({ x: 0, y: 3, z: 0 }, true);
   });
+
   return (
     <group {...props} dispose={null}>
       <RigidBody
@@ -22,7 +24,11 @@ export function Playground(props) {
         restitution={3}
         name="swiper"
       >
-        <group name="swiperDouble_teamRed" position={[0.002, -0.106, -21.65]}>
+        <group
+          name="swiperDouble_teamRed"
+          rotation-y={Math.PI / 4}
+          position={[0.002, -0.106, -21.65]}
+        >
           <mesh
             receiveShadow
             castShadow

@@ -4,7 +4,7 @@ Command: npx gltfjsx@6.2.3 public/models/playground.glb -o src/components/Playgr
 */
 
 import { useGLTF } from "@react-three/drei";
-import { CuboidCollider, RigidBody } from "@react-three/rapier";
+import { RigidBody } from "@react-three/rapier";
 import React, { useEffect, useRef } from "react";
 
 export function Playground(props) {

@@ -1,6 +1,6 @@
 import { RigidBody } from "@react-three/rapier";
 import { Controls } from "../App";
-import { useKeyboardControls } from "@react-three/drei";
+import { PerspectiveCamera, useKeyboardControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import { Vector3 } from "three";
@@ -50,6 +50,7 @@ export const Player = () => {
       }}
       gravityScale={2.5}
     >
+      <PerspectiveCamera makeDefault position={[0, 5, 8]} />
       <mesh position-y={0.5} castShadow>
         <boxGeometry args={[1, 1, 1]} />
         <meshStandardMaterial color="hotpink" />

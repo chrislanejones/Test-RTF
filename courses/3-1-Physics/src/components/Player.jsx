@@ -56,7 +56,13 @@ export const Player = () => {
 
     rb.current.setLinvel(vel, true);
   });
-  // ...
+  const respawn = () => {
+    rb.current.setTranslation({
+      x: 0,
+      y: 5,
+      z: 0,
+    });
+  };
 
   return (
     <RigidBody
@@ -65,6 +71,11 @@ export const Player = () => {
       onCollisionEnter={({ other }) => {
         if (other.rigidBodyObject.name === "ground") {
           inTheAir.current = false;
+        }
+      }}
+      onIntersectionEnter={({ other }) => {
+        if (other.rigidBodyObject.name === "space") {
+          respawn();
         }
       }}
       gravityScale={2.5}

@@ -17,8 +17,15 @@ export const Player = () => {
   const inTheAir = useRef(false);
   const vel = new Vector3();
   useFrame(() => {
+    // Camera View
     cameraTarget.current.lerp(vec3(rb.current.translation()), 0.5);
     camera.current.lookAt(cameraTarget.current);
+    const rotVel = {
+      x: 0,
+      y: 0,
+      z: 0,
+    };
+
     vel.x = 0;
     vel.y = 0;
     vel.z = 0;
@@ -35,6 +42,12 @@ export const Player = () => {
     if (get()[Controls.right]) {
       vel.x += MOVEMENT_SPEED;
     }
+
+    rb.current.setAngvel(rotVel, true);
+    // apply rotation to x and z to go in the right direction
+    const eulerRot = euler().setFromQuaternion(quat(rb.current.rotation()));
+    vel.applyEuler(eulerRot);
+
     if (get()[Controls.jump] && !inTheAir.current) {
       vel.y += JUMP_FORCE;
       inTheAir.current = true;

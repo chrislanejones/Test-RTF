@@ -12,8 +12,8 @@ export const Experience = () => {
       <Player />
       <RigidBody type="fixed" name={"ground"}>
         <mesh position-y={-0.251} receiveShadow>
-          <boxGeometry args={[20, 0.5, 20]} />
-          <meshStandardMaterial color="mediumpurple" />
+          <boxGeometry args={[10, 0.5, 10]} />
+          <meshStandardMaterial color="BlanchedAlmond" />
         </mesh>
       </RigidBody>
 

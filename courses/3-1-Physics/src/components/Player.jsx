@@ -1,13 +1,13 @@
-import { RigidBody, vec3 } from "@react-three/rapier";
+import { RigidBody, euler, quat, vec3 } from "@react-three/rapier";
 import { Controls } from "../App";
 import { PerspectiveCamera, useKeyboardControls } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import { Vector3 } from "three";
-import { BallCollider } from "@react-three/rapier";
 
 const MOVEMENT_SPEED = 5;
 const JUMP_FORCE = 8;
+const ROTATION_SPEED = 5;
 
 export const Player = () => {
   const rb = useRef();
@@ -17,7 +17,7 @@ export const Player = () => {
   const inTheAir = useRef(false);
   const vel = new Vector3();
   useFrame(() => {
-    // Camera View
+    // Positon of RigidBody
     cameraTarget.current.lerp(vec3(rb.current.translation()), 0.5);
     camera.current.lookAt(cameraTarget.current);
     const rotVel = {
@@ -26,10 +26,10 @@ export const Player = () => {
       z: 0,
     };
 
+    const curVel = rb.current.linvel();
     vel.x = 0;
     vel.y = 0;
     vel.z = 0;
-    const curVel = rb.current.linvel();
     if (get()[Controls.forward]) {
       vel.z -= MOVEMENT_SPEED;
     }
@@ -37,10 +37,10 @@ export const Player = () => {
       vel.z += MOVEMENT_SPEED;
     }
     if (get()[Controls.left]) {
-      vel.x -= MOVEMENT_SPEED;
+      rotVel.y += ROTATION_SPEED;
     }
     if (get()[Controls.right]) {
-      vel.x += MOVEMENT_SPEED;
+      rotVel.y -= ROTATION_SPEED;
     }
 
     rb.current.setAngvel(rotVel, true);
@@ -54,6 +54,7 @@ export const Player = () => {
     } else {
       vel.y = curVel.y;
     }
+
     rb.current.setLinvel(vel, true);
   });
 

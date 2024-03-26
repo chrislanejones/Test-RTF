@@ -1,6 +1,6 @@
 import { Gltf, Grid, OrbitControls } from "@react-three/drei";
 import { Player } from "./Player";
-import { BallCollider, RigidBody } from "@react-three/rapier";
+import { BallCollider, CuboidCollider, RigidBody } from "@react-three/rapier";
 import { Playground } from "./Playground";
 
 export const Experience = () => {
@@ -11,13 +11,16 @@ export const Experience = () => {
       <OrbitControls />
       <ambientLight intensity={0.5} />
       <Player />
-      {/* <RigidBody type="fixed" name={"ground"}>
-        <mesh position-y={-0.251} receiveShadow>
-          <boxGeometry args={[20, 0.5, 20]} />
-          <meshStandardMaterial color="BlanchedAlmond" />
-        </mesh>
-      </RigidBody> */}
       <Playground />
+      <RigidBody
+        type="fixed"
+        colliders={false}
+        sensor
+        name="space"
+        position-y={-5}
+      >
+        <CuboidCollider args={[50, 0.5, 50]} />
+      </RigidBody>
 
       <RigidBody
         colliders={false}

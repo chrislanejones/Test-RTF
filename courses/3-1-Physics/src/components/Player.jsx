@@ -17,15 +17,14 @@ export const Player = () => {
   const inTheAir = useRef(false);
   const vel = new Vector3();
   useFrame(() => {
-    // Positon of RigidBody
     cameraTarget.current.lerp(vec3(rb.current.translation()), 0.5);
     camera.current.lookAt(cameraTarget.current);
+
     const rotVel = {
       x: 0,
       y: 0,
       z: 0,
     };
-
     const curVel = rb.current.linvel();
     vel.x = 0;
     vel.y = 0;
@@ -57,6 +56,7 @@ export const Player = () => {
 
     rb.current.setLinvel(vel, true);
   });
+  // ...
 
   return (
     <RigidBody

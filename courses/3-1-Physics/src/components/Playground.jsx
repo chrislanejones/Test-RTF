@@ -5,12 +5,54 @@ Command: npx gltfjsx@6.2.3 public/models/playground.glb -o src/components/Playgr
 
 import { useGLTF } from "@react-three/drei";
 import { RigidBody } from "@react-three/rapier";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 export function Playground(props) {
   const { nodes, materials } = useGLTF("/models/playground.glb");
+  const swiper = useRef;
+  useEffect(() => {
+    swiper.current.setAngvel({ x: 0, y: 3, z: 0 }, true);
+  });
   return (
     <group {...props} dispose={null}>
+      <RigidBody
+        type="kinematicVelocity"
+        colliders={"trimesh"}
+        ref={swiper}
+        restitution={3}
+        name="swiper"
+      >
+        <group name="swiperDouble_teamRed" position={[0.002, -0.106, -21.65]}>
+          <mesh
+            receiveShadow
+            castShadow
+            name="Cylinder051"
+            geometry={nodes.Cylinder051.geometry}
+            material={materials["Brown.004"]}
+          />
+          <mesh
+            receiveShadow
+            castShadow
+            name="Cylinder051_1"
+            geometry={nodes.Cylinder051_1.geometry}
+            material={materials["Metal.030"]}
+          />
+          <mesh
+            receiveShadow
+            castShadow
+            name="Cylinder051_2"
+            geometry={nodes.Cylinder051_2.geometry}
+            material={materials["Red.010"]}
+          />
+          <mesh
+            receiveShadow
+            castShadow
+            name="Cylinder051_3"
+            geometry={nodes.Cylinder051_3.geometry}
+            material={materials["White.005"]}
+          />
+        </group>
+      </RigidBody>
       <RigidBody type="fixed" name="ground" colliders="trimesh">
         <group name="button_teamYellow" position={[-39.612, -0.038, -27.712]}>
           <mesh
@@ -97,36 +139,6 @@ export function Playground(props) {
           material={materials["Stone.001"]}
           position={[-0.454, -0.031, 1.748]}
         />
-        <group name="swiperDouble_teamRed" position={[0.002, -0.106, -21.65]}>
-          <mesh
-            receiveShadow
-            castShadow
-            name="Cylinder051"
-            geometry={nodes.Cylinder051.geometry}
-            material={materials["Brown.004"]}
-          />
-          <mesh
-            receiveShadow
-            castShadow
-            name="Cylinder051_1"
-            geometry={nodes.Cylinder051_1.geometry}
-            material={materials["Metal.030"]}
-          />
-          <mesh
-            receiveShadow
-            castShadow
-            name="Cylinder051_2"
-            geometry={nodes.Cylinder051_2.geometry}
-            material={materials["Red.010"]}
-          />
-          <mesh
-            receiveShadow
-            castShadow
-            name="Cylinder051_3"
-            geometry={nodes.Cylinder051_3.geometry}
-            material={materials["White.005"]}
-          />
-        </group>
         <group name="tileHigh_forest" position={[-0.077, -1.023, -15.377]}>
           <mesh
             receiveShadow

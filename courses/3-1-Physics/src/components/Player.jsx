@@ -21,11 +21,6 @@ export const Player = () => {
     cameraTarget.current.lerp(vec3(rb.current.translation()), 0.5);
     camera.current.lookAt(cameraTarget.current);
 
-    const rotVel = {
-      x: 0,
-      y: 0,
-      z: 0,
-    };
     const curVel = rb.current.linvel();
     vel.x = 0;
     vel.y = 0;
@@ -36,15 +31,24 @@ export const Player = () => {
     if (get()[Controls.back]) {
       vel.z += MOVEMENT_SPEED;
     }
+    const bear = {
+      y: 0,
+    };
     if (get()[Controls.left]) {
-      rotVel.y += ROTATION_SPEED;
+      bear.y += ROTATION_SPEED;
     }
     if (get()[Controls.right]) {
-      rotVel.y -= ROTATION_SPEED;
+      bear.y -= ROTATION_SPEED;
     }
-
+    const rotVel = {
+      x: 0,
+      y: bear.y,
+      z: 0,
+    };
     rb.current.setAngvel(rotVel, true);
+
     // apply rotation to x and z to go in the right direction
+
     const eulerRot = euler().setFromQuaternion(quat(rb.current.rotation()));
     vel.applyEuler(eulerRot);
 
@@ -58,6 +62,7 @@ export const Player = () => {
       rb.current.setLinvel(vel, true);
     }
   });
+
   const respawn = () => {
     rb.current.setTranslation({
       x: 0,

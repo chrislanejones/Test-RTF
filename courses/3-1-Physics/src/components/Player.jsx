@@ -14,9 +14,9 @@ export const Player = () => {
   const camera = useRef();
   const cameraTarget = useRef(new Vector3(0, 0, 0));
   const [, get] = useKeyboardControls();
-  const vel = new Vector3();
   const inTheAir = useRef(false);
   const punched = useRef(false);
+  const vel = new Vector3();
 
   useFrame(() => {
     cameraTarget.current.lerp(vec3(rb.current.translation()), 0.5);
@@ -74,6 +74,15 @@ export const Player = () => {
   return (
     <RigidBody
       ref={rb}
+      gravityScale={2.5}
+      onIntersectionEnter={({ other }) => {
+        if (other.rigidBodyObject.name === "space") {
+          respawn();
+        }
+        if (other.rigidBodyObject.name === "gateIn") {
+          teleport();
+        }
+      }}
       lockRotations
       onCollisionEnter={({ other }) => {
         if (other.rigidBodyObject.name === "ground") {
@@ -86,17 +95,8 @@ export const Player = () => {
           }, 200);
         }
       }}
-      onIntersectionEnter={({ other }) => {
-        if (other.rigidBodyObject.name === "space") {
-          respawn();
-        }
-        if (other.rigidBodyObject.name === "gateIn") {
-          teleport();
-        }
-      }}
-      gravityScale={2.5}
     >
-      <PerspectiveCamera makeDefault position={[0, 5, 8]} ref={camera} />
+      <PerspectiveCamera ref={camera} makeDefault position={[0, 5, 8]} />
       <mesh position-y={0.5} castShadow>
         <boxGeometry args={[1, 1, 1]} />
         <meshStandardMaterial color="hotpink" />

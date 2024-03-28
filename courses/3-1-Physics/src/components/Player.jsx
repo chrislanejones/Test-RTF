@@ -1,7 +1,7 @@
 import { RigidBody, euler, quat, vec3 } from "@react-three/rapier";
 import { Controls } from "../App";
 import { PerspectiveCamera, useKeyboardControls } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { useRef } from "react";
 import { Vector3 } from "three";
 
@@ -65,6 +65,12 @@ export const Player = () => {
     });
   };
 
+  const scene = useThree((state) => state.scene);
+  const teleport = () => {
+    const gateOut = scene.getObjectByName("gateLargeWide_teamYellow");
+    rb.current.setTranslation(gateOut.position);
+  };
+
   return (
     <RigidBody
       ref={rb}
@@ -83,6 +89,9 @@ export const Player = () => {
       onIntersectionEnter={({ other }) => {
         if (other.rigidBodyObject.name === "space") {
           respawn();
+        }
+        if (other.rigidBodyObject.name === "gateIn") {
+          teleport();
         }
       }}
       gravityScale={2.5}

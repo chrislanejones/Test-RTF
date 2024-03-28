@@ -1,12 +1,36 @@
-import { Gltf, Grid, OrbitControls } from "@react-three/drei";
+import {
+  Gltf,
+  Grid,
+  OrbitControls,
+  PerspectiveCamera,
+} from "@react-three/drei";
 import { Player } from "./Player";
 import { BallCollider, CuboidCollider, RigidBody } from "@react-three/rapier";
 import { Playground } from "./Playground";
+import { useHelper } from "@react-three/drei";
+import { useRef } from "react";
+import * as THREE from "three";
 
 export const Experience = () => {
+  const shadowCameraRef = useRef();
+  useHelper(shadowCameraRef, THREE.CameraHelper);
   return (
     <>
-      <directionalLight position={[-10, 10, 5]} intensity={0.4} castShadow />
+      <directionalLight
+        position={[-50, 50, 25]}
+        intensity={0.4}
+        castShadow
+        shadow-mapSize-width={1024}
+        shadow-mapSize-height={1024}
+      >
+        <PerspectiveCamera
+          ref={shadowCameraRef}
+          attach={"shadow-camera"}
+          near={55}
+          far={86}
+          fov={80}
+        />
+      </directionalLight>{" "}
       <directionalLight position={[10, 10, 5]} intensity={0.2} />
       <OrbitControls />
       <ambientLight intensity={0.5} />
@@ -21,7 +45,6 @@ export const Experience = () => {
       >
         <CuboidCollider args={[50, 0.5, 50]} />
       </RigidBody>
-
       <RigidBody
         colliders={false}
         position={[3, 3, 0]}
@@ -31,7 +54,6 @@ export const Experience = () => {
         <Gltf src="/models/ball.glb" castShadow />
         <BallCollider args={[1]} />
       </RigidBody>
-
       <Grid
         sectionSize={3}
         sectionColor={"white"}

@@ -1,10 +1,9 @@
-import { RigidBody, euler, quat, vec3 } from "@react-three/rapier";
-import { Controls } from "../App";
 import { PerspectiveCamera, useKeyboardControls } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
+import { RigidBody, euler, quat, vec3 } from "@react-three/rapier";
 import { useRef } from "react";
 import { Vector3 } from "three";
-
+import { Controls } from "../App";
 const MOVEMENT_SPEED = 5;
 const JUMP_FORCE = 8;
 const ROTATION_SPEED = 5;
@@ -50,12 +49,14 @@ export const Player = () => {
     vel.applyEuler(eulerRot);
 
     if (get()[Controls.jump] && !inTheAir.current) {
-      vel.y += JUMP_FORCE;
       inTheAir.current = true;
+      vel.y += JUMP_FORCE;
     } else {
       vel.y = curVel.y;
     }
-    if (!punched.current) rb.current.setLinvel(vel, true);
+    if (!punched.current) {
+      rb.current.setLinvel(vel, true);
+    }
   });
   const respawn = () => {
     rb.current.setTranslation({

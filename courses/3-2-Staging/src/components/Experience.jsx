@@ -13,7 +13,7 @@ export const Experience = () => {
         minDistance={6}
       />
       <ambientLight intensity={0.4} />
-      <Stage>
+      <Stage intensity={0.4} preset={"upfront"} environment={"studio"}>
         <TeslaModel3 scale={0.012} position-z={0.6} />
       </Stage>
     </>

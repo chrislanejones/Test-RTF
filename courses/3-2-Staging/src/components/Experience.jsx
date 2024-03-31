@@ -18,9 +18,14 @@ export const Experience = () => {
         <TeslaModel3 scale={0.012} position-z={0.6} />
       </Stage>
 
-      <mesh position={[0, -1.18, 0]} rotation-x={-Math.PI / 2}>
+      <mesh position={[0, -0.76, 0]} rotation-x={-Math.PI / 2}>
         <planeGeometry args={[100, 100]} />
-        <MeshReflectorMaterial color="#171720" resolution={1024} />
+        <MeshReflectorMaterial
+          color="#171720"
+          resolution={1024}
+          mixStrength={3}
+          roughness={0.6}
+        />
       </mesh>
     </>
   );

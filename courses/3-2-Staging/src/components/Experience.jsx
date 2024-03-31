@@ -1,6 +1,11 @@
-import { MeshReflectorMaterial, OrbitControls, Stage } from "@react-three/drei";
+import {
+  Environment,
+  MeshReflectorMaterial,
+  OrbitControls,
+  Stage,
+} from "@react-three/drei";
 import { TeslaModel3 } from "./TeslaModel3";
-MeshReflectorMaterial;
+import { Background } from "./Background";
 
 export const Experience = () => {
   return (
@@ -14,9 +19,11 @@ export const Experience = () => {
         minDistance={6}
       />
       <ambientLight intensity={0.4} />
-      <Stage intensity={0.4} preset={"upfront"} environment={"studio"}>
-        <TeslaModel3 scale={0.012} position-z={0.6} />
-      </Stage>
+      {/* <Environment preset="city" background /> */}
+      <Environment>
+        <Background />
+      </Environment>
+      <TeslaModel3 scale={0.012} position-z={0.6} />
 
       <mesh position={[0, -0.76, 0]} rotation-x={-Math.PI / 2}>
         <planeGeometry args={[100, 100]} />

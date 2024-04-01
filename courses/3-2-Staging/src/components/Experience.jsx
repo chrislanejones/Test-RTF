@@ -20,8 +20,8 @@ export const Experience = () => {
       />
       <ambientLight intensity={0.4} />
       {/* <Environment preset="city" background /> */}
-      <Environment background>
-        <Background />
+      <Environment>
+        <Lights />
       </Environment>
       <TeslaModel3 scale={0.012} position-z={0.6} />
 

@@ -20,8 +20,11 @@ export const Experience = () => {
       />
       <ambientLight intensity={0.4} />
       {/* <Environment preset="city" background /> */}
-      <Environment>
-        <Background />
+      <Environment background>
+        <mesh scale={[5, 20, 1]} position-z={5}>
+          <boxGeometry />
+          <meshBasicMaterial color="red" />
+        </mesh>
       </Environment>
       <TeslaModel3 scale={0.012} position-z={0.6} />
 

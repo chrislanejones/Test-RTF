@@ -2,9 +2,7 @@ import { useTexture } from "@react-three/drei";
 import * as THREE from "three";
 
 export const Background = () => {
-  const map = useTexture(
-    "/textures/tech_noir__cyberpunk_showroom_filled_with_spotlig.jpg"
-  );
+  const map = useTexture("/textures/Jungle.jpg");
   return (
     <>
       <mesh>

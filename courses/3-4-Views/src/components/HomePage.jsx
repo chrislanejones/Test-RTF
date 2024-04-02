@@ -1,10 +1,15 @@
-import { useEffect, useRef, useState } from "react";
-import { Hero } from "./Hero";
+import { Environment, View } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
+import { useEffect, useRef, useState } from "react";
+import { degToRad } from "three/src/math/MathUtils.js";
+import { Hero } from "./Hero";
 import { Hero3D } from "./Hero3D";
-import { View } from "@react-three/drei";
+import { Portfolio3D } from "./Portfolio3D";
+import { Services3D } from "./Services3D";
+import { TeamMember } from "./TeamMember";
 
 export const HomePage = () => {
+  const container = useRef();
   const heroContainer = useRef();
   const servicesContainer = useRef();
   const johnDoeContainer = useRef();
@@ -25,10 +30,40 @@ export const HomePage = () => {
   const [currentService, setCurrentService] = useState(0);
 
   return (
-    <main>
+    <main ref={container}>
       <Canvas className="canvas" camera={{ position: [0, 0, 1.5], fov: 30 }}>
         <View track={heroContainer}>
           <Hero3D />
+        </View>
+        <View track={servicesContainer}>
+          <Services3D currentService={currentService} />
+        </View>
+        <View track={johnDoeContainer}>
+          <TeamMember
+            model="Suit"
+            position-y={-1.5}
+            rotation-y={-degToRad(20)}
+          />
+          <Environment preset="sunset" />
+        </View>
+        <View track={juliaDoeContainer}>
+          <TeamMember
+            model="Formal"
+            position-y={-1.5}
+            rotation-y={degToRad(20)}
+          />
+          <Environment preset="sunset" />
+        </View>
+        <View track={lindaDoeContainer}>
+          <TeamMember
+            model="Casual"
+            position-y={-1.5}
+            rotation-y={degToRad(-20)}
+          />
+          <Environment preset="sunset" />
+        </View>
+        <View track={portfolioContainer}>
+          <Portfolio3D />
         </View>
       </Canvas>
       <header className={`header ${scrolled ? "header--scrolled" : ""}`}>

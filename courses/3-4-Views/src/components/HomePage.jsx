@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Hero } from "./Hero";
 import { Canvas } from "@react-three/fiber";
 import { Hero3D } from "./Hero3D";
 
 export const HomePage = () => {
+  const container = useRef();
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const onScroll = () => {
@@ -17,8 +18,12 @@ export const HomePage = () => {
   const [currentService, setCurrentService] = useState(0);
 
   return (
-    <main>
-      <Canvas className="canvas" camera={{ position: [0, 0, 1.5], fov: 30 }}>
+    <main ref={container}>
+      <Canvas
+        eventSource={container}
+        className="canvas"
+        camera={{ position: [0, 0, 1.5], fov: 30 }}
+      >
         <Hero3D />
       </Canvas>
       <header className={`header ${scrolled ? "header--scrolled" : ""}`}>

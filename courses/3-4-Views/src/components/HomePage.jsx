@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Hero } from "./Hero";
 import { Canvas } from "@react-three/fiber";
+import { Hero3D } from "./Hero3D";
 
 export const HomePage = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -17,10 +18,9 @@ export const HomePage = () => {
 
   return (
     <main>
-      <Canvas
-        className="canvas"
-        camera={{ position: [0, 0, 1.5], fov: 30 }}
-      ></Canvas>
+      <Canvas className="canvas" camera={{ position: [0, 0, 1.5], fov: 30 }}>
+        <Hero3D />
+      </Canvas>
       <header className={`header ${scrolled ? "header--scrolled" : ""}`}>
         <div className="header__menu">
           <a href="#hero" className="header__menu__item">

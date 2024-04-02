@@ -5,6 +5,7 @@ import { Hero3D } from "./Hero3D";
 
 export const HomePage = () => {
   const container = useRef();
+  const servicesContainer = useRef();
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const onScroll = () => {

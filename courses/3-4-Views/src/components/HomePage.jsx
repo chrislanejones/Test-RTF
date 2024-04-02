@@ -51,7 +51,10 @@ export const HomePage = () => {
       <section className="services" id="services">
         <h2 className="services__title">Our Services</h2>
         <div className="services__slider">
-          <div className="services__slider__display"></div>
+          <div
+            className="services__slider__display"
+            ref={servicesContainer}
+          ></div>
           <div className="services__slider__list">
             <div
               className={`services__slider__list__service ${

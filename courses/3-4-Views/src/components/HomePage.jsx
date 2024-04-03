@@ -4,6 +4,12 @@ import { useEffect, useRef, useState } from "react";
 import { degToRad } from "three/src/math/MathUtils.js";
 import { Hero } from "./Hero";
 import { Hero3D } from "./Hero3D";
+import { Environment, View } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import { useEffect, useRef, useState } from "react";
+import { degToRad } from "three/src/math/MathUtils.js";
+import { Hero } from "./Hero";
+import { Hero3D } from "./Hero3D";
 import { Portfolio3D } from "./Portfolio3D";
 import { Services3D } from "./Services3D";
 import { TeamMember } from "./TeamMember";
@@ -31,7 +37,11 @@ export const HomePage = () => {
 
   return (
     <main ref={container}>
-      <Canvas className="canvas" camera={{ position: [0, 0, 1.5], fov: 30 }}>
+      <Canvas
+        eventSource={container}
+        className="canvas"
+        camera={{ position: [0, 0, 1.5], fov: 30 }}
+      >
         <View track={heroContainer}>
           <Hero3D />
         </View>

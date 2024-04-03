@@ -1,7 +1,13 @@
-import { useAnimations, useGLTF } from "@react-three/drei";
+import {
+  OrbitControls,
+  PerspectiveCamera,
+  useAnimations,
+  useGLTF,
+} from "@react-three/drei";
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
+PerspectiveCamera;
 export const TeamMember = ({ model = "Casual", ...props }) => {
   const group = useRef();
   const { scene, animations } = useGLTF(`/models/${model}.gltf`);
@@ -28,9 +34,11 @@ export const TeamMember = ({ model = "Casual", ...props }) => {
     return () => mixer.removeEventListener("finished", onAnimationFinished);
   }, [mixer]);
   return (
-    <group ref={group} {...props} onPointerEnter={() => setAnimation("Wave")}>
-      <primitive object={scene} />
-    </group>
+    <PerspectiveCamera position={[0, 0, 1.5]} fov={30} makeDefault>
+      <group ref={group} {...props} onPointerEnter={() => setAnimation("Wave")}>
+        <primitive object={scene} />
+      </group>
+    </PerspectiveCamera>
   );
 };
 

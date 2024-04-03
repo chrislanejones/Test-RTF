@@ -4,12 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { degToRad } from "three/src/math/MathUtils.js";
 import { Hero } from "./Hero";
 import { Hero3D } from "./Hero3D";
-import { Environment, View } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
-import { useEffect, useRef, useState } from "react";
-import { degToRad } from "three/src/math/MathUtils.js";
-import { Hero } from "./Hero";
-import { Hero3D } from "./Hero3D";
 import { Portfolio3D } from "./Portfolio3D";
 import { Services3D } from "./Services3D";
 import { TeamMember } from "./TeamMember";
@@ -96,7 +90,7 @@ export const HomePage = () => {
         </div>
       </header>
 
-      <Hero />
+      <Hero ref={heroContainer} />
       <section className="services" id="services">
         <h2 className="services__title">Our Services</h2>
         <div className="services__slider">

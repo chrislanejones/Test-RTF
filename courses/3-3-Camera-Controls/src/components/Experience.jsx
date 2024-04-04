@@ -1,7 +1,16 @@
 import { CameraControls, Environment, Gltf } from "@react-three/drei";
 import { useRef } from "react";
+import { button, useControls } from "leva";
 
 export const Experience = () => {
+  useControls("dolly", {
+    in: button(() => {
+      controls.current.dolly(1, true);
+    }),
+    out: button(() => {
+      controls.current.dolly(-1, true);
+    }),
+  });
   const controls = useRef();
   return (
     <>

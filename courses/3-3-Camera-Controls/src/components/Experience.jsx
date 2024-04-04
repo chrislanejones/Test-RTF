@@ -3,6 +3,14 @@ import { useRef } from "react";
 import { button, useControls } from "leva";
 
 export const Experience = () => {
+  useControls("dolly", {
+    in: button(() => {
+      controls.current.dolly(1, true);
+    }),
+    out: button(() => {
+      controls.current.dolly(-1, true);
+    }),
+  });
   useControls("truck", {
     up: button(() => {
       controls.current.truck(0, -0.5, true);
@@ -30,6 +38,15 @@ export const Experience = () => {
     right: button(() => {
       controls.current.rotate(0.5, 0, true);
     }),
+  });
+  useControls("settings", {
+    smoothTime: {
+      value: 0.35,
+      min: 0.1,
+      max: 2,
+      step: 0.1,
+      onChange: (v) => (controls.current.smoothTime = v),
+    },
   });
   const controls = useRef();
   return (

@@ -51,6 +51,15 @@ export const Experience = () => {
       onChange: (v) => (controls.current.smoothTime = v),
     },
   });
+
+  useControls("fit", {
+    fitToBox: button(() => {
+      controls.current.fitToBox(box.current, true);
+    }),
+    fitToSphere: button(() => {
+      controls.current.fitToSphere(sphere.current, false);
+    }),
+  });
   const controls = useRef();
   return (
     <>

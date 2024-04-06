@@ -1,8 +1,20 @@
 import { CameraControls, Environment, Gltf } from "@react-three/drei";
 import { useRef } from "react";
 import { button, useControls } from "leva";
+import { useEffect, useRef } from "react";
+import { degToRad } from "three/src/math/MathUtils.js";
 
-export const Experience = () => {
+export const Experience = ({ section }) => {
+  const intro = async () => {
+    controls.current.setLookAt(0, 0, 5, 0, 0, 0, false);
+    await controls.current.dolly(3, true);
+    await controls.current.rotate(degToRad(45), degToRad(25), true);
+  };
+
+  useEffect(() => {
+    intro();
+  }, []);
+
   const box = useRef();
   const sphere = useRef();
 

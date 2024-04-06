@@ -64,12 +64,12 @@ export const Experience = () => {
   return (
     <>
       <CameraControls ref={controls} />
-      <mesh ref={box}>
-        <boxGeometry args={[0.5, 1, 0.2]} />
+      <mesh ref={box} visible={false}>
+        <boxGeometry args={[0.5, 0.8, 0.2]} />
         <meshBasicMaterial color="mediumpurple" wireframe />
       </mesh>
-      <mesh ref={sphere}>
-        <sphereGeometry args={[0.3, 64]} />
+      <mesh ref={sphere} visible={false}>
+        <sphereGeometry args={[0.36, 64]} />
         <meshBasicMaterial color="hotpink" wireframe />
       </mesh>
       <Gltf

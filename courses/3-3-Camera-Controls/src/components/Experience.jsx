@@ -1,8 +1,8 @@
-import { CameraControls, Environment, Gltf } from "@react-three/drei";
-import { useRef } from "react";
 import { button, useControls } from "leva";
 import { useEffect, useRef } from "react";
 import { degToRad } from "three/src/math/MathUtils.js";
+import { sections } from "./UI";
+import { CameraControls, Environment, Gltf } from "@react-three/drei";
 
 export const Experience = ({ section }) => {
   const cameraPositions = {
@@ -12,15 +12,23 @@ export const Experience = ({ section }) => {
     "action-button": [0, 0, 3, 0, 0, 0],
   };
 
+  const [introFinished, setIntroFinished] = useState(false);
   const intro = async () => {
     controls.current.setLookAt(0, 0, 5, 0, 0, 0, false);
     await controls.current.dolly(3, true);
     await controls.current.rotate(degToRad(45), degToRad(25), true);
+
+    setIntroFinished(true);
+    playTransition();
   };
 
   useEffect(() => {
-    intro();
-  }, []);
+    if (!introFinished) {
+      return;
+    }
+    playTransition();
+  }, [section]);
+  // ...
 
   const box = useRef();
   const sphere = useRef();

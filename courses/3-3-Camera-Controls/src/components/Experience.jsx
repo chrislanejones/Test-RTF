@@ -30,6 +30,14 @@ export const Experience = ({ section }) => {
   }, [section]);
   // ...
 
+  useControls("Helper", {
+    getLookAt: button(() => {
+      const position = controls.current.getPosition();
+      const target = controls.current.getTarget();
+      console.log([...position, ...target]);
+    }),
+  });
+
   const box = useRef();
   const sphere = useRef();
 

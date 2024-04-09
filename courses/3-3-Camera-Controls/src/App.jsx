@@ -11,7 +11,7 @@ function App() {
       <Leva hidden />
       <Canvas camera={{ position: [0, 0, 3], fov: 30 }}>
         <color attach="background" args={["#171720"]} />
-        <Experience />
+        <Experience section={section} />
       </Canvas>
       <UI section={section} onSectionChange={setSection} />
     </>

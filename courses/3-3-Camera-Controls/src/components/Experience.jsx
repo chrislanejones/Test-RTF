@@ -1,8 +1,8 @@
+import { CameraControls, Environment, Gltf } from "@react-three/drei";
 import { button, useControls } from "leva";
 import { useEffect, useRef, useState } from "react";
 import { degToRad } from "three/src/math/MathUtils.js";
 import { sections } from "./UI";
-import { CameraControls, Environment, Gltf } from "@react-three/drei";
 
 const cameraPositions = {
   intro: [
@@ -44,19 +44,11 @@ const cameraPositionsSmallScreen = {
 
 const SMALL_SCREEN_THRESHOLD = 900;
 
-// const cameraPositions = {
-//   intro: [0, 0, 3, 0, 0, 0],
-//   titanium: [0, 0, 3, 0, 0, 0],
-//   camera: [0, 0, 3, 0, 0, 0],
-//   "action-button": [0, 0, 3, 0, 0, 0],
-// };
-
 export const Experience = ({ section }) => {
   const controls = useRef();
   const box = useRef();
   const sphere = useRef();
 
-  /* Use Controls Section for leva */
   useControls("settings", {
     smoothTime: {
       value: 0.35,
@@ -66,6 +58,7 @@ export const Experience = ({ section }) => {
       onChange: (v) => (controls.current.smoothTime = v),
     },
   });
+
   useControls("dolly", {
     in: button(() => {
       controls.current.dolly(1, true);
@@ -74,6 +67,7 @@ export const Experience = ({ section }) => {
       controls.current.dolly(-1, true);
     }),
   });
+
   useControls("truck", {
     up: button(() => {
       controls.current.truck(0, -0.5, true);
@@ -84,10 +78,12 @@ export const Experience = ({ section }) => {
     down: button(() => {
       controls.current.truck(0, 0.5, true);
     }),
+
     right: button(() => {
       controls.current.truck(0.5, 0, true);
     }),
   });
+
   useControls("rotate", {
     up: button(() => {
       controls.current.rotate(0, -0.5, true);
@@ -105,7 +101,7 @@ export const Experience = ({ section }) => {
 
   useControls("fit", {
     fitToBox: button(() => {
-      controls.current.fitToBox(box.current, true);
+      controls.current.fitToSphere(box.current, true);
     }),
     fitToSphere: button(() => {
       controls.current.fitToSphere(sphere.current, false);
@@ -139,6 +135,7 @@ export const Experience = ({ section }) => {
       const target = controls.current.getTarget();
       console.log([...position, ...target]);
     }),
+    toJson: button(() => console.log(controls.current.toJSON())),
   });
 
   useEffect(() => {

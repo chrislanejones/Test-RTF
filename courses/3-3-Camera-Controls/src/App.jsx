@@ -8,7 +8,7 @@ function App() {
   const [section, setSection] = useState(0);
   return (
     <>
-      <Leva />
+      <Leva hidden />
       <Canvas camera={{ position: [0, 0, 3], fov: 30 }}>
         <color attach="background" args={["#171720"]} />
         <Experience />

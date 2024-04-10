@@ -10,6 +10,7 @@ import { Vector3 } from "three";
 import { Avatar } from "./Avatar";
 import { useFBO } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
+import { useRef } from "react";
 
 const VECTOR_ZERO = new Vector3(0, 0, 0);
 
@@ -17,9 +18,13 @@ export const Experience = () => {
   const tvMaterial = useRef();
   const videoTexture = useVideoTexture("/textures/bounce-patrick.mp4");
   const cornerRenderTarget = useFBO();
+  const bufferRenderTarget = useFBO();
 
   // The text below is === const gl = useThree((state) => state.gl);
   useFrame(({ gl, scene, camera }) => {
+    gl.setRenderTarget(bufferRenderTarget);
+    gl.render(scene, camera);
+    tvMaterial.current.map = bufferRenderTarget.texture;
     gl.setRenderTarget(cornerRenderTarget);
     gl.render(scene, camera);
     gl.setRenderTarget(null);

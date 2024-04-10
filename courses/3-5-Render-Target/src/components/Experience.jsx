@@ -14,6 +14,7 @@ import { useFrame } from "@react-three/fiber";
 const VECTOR_ZERO = new Vector3(0, 0, 0);
 
 export const Experience = () => {
+  const tvMaterial = useRef();
   const videoTexture = useVideoTexture("/textures/bounce-patrick.mp4");
   const cornerRenderTarget = useFBO();
 
@@ -22,6 +23,8 @@ export const Experience = () => {
     gl.setRenderTarget(cornerRenderTarget);
     gl.render(scene, camera);
     gl.setRenderTarget(null);
+
+    tvMaterial.current.map = cornerRenderTarget.texture;
   });
 
   return (
@@ -38,7 +41,7 @@ export const Experience = () => {
           <Gltf src="models/Room.glb" scale={0.3} rotation-y={-Math.PI / 2} />
           <mesh position-x={0.055} position-y={0.48} position-z={-0.601}>
             <planeGeometry args={[0.63, 0.44]} />
-            <meshBasicMaterial map={videoTexture} />
+            <meshBasicMaterial ref={tvMaterial} />
           </mesh>
         </group>
       </group>

@@ -8,17 +8,22 @@ import {
 } from "@react-three/drei";
 import { Vector3 } from "three";
 import { Avatar } from "./Avatar";
-
 import { useFBO } from "@react-three/drei";
-
-export const Experience = () => {
-
+import { useFrame } from "@react-three/fiber";
 
 const VECTOR_ZERO = new Vector3(0, 0, 0);
 
 export const Experience = () => {
   const videoTexture = useVideoTexture("/textures/bounce-patrick.mp4");
   const cornerRenderTarget = useFBO();
+
+  // The text below is === const gl = useThree((state) => state.gl);
+  useFrame(({ gl, scene, camera }) => {
+    gl.setRenderTarget(cornerRenderTarget);
+    gl.render(scene, camera);
+    gl.setRenderTarget(null);
+  });
+
   return (
     <>
       <OrbitControls

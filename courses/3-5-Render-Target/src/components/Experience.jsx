@@ -12,6 +12,7 @@ import { useFBO } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import { PerspectiveCamera } from "@react-three/drei";
+import { useRemote } from "../hooks/useRemote";
 
 const VECTOR_ZERO = new Vector3(0, 0, 0);
 
@@ -30,13 +31,37 @@ export const Experience = () => {
   const cornerRenderTarget = useFBO();
   const bufferRenderTarget = useFBO();
 
+  const { mode } = useRemote();
+
   // The text below is === const gl = useThree((state) => state.gl);
-  useFrame(({ gl, camera, scene }) => {
+  useFrame(({ gl, scene }) => {
     tvMaterial.current.map = videoTexture;
-    gl.setRenderTarget(cornerRenderTarget);
-    gl.render(scene, camera);
+
+    let currentScreenTexture = videoTexture;
+
+    if (mode === "top") {
+      currentScreenTexture = topRenderTarget.texture;
+      // Rendering main scene with the top camera
+      gl.setRenderTarget(topRenderTarget);
+      gl.render(scene, topCamera.current);
+    }
+
+    if (mode === "corner") {
+      currentScreenTexture = cornerRenderTarget.texture;
+      // Rendering main scene with the top camera
+      gl.setRenderTarget(cornerRenderTarget);
+      gl.render(scene, cornerCamera.current);
+    }
+
+    if (mode === "front") {
+      currentScreenTexture = frontRenderTarget.texture;
+      gl.setRenderTarget(frontRenderTarget);
+      gl.render(scene, frontCamera.current);
+    }
+
     gl.setRenderTarget(null);
-    tvMaterial.current.map = cornerRenderTarget.texture;
+
+    tvMaterial.current.map = currentScreenTexture;
   });
 
   return (
@@ -66,7 +91,7 @@ export const Experience = () => {
       />
       <group position-y={-0.5}>
         <group>
-          <Sky />
+          <Sky distance={9500000} />
           <Avatar rotation-y={Math.PI} scale={0.45} position-z={0.34} />
           <Gltf src="models/Room.glb" scale={0.3} rotation-y={-Math.PI / 2} />
           <mesh position-x={0.055} position-y={0.48} position-z={-0.601}>

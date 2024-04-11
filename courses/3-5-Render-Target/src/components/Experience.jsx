@@ -20,7 +20,7 @@ const VECTOR_ZERO = new Vector3(0, 0, 0);
 
 export const Experience = () => {
   const tvMaterial = useRef();
-  const videoTexture = useVideoTexture("/textures/bounce-patrick.mp4");
+  const videoTexture = useVideoTexture("/textures/GamersNexus.mp4");
 
   const frontCamera = useRef();
   const frontRenderTarget = useFBO();
@@ -122,9 +122,9 @@ export const Experience = () => {
             rotation-y={Math.PI}
             rotation-x={Math.PI / 2}
             scale={0.45}
-            position={[-0.25, -0.02, 0.3]}
+            position={[-0.2, -0.02, 0.3]}
           />
-          <Avatar rotation-y={Math.PI} scale={0.45} position={[0.3, 0, 0.3]} />
+          <Avatar rotation-y={Math.PI} scale={0.45} position={[0.25, 0, 0.3]} />
           <Gltf src="models/Room.glb" scale={0.3} rotation-y={-Math.PI / 2} />
           <mesh position-x={0.055} position-y={0.48} position-z={-0.601}>
             <planeGeometry args={[0.63, 0.44]} />

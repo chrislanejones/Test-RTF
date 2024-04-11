@@ -11,10 +11,29 @@ import { Avatar } from "./Avatar";
 import { useFBO } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
+import { PerspectiveCamera } from "@react-three/drei";
+
+export const Experience = () => {
 
 const VECTOR_ZERO = new Vector3(0, 0, 0);
 
 export const Experience = () => {
+  import { PerspectiveCamera } from "@react-three/drei";
+
+export const Experience = () => {
+  const frontCamera = useRef();
+  const frontRenderTarget = useFBO();
+
+  const topCamera = useRef();
+  const topRenderTarget = useFBO();
+
+  const cornerCamera = useRef();
+  const cornerRenderTarget = useFBO();
+
+  // ...
+
+
+};
   const tvMaterial = useRef();
   const videoTexture = useVideoTexture("/textures/bounce-patrick.mp4");
   const cornerRenderTarget = useFBO();
@@ -35,6 +54,24 @@ export const Experience = () => {
         maxPolarAngle={Math.PI / 2}
         minDistance={2}
         maxDistance={5}
+      />
+      <PerspectiveCamera
+        position={[0, 0, -0.3]}
+        fov={50}
+        near={0.1}
+        ref={frontCamera}
+      />
+      <PerspectiveCamera
+        position={[0, 2.2, 0]}
+        fov={30}
+        near={0.1}
+        ref={topCamera}
+      />
+      <PerspectiveCamera
+        position={[2, 1.2, 2]}
+        fov={30}
+        near={0.1}
+        ref={cornerCamera}
       />
       <group position-y={-0.5}>
         <group>

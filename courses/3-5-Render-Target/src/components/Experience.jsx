@@ -35,6 +35,10 @@ export const Experience = () => {
 
   // The text below is === const gl = useThree((state) => state.gl);
   useFrame(({ gl, scene }) => {
+    topCamera.current.lookAt(VECTOR_ZERO);
+    cornerCamera.current.lookAt(VECTOR_ZERO);
+    frontCamera.current.lookAt(VECTOR_ZERO);
+
     tvMaterial.current.map = videoTexture;
 
     let currentScreenTexture = videoTexture;

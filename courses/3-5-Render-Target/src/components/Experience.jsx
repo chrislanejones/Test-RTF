@@ -21,14 +21,11 @@ export const Experience = () => {
   const bufferRenderTarget = useFBO();
 
   // The text below is === const gl = useThree((state) => state.gl);
-  useFrame(({ gl, scene, camera }) => {
-    gl.setRenderTarget(bufferRenderTarget);
-    gl.render(scene, camera);
-    tvMaterial.current.map = bufferRenderTarget.texture;
+  useFrame(({ gl, camera, scene }) => {
+    tvMaterial.current.map = videoTexture;
     gl.setRenderTarget(cornerRenderTarget);
     gl.render(scene, camera);
     gl.setRenderTarget(null);
-
     tvMaterial.current.map = cornerRenderTarget.texture;
   });
 

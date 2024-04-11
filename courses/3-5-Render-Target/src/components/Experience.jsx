@@ -61,13 +61,33 @@ export const Experience = () => {
 
     if (mode === "front") {
       currentScreenTexture = frontRenderTarget.texture;
+      // Open mouth of the avatar
+      scene.traverse((node) => {
+        if (node.morphTargetInfluences) {
+          node.morphTargetInfluences[
+            node.morphTargetDictionary["mouthSmile"]
+          ] = 0;
+          node.morphTargetInfluences[
+            node.morphTargetDictionary["mouthOpen"]
+          ] = 1;
+        }
+      });
       gl.setRenderTarget(frontRenderTarget);
       gl.render(scene, frontCamera.current);
     }
-
     gl.setRenderTarget(null);
 
+    // Reset tvMaterial to the current screen texture
     tvMaterial.current.map = currentScreenTexture;
+    // Reset avatar mouth
+    scene.traverse((node) => {
+      if (node.morphTargetInfluences) {
+        node.morphTargetInfluences[
+          node.morphTargetDictionary["mouthSmile"]
+        ] = 0;
+        node.morphTargetInfluences[node.morphTargetDictionary["mouthOpen"]] = 0;
+      }
+    });
   });
 
   return (

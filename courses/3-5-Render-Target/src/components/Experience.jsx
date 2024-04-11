@@ -8,6 +8,8 @@ import {
 } from "@react-three/drei";
 import { Vector3 } from "three";
 import { Avatar } from "./Avatar";
+import { Avatarclj } from "./Avatarclj";
+
 import { useFBO } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
@@ -96,7 +98,12 @@ export const Experience = () => {
       <group position-y={-0.5}>
         <group>
           <Sky distance={9500000} />
-          <Avatar rotation-y={Math.PI} scale={0.45} position-z={0.34} />
+          <Avatarclj
+            rotation-y={Math.PI}
+            scale={0.45}
+            position={[-0.2, 0, 0.3]}
+          />
+          <Avatar rotation-y={Math.PI} scale={0.45} position={[0.3, 0, 0.3]} />
           <Gltf src="models/Room.glb" scale={0.3} rotation-y={-Math.PI / 2} />
           <mesh position-x={0.055} position-y={0.48} position-z={-0.601}>
             <planeGeometry args={[0.63, 0.44]} />

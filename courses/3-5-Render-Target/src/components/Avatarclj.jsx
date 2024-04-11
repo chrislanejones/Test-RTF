@@ -10,13 +10,13 @@ export function Avatarclj(props) {
   const { nodes, materials } = useGLTF("/models/chrislanejones.glb");
 
   const group = useRef();
-  const { animations } = useFBX("/animations/Sitting.fbx");
-  animations[0].name = "Sitting";
+  const { animations } = useFBX("/animations/CLJSit.fbx");
+  animations[0].name = "CLJSit";
 
   const { actions } = useAnimations(animations, group);
 
   useEffect(() => {
-    actions.Sitting.play();
+    actions.CLJSit.play();
   });
 
   return (
@@ -84,4 +84,4 @@ export function Avatarclj(props) {
 }
 
 useGLTF.preload("/models/chrislanejones.glb");
-useFBX.preload("/animations/Sitting.fbx");
+useFBX.preload("/animations/CLJSit.fbx");

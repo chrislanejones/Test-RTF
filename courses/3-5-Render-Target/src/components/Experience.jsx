@@ -13,14 +13,12 @@ import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import { PerspectiveCamera } from "@react-three/drei";
 
-export const Experience = () => {
-
 const VECTOR_ZERO = new Vector3(0, 0, 0);
 
 export const Experience = () => {
-  import { PerspectiveCamera } from "@react-three/drei";
+  const tvMaterial = useRef();
+  const videoTexture = useVideoTexture("/textures/bounce-patrick.mp4");
 
-export const Experience = () => {
   const frontCamera = useRef();
   const frontRenderTarget = useFBO();
 
@@ -28,14 +26,7 @@ export const Experience = () => {
   const topRenderTarget = useFBO();
 
   const cornerCamera = useRef();
-  const cornerRenderTarget = useFBO();
 
-  // ...
-
-
-};
-  const tvMaterial = useRef();
-  const videoTexture = useVideoTexture("/textures/bounce-patrick.mp4");
   const cornerRenderTarget = useFBO();
   const bufferRenderTarget = useFBO();
 

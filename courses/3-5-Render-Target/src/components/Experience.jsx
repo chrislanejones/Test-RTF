@@ -100,8 +100,9 @@ export const Experience = () => {
           <Sky distance={9500000} />
           <Avatarclj
             rotation-y={Math.PI}
+            rotation-x={Math.PI / 2}
             scale={0.45}
-            position={[-0.2, 0, 0.3]}
+            position={[-0.25, -0.02, 0.3]}
           />
           <Avatar rotation-y={Math.PI} scale={0.45} position={[0.3, 0, 0.3]} />
           <Gltf src="models/Room.glb" scale={0.3} rotation-y={-Math.PI / 2} />

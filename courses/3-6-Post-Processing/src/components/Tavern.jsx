@@ -4,7 +4,7 @@ Command: npx gltfjsx@6.2.3 public/models/Cozy Tavern - First Floor 2.glb -o src/
 */
 
 import { useGLTF } from "@react-three/drei";
-import React from "react";
+import React, { useEffect } from "react";
 
 export function Tavern(props) {
   const { nodes, materials } = useGLTF(

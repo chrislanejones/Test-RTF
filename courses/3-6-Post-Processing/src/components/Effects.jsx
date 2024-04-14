@@ -41,9 +41,10 @@ export const Effects = () => {
   return (
     <EffectComposer disableNormalPass>
       {bloomConfig.enabled && <Bloom {...bloomConfig} />}
-      {vignetteConfig.enabled && <Bloom {...vignetteConfig} />}
-      {DepthOfFieldConfig.enabled && <Bloom {...DepthOfFieldConfig} />}
-      {NoiseConfig.enabled && <Bloom {...NoiseConfig} />}
+      {vignetteConfig.enabled && <Vignette {...vignetteConfig} />}
+      {DepthOfFieldConfig.enabled && <DepthOfField {...DepthOfFieldConfig} />}
+      {NoiseConfig.enabled && <Noise {...NoiseConfig} />}
+      {vignetteConfig.enabled && <Vignette {...vignetteConfig} />}
     </EffectComposer>
   );
 };

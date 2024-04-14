@@ -10,6 +10,10 @@ export function Tavern(props) {
   const { nodes, materials } = useGLTF(
     "/models/Cozy Tavern - First Floor 2.glb"
   );
+  useEffect(() => {
+    materials.mat12.color.multiplyScalar(50);
+    materials.mat12.toneMapped = false;
+  }, []);
 
   return (
     <group {...props} dispose={null}>

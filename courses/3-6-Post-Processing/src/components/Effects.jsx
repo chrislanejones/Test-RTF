@@ -1,4 +1,4 @@
-import { EffectComposer } from "@react-three/postprocessing";
+import { EffectComposer, Vignette } from "@react-three/postprocessing";
 import { useControls } from "leva";
 
 export const Effects = () => {
@@ -9,7 +9,7 @@ export const Effects = () => {
   });
   return (
     <EffectComposer disableNormalPass>
-      <Vignette />
+      {vignetteConfig.enabled && <Vignette {...vignetteConfig} />}
     </EffectComposer>
   );
 };

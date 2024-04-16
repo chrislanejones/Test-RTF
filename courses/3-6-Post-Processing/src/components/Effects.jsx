@@ -80,6 +80,7 @@ export const Effects = () => {
           {...sepiaConfig}
           blendFunction={BlendFunction[sepiaConfig.blendFunction]}
         />
+        {noiseConfig.enabled && <Noise {...noiseConfig} />}
     </EffectComposer>
   );
 };

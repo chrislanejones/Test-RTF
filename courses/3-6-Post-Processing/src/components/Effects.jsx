@@ -8,6 +8,7 @@ import {
   Glitch,
   Sepia,
   DotScreen,
+  ChromaticAberration,
 } from "@react-three/postprocessing";
 import { useControls } from "leva";
 import { BlendFunction, GlitchMode } from "postprocessing";
@@ -73,7 +74,7 @@ export const Effects = () => {
     },
   });
 
-  // Glitch Effect
+  // DotScreen Effect
   const dotScreenConfig = useControls("DotScreen", {
     enabled: false,
     dotFunction: {
@@ -81,6 +82,12 @@ export const Effects = () => {
       options: Object.keys(BlendFunction),
     },
     angle: { value: 0.5, min: 0.5, max: 2.0 },
+  });
+
+  // Chromatic Aberration Effect
+  const chromaticAberrationConfig = useControls("ChromaticAberration", {
+    enabled: false,
+    offset: { value: [0.02, 0.002] },
   });
 
   return (
@@ -91,6 +98,9 @@ export const Effects = () => {
       {NoiseConfig.enabled && <Noise {...NoiseConfig} />}
       {brightnessContrastConfig.enabled && (
         <BrightnessContrast {...brightnessContrastConfig} />
+      )}
+      {chromaticAberrationConfig.enabled && (
+        <ChromaticAberration {...chromaticAberrationConfig} />
       )}
       {sepiaConfig.enabled && (
         <Sepia

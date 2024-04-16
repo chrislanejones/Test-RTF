@@ -4,6 +4,8 @@ import {
   Bloom,
   DepthOfField,
   Noise,
+  BrightnessContrast,
+  Glitch,
 } from "@react-three/postprocessing";
 import { useControls } from "leva";
 
@@ -32,10 +34,33 @@ export const Effects = () => {
     height: { value: 0, min: 0, max: 500 },
   });
 
+  // DepthOfField Effect
+  const GlitchConfig = useControls("Glitch", {
+    enabled: true,
+    delay: { value: 0.5, min: 0.5, max: 2.0 },
+    duration: { value: 0.3, min: 0.3, max: 2.0 },
+    strength: { value: 0, min: 0, max: 3 },
+  });
+
   // Noise Effect
   const NoiseConfig = useControls("Noise", {
     enabled: true,
     opacity: { value: 0, min: 0, max: 8 },
+  });
+
+  // Brightness Contrast Effect
+  const brightnessContrastConfig = useControls("brightnessContrast", {
+    enabled: true,
+    brightness: { value: 0.02, min: -1, max: 1 },
+    contrast: { value: -0.1, min: -1, max: 1 },
+  });
+  
+  const sepiaConfig = useControls("sepia", {
+    enabled: true,
+    blendFunction: {
+      value: "DARKEN",
+      options: Object.keys(BlendFunction),
+    },
   });
 
   return (
@@ -44,7 +69,17 @@ export const Effects = () => {
       {vignetteConfig.enabled && <Vignette {...vignetteConfig} />}
       {DepthOfFieldConfig.enabled && <DepthOfField {...DepthOfFieldConfig} />}
       {NoiseConfig.enabled && <Noise {...NoiseConfig} />}
-      {vignetteConfig.enabled && <Vignette {...vignetteConfig} />}
+      {GlitchConfig.enabled && (
+        <Glitch {...GlitchConfig} && mode={GlitchMode.SPORADIC} />
+      )}
+      {brightnessContrastConfig.enabled && (
+        <BrightnessContrast {...brightnessContrastConfig} />
+      )}
+       {sepiaConfig.enabled && (
+        <Sepia
+          {...sepiaConfig}
+          blendFunction={BlendFunction[sepiaConfig.blendFunction]}
+        />
     </EffectComposer>
   );
 };

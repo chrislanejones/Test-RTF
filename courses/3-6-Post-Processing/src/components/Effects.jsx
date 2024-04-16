@@ -2,7 +2,7 @@ import {
   EffectComposer,
   Vignette,
   Bloom,
-  DepthOfField,
+  Autofocus,
   Noise,
   BrightnessContrast,
   Glitch,
@@ -29,13 +29,14 @@ export const Effects = () => {
     mipmapBlur: true,
   });
 
-  // DepthOfField Effect
-  const DepthOfFieldConfig = useControls("DepthOfField", {
+  // Autofocus Effect
+  const autofocusConfig = useControls("autofocus", {
     enabled: false,
-    focalDistance: { value: 0, min: 0, max: 2 },
-    focalLength: { value: 0, min: 0.1, max: 0.8 },
-    bokehScale: { value: 0, min: 0, max: 3 },
-    height: { value: 0, min: 0, max: 500 },
+    mouse: true,
+    focusRange: { value: 0.001, min: 0, max: 0.01 },
+    bokehScale: { value: 8, min: 0, max: 40 },
+    focalLength: { value: 0.8, min: 0, max: 1 },
+    smoothTime: { value: 0.5, min: 0, max: 1 },
   });
 
   // Glitch Effect
@@ -44,12 +45,11 @@ export const Effects = () => {
     delay: { value: 0.5, min: 0.5, max: 2.0 },
     duration: { value: 0.3, min: 0.3, max: 2.0 },
     strength: { value: 0, min: 0, max: 3 },
+    ratio: { value: 0.5, min: 0, max: 0.95 },
     glitchMode: {
       value: "SPORADIC",
       options: Object.keys(GlitchMode),
     },
-    active: true,
-    ratio: { value: 0.5, min: 0, max: 0.95 },
   });
 
   // Noise Effect
@@ -94,7 +94,7 @@ export const Effects = () => {
     <EffectComposer disableNormalPass>
       {bloomConfig.enabled && <Bloom {...bloomConfig} />}
       {vignetteConfig.enabled && <Vignette {...vignetteConfig} />}
-      {DepthOfFieldConfig.enabled && <DepthOfField {...DepthOfFieldConfig} />}
+      {autofocusConfig.enabled && <Autofocus {...autofocusConfig} />}
       {NoiseConfig.enabled && <Noise {...NoiseConfig} />}
       {brightnessContrastConfig.enabled && (
         <BrightnessContrast {...brightnessContrastConfig} />

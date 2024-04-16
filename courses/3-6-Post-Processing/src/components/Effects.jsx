@@ -54,7 +54,7 @@ export const Effects = () => {
     brightness: { value: 0.02, min: -1, max: 1 },
     contrast: { value: -0.1, min: -1, max: 1 },
   });
-  
+
   const sepiaConfig = useControls("sepia", {
     enabled: true,
     blendFunction: {
@@ -70,7 +70,7 @@ export const Effects = () => {
       {DepthOfFieldConfig.enabled && <DepthOfField {...DepthOfFieldConfig} />}
       {NoiseConfig.enabled && <Noise {...NoiseConfig} />}
       {GlitchConfig.enabled && (
-        <Glitch {...GlitchConfig} && mode={GlitchMode.SPORADIC} />
+        <Glitch {...GlitchConfig} />
       )}
       {brightnessContrastConfig.enabled && (
         <BrightnessContrast {...brightnessContrastConfig} />

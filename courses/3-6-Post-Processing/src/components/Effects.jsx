@@ -7,6 +7,7 @@ import {
   BrightnessContrast,
   Glitch,
   Sepia,
+  DotScreen,
 } from "@react-three/postprocessing";
 import { useControls } from "leva";
 import { BlendFunction, GlitchMode } from "postprocessing";
@@ -36,7 +37,7 @@ export const Effects = () => {
     height: { value: 0, min: 0, max: 500 },
   });
 
-  // DepthOfField Effect
+  // Glitch Effect
   const glitchConfig = useControls("Glitch", {
     enabled: false,
     delay: { value: 0.5, min: 0.5, max: 2.0 },
@@ -47,6 +48,7 @@ export const Effects = () => {
       options: Object.keys(GlitchMode),
     },
     active: true,
+    ratio: { value: 0.5, min: 0, max: 0.95 },
   });
 
   // Noise Effect
@@ -71,6 +73,16 @@ export const Effects = () => {
     },
   });
 
+  // Glitch Effect
+  const dotScreenConfig = useControls("DotScreen", {
+    enabled: false,
+    dotFunction: {
+      value: "Normal",
+      options: Object.keys(BlendFunction),
+    },
+    angle: { value: 0.5, min: 0.5, max: 2.0 },
+  });
+
   return (
     <EffectComposer disableNormalPass>
       {bloomConfig.enabled && <Bloom {...bloomConfig} />}
@@ -88,6 +100,12 @@ export const Effects = () => {
       )}
       {glitchConfig.enabled && (
         <Glitch {...glitchConfig} mode={GlitchMode[glitchConfig.glitchMode]} />
+      )}
+      {dotScreenConfig.enabled && (
+        <DotScreen
+          {...dotScreenConfig}
+          blendFunction={BlendFunction[dotScreenConfig.dotFunction]}
+        />
       )}
     </EffectComposer>
   );

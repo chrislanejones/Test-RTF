@@ -24,3 +24,8 @@ function App() {
 }
 
 export default App;
+
+import { getProject } from "@theatre/core";
+
+const project = getProject("MedievalTown");
+const mainSheet = project.sheet("Main");

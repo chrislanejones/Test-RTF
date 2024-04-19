@@ -10,6 +10,12 @@ import { SheetProvider } from "@theatre/r3f";
 const project = getProject("MedievalTown");
 const mainSheet = project.sheet("Main");
 
+import extension from "@theatre/r3f/dist/extension";
+import studio from "@theatre/studio";
+
+studio.initialize();
+studio.extend(extension);
+
 function App() {
   const [currentScreen, setCurrentScreen] = useState("Intro");
   const [targetScreen, setTargetScreen] = useState("Home");

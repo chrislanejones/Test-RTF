@@ -4,6 +4,12 @@ import { useState } from "react";
 import { UI } from "./UI";
 import { Experience } from "./components/Experience";
 
+import { getProject } from "@theatre/core";
+import { SheetProvider } from "@theatre/r3f";
+
+const project = getProject("MedievalTown");
+const mainSheet = project.sheet("Main");
+
 function App() {
   const [currentScreen, setCurrentScreen] = useState("Intro");
   const [targetScreen, setTargetScreen] = useState("Home");
@@ -17,15 +23,12 @@ function App() {
       />
       <Canvas camera={{ position: [5, 5, 10], fov: 30, near: 1 }} shadows>
         <SoftShadows />
-        <Experience />
+        <SheetProvider sheet={mainSheet}>
+          <Experience />
+        </SheetProvider>
       </Canvas>
     </>
   );
 }
 
 export default App;
-
-import { getProject } from "@theatre/core";
-
-const project = getProject("MedievalTown");
-const mainSheet = project.sheet("Main");

@@ -1,0 +1,89 @@
+{
+  "sheetsById": {
+    "Main": {
+      "staticOverrides": {
+        "byObject": {}
+      },
+      "sequence": {
+        "subUnitsPerUnit": 30,
+        "length": 10,
+        "type": "PositionalSequence",
+        "tracksByObject": {
+          "MedievalFantasyBook": {
+            "trackData": {
+              "zWSIy1r9uO": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "MedievalFantasyBook:[\"position\",\"x\"]",
+                "keyframes": [
+                  {
+                    "id": "XlJEkYgHKY",
+                    "position": 0,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "value": 0
+                  },
+                  {
+                    "id": "Gyfsq9W-T6",
+                    "position": 2,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "value": -4.95
+                  }
+                ]
+              },
+              "O4ClVSdeUt": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "MedievalFantasyBook:[\"position\",\"z\"]",
+                "keyframes": [
+                  {
+                    "id": "JFuSGH4PYA",
+                    "position": 0,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "value": 0
+                  },
+                  {
+                    "id": "yCfQ6OpBTL",
+                    "position": 2,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "value": -3.5
+                  }
+                ]
+              }
+            },
+            "trackIdByPropPath": {
+              "[\"position\",\"x\"]": "zWSIy1r9uO",
+              "[\"position\",\"z\"]": "O4ClVSdeUt"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitionVersion": "0.4.0",
+  "revisionHistory": [
+    "0X68v2JJVyqq6ERN",
+    "YBZY5JU4yyLWEiON"
+  ]
+}

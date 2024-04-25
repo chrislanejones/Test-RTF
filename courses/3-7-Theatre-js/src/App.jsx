@@ -36,6 +36,13 @@ function App() {
       >
         <SoftShadows />
         <SheetProvider sheet={mainSheet}>
+          <PerspectiveCamera
+            position={[5, 5, 10]}
+            fov={30}
+            near={1}
+            makeDefault
+            theatreKey="Camera"
+          />
           <Experience />
         </SheetProvider>
       </Canvas>

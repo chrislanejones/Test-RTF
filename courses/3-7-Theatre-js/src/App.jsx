@@ -1,6 +1,6 @@
 import { SoftShadows } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { UI } from "./UI";
 import { Experience } from "./components/Experience";
 
@@ -12,6 +12,8 @@ const mainSheet = project.sheet("Main");
 
 import extension from "@theatre/r3f/dist/extension";
 import studio from "@theatre/studio";
+
+import { editable as e } from "@theatre/r3f";
 
 studio.initialize();
 studio.extend(extension);
@@ -43,6 +45,14 @@ function App() {
             makeDefault
             theatreKey="Camera"
           />
+          <e.mesh
+            theatreKey="Camera Target"
+            visible="editor"
+            ref={cameraTargetRef}
+          >
+            <octahedronBufferGeometry args={[0.1, 0]} />
+            <meshPhongMaterial color="yellow" />
+          </e.mesh>
           <Experience />
         </SheetProvider>
       </Canvas>

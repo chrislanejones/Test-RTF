@@ -24,6 +24,7 @@ function App() {
   const [currentScreen, setCurrentScreen] = useState("Intro");
   const [targetScreen, setTargetScreen] = useState("Home");
 
+  const cameraTargetRef = useRef();
   return (
     <>
       <UI
@@ -46,6 +47,7 @@ function App() {
             near={1}
             makeDefault
             theatreKey="Camera"
+            lookAt={cameraTargetRef}
           />
           <e.mesh
             theatreKey="Camera Target"

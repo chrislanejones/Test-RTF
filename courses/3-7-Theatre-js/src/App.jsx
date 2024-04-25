@@ -15,6 +15,8 @@ import studio from "@theatre/studio";
 
 import { editable as e } from "@theatre/r3f";
 
+import { PerspectiveCamera } from "@theatre/r3f";
+
 studio.initialize();
 studio.extend(extension);
 

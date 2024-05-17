@@ -4,6 +4,18 @@ import { editable as e } from "@theatre/r3f";
 import { Autofocus, EffectComposer } from "@react-three/postprocessing";
 
 export const Experience = () => {
+  const focusTargetRef = useRef(new Vector3(0, 0, 0));
+
+  const focusTargetVisualizerRef = useRef();
+
+  useFrame(() => {
+    if (focusTargetVisualizerRef.current) {
+      focusTargetRef.current.copy(focusTargetVisualizerRef.current.position);
+    }
+  });
+
+
+export const Experience = () => {
   return (
     <>
       <e.directionalLight

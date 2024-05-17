@@ -770,10 +770,10 @@
     suspend-react "^0.1.3"
     zustand "^3.7.1"
 
-"@react-three/postprocessing@^2.15.9":
-  version "2.15.9"
-  resolved "https://registry.yarnpkg.com/@react-three/postprocessing/-/postprocessing-2.15.9.tgz#6cdaa90dbcbfad0a5fb12fc5ffa5d18978091c1a"
-  integrity sha512-9Qgwgn6zvA5tp/SPLWhz3+B462T3C/Ot8X7cNYQbmxXntfJiQm+Ed185VbcmJS15XL3nKrOnViy/DWhW1WsupA==
+"@react-three/postprocessing@^2.16.2":
+  version "2.16.2"
+  resolved "https://registry.yarnpkg.com/@react-three/postprocessing/-/postprocessing-2.16.2.tgz#a6ed5aa0775d843eba845915c41160ce7fff3e79"
+  integrity sha512-2ya1gXLDpzyfbELobi3rPHNNZZCrCfyq20GMYJD1yD7ZyBFSpRG9YSPMBnOal6A89kXanPBw273h6/Dqev0n7g==
   dependencies:
     buffer "^6.0.3"
     maath "^0.6.0"

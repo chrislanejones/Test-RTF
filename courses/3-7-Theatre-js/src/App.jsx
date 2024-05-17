@@ -7,18 +7,24 @@ import { Experience } from "./components/Experience";
 import { getProject } from "@theatre/core";
 import { SheetProvider } from "@theatre/r3f";
 
+import { editable as e } from "@theatre/r3f";
+
+studio.initialize();
+studio.extend(extension);
+
 const project = getProject("MedievalTown");
 const mainSheet = project.sheet("Main");
+
+const transitions = {
+  Home: [0, 5],
+  Castle: [6, 12 + 16 / 30],
+  Windmill: [14, 18 + 5 / 30],
+};
 
 import extension from "@theatre/r3f/dist/extension";
 import studio from "@theatre/studio";
 
-import { editable as e } from "@theatre/r3f";
-
 import { PerspectiveCamera } from "@theatre/r3f";
-
-studio.initialize();
-studio.extend(extension);
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState("Intro");

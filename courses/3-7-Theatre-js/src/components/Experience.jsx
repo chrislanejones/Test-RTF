@@ -8,7 +8,6 @@ import { Vector3 } from "three";
 
 export const Experience = () => {
   const focusTargetRef = useRef(new Vector3(0, 0, 0));
-
   const focusTargetVisualizerRef = useRef();
 
   useFrame(() => {

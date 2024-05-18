@@ -28,6 +28,10 @@ export const Experience = () => {
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
       />
+      <e.group theatreKey="MedievalFantasyBook">
+        <MedievalFantasyBook scale={0.1} envMapIntensity={0.3} />
+      </e.group>
+      <Environment preset="dawn" background blur={4} />
       <e.mesh
         theatreKey="FocusTarget"
         ref={focusTargetVisualizerRef}
@@ -36,7 +40,6 @@ export const Experience = () => {
         <sphereBufferGeometry args={[0.01, 8, 8]} />
         <meshBasicMaterial color="red" wireframe />
       </e.mesh>
-      <Environment preset="dawn" background blur={4} />
 
       <EffectComposer>
         <Autofocus

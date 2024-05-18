@@ -1,40 +1,45 @@
 import { SoftShadows } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { useState, useRef, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { UI } from "./UI";
 import { Experience } from "./components/Experience";
 
 import { getProject } from "@theatre/core";
-import { SheetProvider } from "@theatre/r3f";
-
-import { editable as e } from "@theatre/r3f";
-
-const project = getProject("MedievalTown");
-const mainSheet = project.sheet("Main");
-
-const transitions = {
-  Home: [0, 5],
-  Castle: [6, 12 + 16 / 30],
-  Windmill: [14, 18 + 5 / 30],
-};
+import { PerspectiveCamera, SheetProvider } from "@theatre/r3f";
 
 import extension from "@theatre/r3f/dist/extension";
 import studio from "@theatre/studio";
+import { editable as e } from "@theatre/r3f";
+
+const project = getProject("MedievalTownThreejs");
+const mainSheet = project.sheet("Main");
 
 studio.initialize();
 studio.extend(extension);
 
-import { PerspectiveCamera } from "@theatre/r3f";
+const transitions = {
+  Home: [0, 4],
+  Castle: [6, 10],
+  Windmill: [16, 19],
+};
 
 function App() {
+  const cameraTargetRef = useRef();
   const [currentScreen, setCurrentScreen] = useState("Intro");
   const [targetScreen, setTargetScreen] = useState("Home");
+
+  const isSetup = useRef(false);
 
   useEffect(() => {
     project.ready.then(() => {
       if (currentScreen === targetScreen) {
         return;
       }
+      if (isSetup.current && currentScreen === "Intro") {
+        // Strict mode in development will trigger the useEffect twice, so we need to check if it's already setup
+        return;
+      }
+      isSetup.current = true;
       const reverse = targetScreen === "Home" && currentScreen !== "Intro";
       const transition = transitions[reverse ? currentScreen : targetScreen];
       if (!transition) {
@@ -53,7 +58,6 @@ function App() {
     });
   }, [targetScreen]);
 
-  const cameraTargetRef = useRef();
   return (
     <>
       <UI
@@ -64,9 +68,7 @@ function App() {
       <Canvas
         camera={{ position: [5, 5, 10], fov: 30, near: 1 }}
         shadows
-        gl={{
-          preserveDrawingBuffer: true,
-        }}
+        gl={{ preserveDrawingBuffer: true }}
       >
         <SoftShadows />
         <SheetProvider sheet={mainSheet}>

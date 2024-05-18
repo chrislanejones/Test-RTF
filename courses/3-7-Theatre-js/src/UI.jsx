@@ -53,13 +53,13 @@ export const UI = ({ currentScreen, onScreenChange, isAnimating }) => {
         >
           <button
             onClick={() => onScreenChange("Castle")}
-            className="bg-yellow-900 bg-opacity-80 p-3 rounded-full text-white font-bold"
+            className="bg-gray-950 bg-opacity-80 p-3 rounded-full text-white font-bold"
           >
             Visit the historic castle
           </button>
           <button
             onClick={() => onScreenChange("Windmill")}
-            className="bg-yellow-900 bg-opacity-80 p-3 rounded-full text-white font-bold"
+            className="bg-gray-950 bg-opacity-80 p-3 rounded-full text-white font-bold"
           >
             Discover the town windmill
           </button>
@@ -73,7 +73,7 @@ export const UI = ({ currentScreen, onScreenChange, isAnimating }) => {
             : "opacity-0 pointer-events-none"
         }`}
       >
-        <div className="md:max-w-2xl">
+        <div className="md:max-w-2xl bg-amber-900 p-4 rounded-md">
           <motion.h1
             className="text-7xl text-white opacity-90 font-extrabold -ml-1"
             initial={{
@@ -118,7 +118,7 @@ export const UI = ({ currentScreen, onScreenChange, isAnimating }) => {
           </motion.p>
           <motion.button
             onClick={() => onScreenChange("Home")}
-            className="bg-yellow-900 bg-opacity-80  p-3 mt-3 rounded-full text-white font-medium"
+            className="bg-gray-950 bg-opacity-80  p-3 mt-3 rounded-full text-white font-medium"
             initial={{
               y: 80,
               opacity: 0,
@@ -146,7 +146,7 @@ export const UI = ({ currentScreen, onScreenChange, isAnimating }) => {
             : "opacity-0 pointer-events-none"
         }`}
       >
-        <div className="md:max-w-2xl">
+        <div className="md:max-w-2xl bg-amber-900 p-4 rounded-md">
           <motion.h1
             className="text-7xl text-white opacity-90 font-extrabold -ml-1"
             initial={{
@@ -191,7 +191,7 @@ export const UI = ({ currentScreen, onScreenChange, isAnimating }) => {
           </motion.p>
           <motion.button
             onClick={() => onScreenChange("Home")}
-            className="bg-yellow-900 bg-opacity-80  p-3 mt-3 rounded-full text-white font-medium"
+            className="bg-gray-950 bg-opacity-80  p-3 mt-3 rounded-full text-white font-medium"
             initial={{
               y: 80,
               opacity: 0,

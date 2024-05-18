@@ -44,7 +44,6 @@ export const Experience = () => {
         <Autofocus
           target={focusTargetRef.current}
           smoothTime={0.1}
-          debug={isProd ? undefined : 0.04}
           focusRange={0.002}
           bokehScale={8}
         />

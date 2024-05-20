@@ -1,18 +1,10 @@
 import { shaderMaterial } from "@react-three/drei";
 import { extend } from "@react-three/fiber";
 
-const MyShaderMaterial = shaderMaterial(
-  {},
-  `
-  void main() {
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-  }`,
-  `
-  void main() {
-    gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
-  }
-  `
-);
+import myShaderFragment from "./shaders/myshader.fragment.glsl";
+import myShaderVertex from "./shaders/myshader.vertex.glsl";
+
+const MyShaderMaterial = shaderMaterial({}, myShaderVertex, myShaderFragment);
 
 extend({ MyShaderMaterial });
 

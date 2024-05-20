@@ -14,12 +14,9 @@ const MyShaderMaterial = shaderMaterial(
   varying vec3 vColor;
 
   void main() {
-    vColor = aColor;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
   }`,
-  /* glsl */ `
-  varying vec3 vColor;
-
+  `
   void main() {
     gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
   }

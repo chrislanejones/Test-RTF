@@ -1,10 +1,7 @@
 import { shaderMaterial } from "@react-three/drei";
 import { extend, useFrame } from "@react-three/fiber";
-import { Color } from "three";
 import { useRef } from "react";
-
-import myShaderFragment from "./shaders/myshader.fragment.glsl";
-import myShaderVertex from "./shaders/myshader.vertex.glsl";
+import { Color } from "three";
 import { randFloat } from "three/src/math/MathUtils.js";
 
 const MyShaderMaterial = shaderMaterial(
@@ -12,15 +9,28 @@ const MyShaderMaterial = shaderMaterial(
     uColor: new Color("pink"),
     uTime: 0,
   },
-  myShaderVertex,
-  myShaderFragment
+  /* glsl */ `
+attribute vec3 aColor;
+varying vec3 vColor;
+
+void main() {
+  vColor = aColor;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+}`,
+  /* glsl */ `
+  varying vec3 vColor;
+
+  void main() {
+    gl_FragColor = vec4(vColor, 1.0);
+  }
+  `
 );
 
 extend({ MyShaderMaterial });
 
 export const ShaderPlane = ({
   widthSegments = 5,
-  heightSegments = 5,
+  heightSegments = 1,
   ...props
 }) => {
   const material = useRef();
@@ -33,15 +43,15 @@ export const ShaderPlane = ({
     <mesh {...props}>
       <planeGeometry args={[1, 1, widthSegments, heightSegments]}>
         <bufferAttribute
-          attach={"attributes-aSpeed"}
-          count={1 * ((widthSegments + 1) * (heightSegments + 1))}
+          attach={"attributes-aColor"}
+          count={3 * ((widthSegments + 1) * (heightSegments + 1))}
           array={new Float32Array(
-            1 * (widthSegments + 1) * (heightSegments + 1)
-          ).map(() => randFloat(1, 5))}
-          itemSize={1}
+            3 * (widthSegments + 1) * (heightSegments + 1)
+          ).map(() => randFloat(0, 1))}
+          itemSize={3}
         />
       </planeGeometry>
-      <myShaderMaterial uColor={"lightblue"} ref={material} />
+      <myShaderMaterial uColor="lightblue" ref={material} />
     </mesh>
   );
 };

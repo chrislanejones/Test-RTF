@@ -1,6 +1,6 @@
 import { shaderMaterial } from "@react-three/drei";
 import { extend, useFrame } from "@react-three/fiber";
-import { Color, Material } from "three";
+import { Color } from "three";
 import { useRef } from "react";
 
 import myShaderFragment from "./shaders/myshader.fragment.glsl";
@@ -9,6 +9,7 @@ import myShaderVertex from "./shaders/myshader.vertex.glsl";
 const MyShaderMaterial = shaderMaterial(
   {
     uColor: new Color("pink"),
+    uTime: 0,
   },
   myShaderVertex,
   myShaderFragment

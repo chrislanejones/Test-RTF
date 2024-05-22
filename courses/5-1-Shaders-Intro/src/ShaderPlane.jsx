@@ -5,6 +5,7 @@ import { useRef } from "react";
 
 import myShaderFragment from "./shaders/myshader.fragment.glsl";
 import myShaderVertex from "./shaders/myshader.vertex.glsl";
+import { randFloat } from "three/src/math/MathUtils.js";
 
 const MyShaderMaterial = shaderMaterial(
   {
@@ -17,7 +18,11 @@ const MyShaderMaterial = shaderMaterial(
 
 extend({ MyShaderMaterial });
 
-export const ShaderPlane = ({ ...props }) => {
+export const ShaderPlane = ({
+  widthSegments = 5,
+  heightSegments = 5,
+  ...props
+}) => {
   const material = useRef();
 
   useFrame(({ clock }) => {
@@ -26,7 +31,16 @@ export const ShaderPlane = ({ ...props }) => {
 
   return (
     <mesh {...props}>
-      <planeGeometry args={[1, 1]} />
+      <planeGeometry args={[1, 1, widthSegments, heightSegments]}>
+        <bufferAttribute
+          attach={"attributes-aSpeed"}
+          count={1 * ((widthSegments + 1) * (heightSegments + 1))}
+          array={new Float32Array(
+            1 * (widthSegments + 1) * (heightSegments + 1)
+          ).map(() => randFloat(1, 5))}
+          itemSize={1}
+        />
+      </planeGeometry>
       <myShaderMaterial uColor={"lightblue"} ref={material} />
     </mesh>
   );

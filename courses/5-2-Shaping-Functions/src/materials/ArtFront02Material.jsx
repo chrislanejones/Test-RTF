@@ -19,7 +19,7 @@ export const ArtFront02Material = shaderMaterial(
 
   void main() {
   float pct = 1.0;
-  pct = step(0.5, vUv.x);
+  pct = mix(0.0, 1.0, vUv.x);
   vec3 finalColor = pct * uColor;
   gl_FragColor = vec4(finalColor, 1.0);
 }

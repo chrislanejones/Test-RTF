@@ -30,7 +30,7 @@ extend({ MyShaderMaterial });
 
 export const ShaderPlane = ({
   widthSegments = 5,
-  heightSegments = 1,
+  heightSegments = 5,
   ...props
 }) => {
   const material = useRef();

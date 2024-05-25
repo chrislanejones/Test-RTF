@@ -34,13 +34,32 @@ export const ArtFront02Material = shaderMaterial(
 // }
 
 // Min & Max
+// void main() {
+//   vec3 whiteColor = vec3(1.0);
+//   float pct = smoothstep(0.4, 0.6, vUv.y);
+//   pct = max(pct, 0.4);
+//   pct = min(pct, 0.6);
+//   vec3 finalColor = mix(whiteColor, uColor, pct);
+//   gl_FragColor = vec4(finalColor, 1.0);
+// }
+
+// Min & Max 2
+// void main() {
+//   vec3 whiteColor = vec3(1.0);
+//   float pct = smoothstep(0.4, 0.6, vUv.y);
+//   pct = max(pct, 0.4);
+//   pct = min(pct, 0.6);
+//   vec3 finalColor = mix(whiteColor, uColor, pct);
+//   gl_FragColor = vec4(finalColor, 1.0);
+// }
+
+// Repeating patterns with modulo (SAW)
 void main() {
-  vec3 whiteColor = vec3(1.0);
-  float pct = smoothstep(0.4, 0.6, vUv.y);
-  pct = max(pct, 0.4);
-  pct = min(pct, 0.6);
-  vec3 finalColor = mix(whiteColor, uColor, pct);
+  float pct = mod(vUv.x * 5.0, 1.0);
+  pct = step(pct, 0.5);
+  vec3 finalColor = uColor * pct;
   gl_FragColor = vec4(finalColor, 1.0);
 }
+
   `
 );

@@ -54,12 +54,37 @@ export const ArtFront02Material = shaderMaterial(
 // }
 
 // Repeating patterns with modulo (SAW)
+// void main() {
+//   float pct = mod(vUv.x * 5.0, 1.0);
+//   pct = step(pct, 0.5);
+//   vec3 finalColor = uColor * pct;
+//   gl_FragColor = vec4(finalColor, 1.0);
+// }
+
+// Repeating patterns with modulo gradient (SAW)
+// void main() {
+//   float pct = mod(vUv.x * 5.0, 1.0);
+//   vec3 finalColor = uColor * pct;
+//   gl_FragColor = vec4(finalColor, 1.0);
+// }
+
+// Repeating patterns with modulo gradient (SAW and Fract)
+// void main() {
+//   float pct = fract(vUv.x * 5.0);
+//   vec3 finalColor = uColor * pct;
+//   pct = step(pct, 0.5);
+//   gl_FragColor = vec4(finalColor, 1.0);
+// }
+
+// Combining effects
 void main() {
-  float pct = mod(vUv.x * 5.0, 1.0);
-  pct = step(pct, 0.5);
+  vec2 repeatedUvs = fract(vUv * 8.0);
+  float verticalStripes = step(0.75, repeatedUvs.x);
+  float horizontalStripes = step(0.75, repeatedUvs.y);
+  float pct = verticalStripes + horizontalStripes;
   vec3 finalColor = uColor * pct;
   gl_FragColor = vec4(finalColor, 1.0);
 }
 
-  `
+ `
 );

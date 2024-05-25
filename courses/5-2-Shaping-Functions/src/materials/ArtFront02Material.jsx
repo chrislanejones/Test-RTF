@@ -17,15 +17,28 @@ export const ArtFront02Material = shaderMaterial(
   uniform float uTime;
   varying vec2 vUv;
 
+// Mix
 //   void main() {
 //   vec3 whiteColor = vec3(1.0);
 //   vec3 finalColor = mix(whiteColor, uColor, vUv.y);
 //   gl_FragColor = vec4(finalColor, 1.0);
 // }
 
+
+// SmoothStep
+// void main() {
+//   vec3 whiteColor = vec3(1.0);
+//   float pct = smoothstep(0.4, 0.6, vUv.y);
+//   vec3 finalColor = mix(whiteColor, uColor, pct);
+//   gl_FragColor = vec4(finalColor, 1.0);
+// }
+
+// Min & Max
 void main() {
   vec3 whiteColor = vec3(1.0);
-  float pct = mix(0.0, 0.3, vUv.y);
+  float pct = smoothstep(0.4, 0.6, vUv.y);
+  pct = max(pct, 0.4);
+  pct = min(pct, 0.6);
   vec3 finalColor = mix(whiteColor, uColor, pct);
   gl_FragColor = vec4(finalColor, 1.0);
 }

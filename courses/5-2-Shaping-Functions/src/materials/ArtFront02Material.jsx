@@ -17,6 +17,14 @@ export const ArtFront02Material = shaderMaterial(
   uniform float uTime;
   varying vec2 vUv;
 
+// Step 
+//   void main() {
+//   float pct = 1.0;
+//   pct = step(0.5, vUv.x);
+//   vec3 finalColor = pct * uColor;
+//   gl_FragColor = vec4(finalColor, 1.0);
+// }  
+
 // Mix
 //   void main() {
 //   vec3 whiteColor = vec3(1.0);
@@ -109,14 +117,26 @@ export const ArtFront02Material = shaderMaterial(
 // }
 
 // Combining effects (Intersection Only)
+// void main() {
+//   vec2 repeatedUvs = fract(vUv * 8.0 - 0.125);
+//   float verticalStripes = step(0.75, repeatedUvs.x);
+//   float horizontalStripes = step(0.75, repeatedUvs.y);
+//   float pct = verticalStripes * horizontalStripes;
+//   vec3 finalColor = uColor * pct;
+//   gl_FragColor = vec4(finalColor, 1.0);
+// }
+
+// Combining effects (Broken Checkboard)
 void main() {
-  vec2 repeatedUvs = fract(vUv * 8.0 - 0.125);
-  float verticalStripes = step(0.75, repeatedUvs.x);
-  float horizontalStripes = step(0.75, repeatedUvs.y);
-  float pct = verticalStripes * horizontalStripes;
-  vec3 finalColor = uColor * pct;
+    vec2 repeatedUvs = fract(vUv * 8.0 - 0.25);
+    float verticalRectangle = step(0.5, repeatedUvs.x) * step(0.35, repeatedUvs.y);
+    float horizontalLine = step(0.9, repeatedUvs.y);
+    float pct = verticalRectangle + horizontalLine;
+    vec3 finalColor = uColor * pct;
   gl_FragColor = vec4(finalColor, 1.0);
 }
+
+
 
  `
 );

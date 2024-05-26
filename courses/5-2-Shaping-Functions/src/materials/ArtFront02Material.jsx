@@ -87,8 +87,19 @@ export const ArtFront02Material = shaderMaterial(
 // }
 
 // Combining effects (checkerboard pattern Intersection)
+// void main() {
+//   vec2 repeatedUvs = fract(vUv * 8.0);
+//   float verticalStripes = step(0.75, repeatedUvs.x);
+//   float horizontalStripes = step(0.75, repeatedUvs.y);
+//   float pct = verticalStripes + horizontalStripes;
+//   pct = min(pct, 1.0);
+//   vec3 finalColor = uColor * pct;
+//   gl_FragColor = vec4(finalColor, 1.0);
+// }
+
+// Combining effects (checkerboard pattern Intersection) - Stripes Subtracted
 void main() {
-  vec2 repeatedUvs = fract(vUv * 8.0);
+  vec2 repeatedUvs = fract(vUv * 8.0 - 0.125);
   float verticalStripes = step(0.75, repeatedUvs.x);
   float horizontalStripes = step(0.75, repeatedUvs.y);
   float pct = verticalStripes + horizontalStripes;

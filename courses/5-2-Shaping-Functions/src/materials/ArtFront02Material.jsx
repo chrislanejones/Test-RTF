@@ -137,6 +137,46 @@ export const ArtFront02Material = shaderMaterial(
 // }
 
 // Piet Mondrian
+// vec3 red    = vec3(0.81, 0.15, 0.15);
+// vec3 blue   = vec3(0.215, 0.152, 0.615);
+// vec3 yellow = vec3(0.89, 0.62, 0.26);
+// vec3 yellowFluo = vec3(0.949,0.90,0.0627);
+// vec3 white  = vec3(0.89, 0.89, 0.89);
+// vec3 black  = vec3(0.22, 0.22, 0.22);
+// vec3 green = vec3(0.28, 0.61,	0.29);
+
+// float drawRectangle(float x0, float x1, float y0, float y1, vec2 uv) {
+//   float vertical = step(x0, uv.x) * step(uv.x, x1);
+//   float horizontal = step(y0, uv.y) * step(uv.y, y1);
+//   return vertical * horizontal;
+// }
+
+// void main() {
+//   vec3 finalColor = white;
+
+//   // Blue and Red Right
+//   finalColor = mix(finalColor, black, step(0.5, vUv.x));
+//   finalColor = mix(finalColor, red, step(0.55, vUv.x));
+//   finalColor = mix(finalColor, black, step(0.5, vUv.x) * step(0.45, vUv.y));
+//   finalColor = mix(finalColor, blue, step(0.55, vUv.x) * step(0.5, vUv.y));
+
+//   finalColor = mix(finalColor, black, step(vUv.x, 0.5) * step(vUv.y, 0.24));
+//   finalColor = mix(finalColor, yellow, step(vUv.x, 0.5) * step(vUv.y, 0.2));
+
+//   finalColor = mix(finalColor, black, step(vUv.x, 0.5) * step(0.6, vUv.y) * step(vUv.y, 0.64));
+//   finalColor = mix(finalColor, black, step(vUv.x, 0.25) * step(0.20, vUv.x) * step(0.64, vUv.y));
+
+//   finalColor = mix(finalColor, green, step(vUv.x, 0.2) * step(0.2, vUv.y) * step(0.64, vUv.y));
+
+
+//   finalColor = mix(finalColor, yellowFluo, step(vUv.x, 0.5) * step(0.25, vUv.x) * step(0.64, vUv.y) * step(vUv.y, 0.82));
+//   finalColor = mix(finalColor, black, step(vUv.x, 0.5) * step(0.25, vUv.x) * step(0.82, vUv.y) * step(vUv.y, 0.86));
+
+//   gl_FragColor = vec4(finalColor, 1.0);
+// }
+
+
+// Piet Mondrian Rectangle 
 vec3 red    = vec3(0.81, 0.15, 0.15);
 vec3 blue   = vec3(0.215, 0.152, 0.615);
 vec3 yellow = vec3(0.89, 0.62, 0.26);
@@ -145,26 +185,44 @@ vec3 white  = vec3(0.89, 0.89, 0.89);
 vec3 black  = vec3(0.22, 0.22, 0.22);
 vec3 green = vec3(0.28, 0.61,	0.29);
 
+float drawRectangle(float x0, float x1, float y0, float y1, vec2 uv) {
+  float vertical = step(x0, uv.x) * step(uv.x, x1);
+  float horizontal = step(y0, uv.y) * step(uv.y, y1);
+  return vertical * horizontal;
+}
+
+
 void main() {
   vec3 finalColor = white;
 
-  // Blue and Red Right
-  finalColor = mix(finalColor, black, step(0.5, vUv.x));
-  finalColor = mix(finalColor, red, step(0.55, vUv.x));
-  finalColor = mix(finalColor, black, step(0.5, vUv.x) * step(0.45, vUv.y));
-  finalColor = mix(finalColor, blue, step(0.55, vUv.x) * step(0.5, vUv.y));
+  float middleVerticalLine = drawRectangle(0.5, 0.55, 0.0, 1.0, vUv);
+  finalColor = mix(finalColor, black, middleVerticalLine);
 
-  finalColor = mix(finalColor, black, step(vUv.x, 0.5) * step(vUv.y, 0.24));
-  finalColor = mix(finalColor, yellow, step(vUv.x, 0.5) * step(vUv.y, 0.2));
+  float bottomRightRectangle = drawRectangle(0.55, 1.0, 0.0, 0.5, vUv);
+  finalColor = mix(finalColor, red, bottomRightRectangle);
+  float middleRightLine = drawRectangle(0.55, 1.0, 0.45, 0.5, vUv);
+  finalColor = mix(finalColor, black, middleRightLine);
+  float topRightRectangle = drawRectangle(0.55, 1.0, 0.5, 1.0, vUv);
+  finalColor = mix(finalColor, blue, topRightRectangle);
 
-  finalColor = mix(finalColor, black, step(vUv.x, 0.5) * step(0.6, vUv.y) * step(vUv.y, 0.64));
-  finalColor = mix(finalColor, black, step(vUv.x, 0.25) * step(0.20, vUv.x) * step(0.64, vUv.y));
+  float bottomLeftRectangle = drawRectangle(0.0, 0.5, 0.0, 0.2, vUv);
+  finalColor = mix(finalColor, yellow, bottomLeftRectangle);
 
-  finalColor = mix(finalColor, green, step(vUv.x, 0.2) * step(0.2, vUv.y) * step(0.64, vUv.y));
+  float bottomLeftHorizontalLine = drawRectangle(0.0, 0.5, 0.2, 0.24, vUv);
+  finalColor = mix(finalColor, black, bottomLeftHorizontalLine);
 
 
-  finalColor = mix(finalColor, yellowFluo, step(vUv.x, 0.5) * step(0.25, vUv.x) * step(0.64, vUv.y) * step(vUv.y, 0.82));
-  finalColor = mix(finalColor, black, step(vUv.x, 0.5) * step(0.25, vUv.x) * step(0.82, vUv.y) * step(vUv.y, 0.86));
+  float middleLeftHorizontalLine = drawRectangle(0.0, 0.5, 0.6, 0.64, vUv);
+  finalColor = mix(finalColor, black, middleLeftHorizontalLine);
+
+  float topLeftVerticalLine = drawRectangle(0.2, 0.25, 0.64, 1.0, vUv);
+  finalColor = mix(finalColor, black, topLeftVerticalLine);
+
+  float topLeftHorizontalLine = drawRectangle(0.25, 0.5, 0.82, 0.86, vUv);
+  finalColor = mix(finalColor, black, topLeftHorizontalLine);
+
+  float topLeftRectangle = drawRectangle(0.25, 0.5, 0.64, 0.82, vUv);
+  finalColor = mix(finalColor, yellowFluo, topLeftRectangle);
 
   gl_FragColor = vec4(finalColor, 1.0);
 }

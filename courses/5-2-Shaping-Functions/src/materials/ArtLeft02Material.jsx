@@ -27,8 +27,10 @@ export const ArtLeft02Material = shaderMaterial(
 
 void main() {
   vec2 translatedUvs = (vUv - 0.5) * 2.0;
-  float roundedBoxDistance
-    = sdRoundedBox(translatedUvs, vec2(0.2), vec4(0.01));
+  // Square Shape
+  // float roundedBoxDistance
+  //   = sdRoundedBox(translatedUvs, vec2(0.2), vec4(0.01));
+  float roundedBoxDistance = sdRoundedBox(translatedUvs, vec2(0.5, 0.3), vec4(0.1, 0.0, 0.0, 0.1));
   float pct = step(roundedBoxDistance, 0.0);
   vec3 finalColor = pct * uColor;
   gl_FragColor = vec4(finalColor, 1.0);

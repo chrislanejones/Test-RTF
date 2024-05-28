@@ -106,6 +106,7 @@ export const Gallery = ({ ...props }) => {
             <planeGeometry args={[3.4, 1.8, 1]} />
             <artLeft02Material
               uColor="lightblue"
+              uResolution={[3.4, 1.8]}
               ref={(ref) => (frameRefs.current["left02"] = ref)}
             />
           </mesh>

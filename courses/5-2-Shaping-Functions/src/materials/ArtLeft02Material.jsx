@@ -79,15 +79,39 @@ float sdHexagram( in vec2 p, in float r )
 // }
 
 // Hexagram Mutipled With Sin and Animated
-void main() {
+// void main() {
+//   vec2 translatedUvs = (vUv - 0.5) * 2.0;
+//   translatedUvs.x *= uResolution.x / uResolution.y;
+//   float hexagramDistance = sdHexagram(translatedUvs, 0.3);
+//   hexagramDistance = sin(hexagramDistance * 12.0 + uTime * 3.0);
+//   float pct = step(hexagramDistance, 0.0);
+//   vec3 finalColor = pct * uColor;
+//   gl_FragColor = vec4(finalColor, 1.0);
+// }
+
+// Hexagram Mutipled With Sin and Animated with Color
+// void main() {
+//     vec2 translatedUvs = (vUv - 0.5) * 2.0;
+//     translatedUvs.x *= uResolution.x / uResolution.y;
+//     float hexagramDistance = sdHexagram(translatedUvs, 0.3);
+//     hexagramDistance = sin(hexagramDistance * 12.0 + uTime * 3.0) * 0.5 + 0.5;
+//     float pct = step(hexagramDistance, 0.5);
+//     vec3 finalColor = pct * uColor;
+//     gl_FragColor = vec4(finalColor, 1.0);
+//   }
+
+  // Hexagram Mutipled With Reciprocal Animated with Color and SmoothStep
+  void main() {
   vec2 translatedUvs = (vUv - 0.5) * 2.0;
   translatedUvs.x *= uResolution.x / uResolution.y;
   float hexagramDistance = sdHexagram(translatedUvs, 0.3);
-  hexagramDistance = sin(hexagramDistance * 12.0 + uTime * 3.0);
-  float pct = step(hexagramDistance, 0.0);
+  hexagramDistance = sin(hexagramDistance * 12.0 + uTime * 3.0) * 0.5 + 0.5;
+  float pct = smoothstep(0.0, 0.8, hexagramDistance);
   vec3 finalColor = pct * uColor;
   gl_FragColor = vec4(finalColor, 1.0);
 }
+
+
 
   `
 );

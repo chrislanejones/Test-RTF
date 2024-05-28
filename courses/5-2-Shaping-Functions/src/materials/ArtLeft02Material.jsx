@@ -66,16 +66,28 @@ float sdHexagram( in vec2 p, in float r )
 
 
 // Hexagram Mutipled With Sin
+// void main() {
+//   vec2 translatedUvs = (vUv - 0.5) * 2.0;
+//   translatedUvs.x *= uResolution.x / uResolution.y;
+//   // Square Shape
+//   // float roundedBoxDistance
+//   //   = sdRoundedBox(translatedUvs, vec2(0.2), vec4(0.01));
+//   float hexagramDistance = sin(sdHexagram(translatedUvs, 0.3) * 12.0);
+//   float pct = step(hexagramDistance, 0.0);
+//   vec3 finalColor = pct * uColor;
+//   gl_FragColor = vec4(finalColor, 1.0);
+// }
+
+// Hexagram Mutipled With Sin and Animated
 void main() {
   vec2 translatedUvs = (vUv - 0.5) * 2.0;
   translatedUvs.x *= uResolution.x / uResolution.y;
-  // Square Shape
-  // float roundedBoxDistance
-  //   = sdRoundedBox(translatedUvs, vec2(0.2), vec4(0.01));
-  float hexagramDistance = sin(sdHexagram(translatedUvs, 0.3) * 12.0);
+  float hexagramDistance = sdHexagram(translatedUvs, 0.3);
+  hexagramDistance = sin(hexagramDistance * 12.0 + uTime * 3.0);
   float pct = step(hexagramDistance, 0.0);
   vec3 finalColor = pct * uColor;
   gl_FragColor = vec4(finalColor, 1.0);
 }
+
   `
 );

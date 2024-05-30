@@ -135,15 +135,31 @@ float sdHexagram( in vec2 p, in float r )
 // }
 
 // Hexagram Mutipled With Reciprocal - Ping Pong Effect
+// void main() {
+//   vec2 translatedUvs = (vUv - 0.5) * 2.0;
+//   translatedUvs.x *= uResolution.x / uResolution.y;
+//   translatedUvs *= cos(uTime);
+//   float hexagramDistance = sdHexagram(translatedUvs, 0.3);
+//   hexagramDistance = sin(hexagramDistance * 12.0 + uTime * 3.0) * 0.5 + 0.5;
+//   hexagramDistance /= 4.0;
+//   float pct = 0.022 / hexagramDistance;
+//   vec3 finalColor = pct * uColor;
+//   gl_FragColor = vec4(finalColor, 1.0);
+// }
+
+// Hexagram Mutipled With Reciprocal - Ping Pong Effect - Color Change
+vec3 yellowFluo = vec3(2.0, 2.0, 0.0);
+
 void main() {
   vec2 translatedUvs = (vUv - 0.5) * 2.0;
   translatedUvs.x *= uResolution.x / uResolution.y;
   translatedUvs *= cos(uTime);
   float hexagramDistance = sdHexagram(translatedUvs, 0.3);
+  vec3 colorUsed = mix(uColor, yellowFluo, hexagramDistance);
   hexagramDistance = sin(hexagramDistance * 12.0 + uTime * 3.0) * 0.5 + 0.5;
   hexagramDistance /= 4.0;
   float pct = 0.022 / hexagramDistance;
-  vec3 finalColor = pct * uColor;
+  vec3 finalColor = pct * colorUsed;
   gl_FragColor = vec4(finalColor, 1.0);
 }
 

@@ -112,16 +112,29 @@ float sdHexagram( in vec2 p, in float r )
 // }
 
 // Hexagram Mutipled With Reciprocal Animation
+// void main() {
+//   vec2 translatedUvs = (vUv - 0.5) * 2.0;
+//   translatedUvs.x *= uResolution.x / uResolution.y;
+//   float hexagramDistance = sdHexagram(translatedUvs, 0.3);
+//   hexagramDistance = sin(hexagramDistance * 12.0 + uTime * 3.0) * 0.5 + 0.5;
+//   hexagramDistance /= 4.0;
+//   float pct = 0.022 / hexagramDistance;
+//   vec3 finalColor = pct * uColor;
+//   gl_FragColor = vec4(finalColor, 1.0);
+// }
+
+// Hexagram Mutipled With Reciprocal Animation - Thin Version
 void main() {
   vec2 translatedUvs = (vUv - 0.5) * 2.0;
   translatedUvs.x *= uResolution.x / uResolution.y;
   float hexagramDistance = sdHexagram(translatedUvs, 0.3);
   hexagramDistance = sin(hexagramDistance * 12.0 + uTime * 3.0) * 0.5 + 0.5;
   hexagramDistance /= 4.0;
-  float pct = 0.022 / hexagramDistance;
+  float pct = 0.011 / hexagramDistance;
   vec3 finalColor = pct * uColor;
   gl_FragColor = vec4(finalColor, 1.0);
 }
+
 
   `
 );

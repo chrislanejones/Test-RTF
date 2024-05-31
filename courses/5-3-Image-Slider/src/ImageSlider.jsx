@@ -1,5 +1,31 @@
-import { useTexture } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
+import { shaderMaterial, useTexture } from "@react-three/drei";
+import { extend, useThree } from "@react-three/fiber";
+
+const ImageSliderMaterial = shaderMaterial(
+  {
+    uTexture: undefined,
+  },
+  /*glsl*/ `
+  varying vec2 vUv;
+  void main() {
+    vUv = uv;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }`,
+  /*glsl*/ ` 
+  varying vec2 vUv;
+  uniform sampler2D uTexture;
+
+  void main() {
+    vec2 uv = vUv;
+    vec4 curTexture = texture2D(uTexture, vUv);
+          
+    gl_FragColor = curTexture;
+  }`
+);
+
+extend({
+  ImageSliderMaterial,
+});
 
 export const ImageSlider = ({ width = 3, height = 4, fillPercent = 0.75 }) => {
   const image =
@@ -13,7 +39,7 @@ export const ImageSlider = ({ width = 3, height = 4, fillPercent = 0.75 }) => {
   return (
     <mesh>
       <planeGeometry args={[width * ratio, height * ratio]} />
-      <meshBasicMaterial color="white" map={texture} />
+      <imageSliderMaterial uTexture={texture} />
     </mesh>
   );
 };

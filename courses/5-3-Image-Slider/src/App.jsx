@@ -52,10 +52,6 @@ function App() {
           <Canvas camera={{ position: [0, 0, 5], fov: 30 }}>
             <color attach="background" args={["#201d24"]} />
             <ImageSlider />
-            <mesh>
-              <boxGeometry args={[1, 1, 1]} />
-              <meshBasicMaterial color="white" />
-            </mesh>
           </Canvas>
         </section>
         <section className="h-screen grid place-content-center">

@@ -1,5 +1,6 @@
 import { shaderMaterial, useTexture } from "@react-three/drei";
 import { extend, useThree } from "@react-three/fiber";
+import zustand from "zustand";
 
 const ImageSliderMaterial = shaderMaterial(
   {
@@ -20,6 +21,8 @@ const ImageSliderMaterial = shaderMaterial(
     vec4 curTexture = texture2D(uTexture, vUv);
           
     gl_FragColor = curTexture;
+    #include <tonemapping_fragment>
+    #include <encodings_fragment>
   }`
 );
 

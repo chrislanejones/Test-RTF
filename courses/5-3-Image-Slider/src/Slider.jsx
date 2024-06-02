@@ -1,7 +1,14 @@
 import { useSlider } from "./hooks/useSlider";
 
 export const Slider = () => {
-  const { curSlide, items, nextSlide, prevSlide } = useSlider();
+  const { curSlide, items, nextSlide, prevSlide, direction } = useSlider();
+  let prevIdx = direction === "next" ? curSlide - 1 : curSlide + 1;
+  if (prevIdx === items.length) {
+    prevIdx = 0;
+  } else if (prevIdx === -1) {
+    prevIdx = items.length - 1;
+  }
+
   return (
     <div className="grid place-content-center h-full select-none overflow-hidden pointer-events-none relative z-10">
       {/* MIDDLE CONTAINER */}

@@ -45,4 +45,14 @@ export const useSlider = create((set) => ({
       description: "Emotions and experiences.",
     },
   ],
+  nextSlide: () =>
+    set((state) => ({
+      curSlide: (state.curSlide + 1) % state.items.length,
+      direction: "next",
+    })),
+  prevSlide: () =>
+    set((state) => ({
+      curSlide: (state.curSlide - 1 + state.items.length) % state.items.length,
+      direction: "prev",
+    })),
 }));

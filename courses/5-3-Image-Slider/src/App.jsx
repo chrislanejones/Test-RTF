@@ -51,7 +51,16 @@ function App() {
             </svg>
           </motion.div>
           <Slider />
-          <Canvas camera={{ position: [0, 0, 5], fov: 30 }}>
+          <Canvas
+            camera={{ position: [0, 0, 5], fov: 30 }}
+            className="top-0 left-0"
+            style={{
+              // Overriding the default style applied by R3F
+              width: "100%",
+              height: "100%",
+              position: "absolute",
+            }}
+          >
             <color attach="background" args={["#201d24"]} />
             <ImageSlider />
           </Canvas>

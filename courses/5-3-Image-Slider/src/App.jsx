@@ -1,6 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 import { motion } from "framer-motion";
 import { ImageSlider } from "./ImageSlider";
+import Slider from "./Slider";
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
               />
             </svg>
           </motion.div>
+          <Slider />
           <Canvas camera={{ position: [0, 0, 5], fov: 30 }}>
             <color attach="background" args={["#201d24"]} />
             <ImageSlider />

@@ -1,4 +1,6 @@
+import { motion } from "framer-motion";
 import { useSlider } from "./hooks/useSlider";
+const TEXT_TRANSITION_HEIGHT = 150;
 
 export const Slider = () => {
   const { curSlide, items, nextSlide, prevSlide, direction } = useSlider();
@@ -67,12 +69,72 @@ export const Slider = () => {
         <div className="absolute right-4 md:right-auto md:left-full md:-ml-20 bottom-8">
           <h2
             className="antialiased font-display font-bold 
-            text-transparent text-outline-0.5 
-            block overflow-hidden relative w-[50vw]
-            text-5xl h-16
-            md:text-8xl md:h-28"
+                  text-transparent text-outline-0.5 
+                  block overflow-hidden relative w-[50vw]
+                  text-5xl h-16
+                  md:text-8xl md:h-28"
           >
-            {items[curSlide].title}
+            {items.map((item, idx) => (
+              <motion.div
+                key={idx}
+                className="absolute top-0 left-0 w-full text-right md:text-left"
+                animate={
+                  idx === curSlide
+                    ? "current"
+                    : idx === prevIdx
+                    ? "prev"
+                    : "next"
+                }
+                variants={{
+                  current: {
+                    transition: {
+                      delay: 0.4,
+                      staggerChildren: 0.06,
+                    },
+                  },
+                }}
+              >
+                {item.title.split("").map((char, idx) => (
+                  <motion.span
+                    key={idx}
+                    className="inline-block" // to make the transform work (translateY)
+                    variants={{
+                      current: {
+                        translateY: 0,
+                        transition: {
+                          duration: 0.8,
+                          from:
+                            direction === "prev"
+                              ? -TEXT_TRANSITION_HEIGHT
+                              : TEXT_TRANSITION_HEIGHT,
+                          type: "spring",
+                          bounce: 0.2,
+                        },
+                      },
+                      prev: {
+                        translateY:
+                          direction === "prev"
+                            ? TEXT_TRANSITION_HEIGHT
+                            : -TEXT_TRANSITION_HEIGHT,
+                        transition: {
+                          duration: 0.8,
+                          from:
+                            direction === "start" ? -TEXT_TRANSITION_HEIGHT : 0,
+                        },
+                      },
+                      next: {
+                        translateY: TEXT_TRANSITION_HEIGHT,
+                        transition: {
+                          from: TEXT_TRANSITION_HEIGHT,
+                        },
+                      },
+                    }}
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </motion.div>
+            ))}
           </h2>
         </div>
         <div className="absolute right-4 md:right-auto md:left-full md:top-full md:-mt-10 bottom-8 md:bottom-auto">

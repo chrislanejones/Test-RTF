@@ -1,10 +1,13 @@
 import { shaderMaterial, useTexture } from "@react-three/drei";
 import { extend, useThree } from "@react-three/fiber";
 import zustand from "zustand";
+import { useSlider } from "./hooks/useSlider";
+import { useEffect, useState } from "react";
 
 const ImageSliderMaterial = shaderMaterial(
   {
     uTexture: undefined,
+    uPrevTexture: undefined,
   },
   /*glsl*/ `
   varying vec2 vUv;
@@ -31,9 +34,20 @@ extend({
 });
 
 export const ImageSlider = ({ width = 3, height = 4, fillPercent = 0.75 }) => {
-  const image =
-    "textures/optimized/Default_authentic_futuristic_cottage_with_garden_outside_0.jpg";
+  const { items, curSlide } = useSlider();
+  const image = items[curSlide].image;
   const texture = useTexture(image);
+  const [lastImage, setLastImage] = useState(image);
+  const prevTexture = useTexture(lastImage);
+
+  useEffect(() => {
+    const newImage = image;
+
+    return () => {
+      setLastImage(newImage);
+    };
+  }, [image]);
+
   const viewport = useThree((state) => state.viewport);
   let ratio = viewport.height / (height / fillPercent);
   if (viewport.width < viewport.height) {
@@ -46,3 +60,7 @@ export const ImageSlider = ({ width = 3, height = 4, fillPercent = 0.75 }) => {
     </mesh>
   );
 };
+
+useSlider.getState().items.forEach((item) => {
+  useTexture.preload(item.image);
+});

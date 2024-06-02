@@ -2,10 +2,13 @@ import { shaderMaterial, useTexture } from "@react-three/drei";
 import { extend, useThree } from "@react-three/fiber";
 import zustand from "zustand";
 import { useSlider } from "./hooks/useSlider";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useFrame } from "@react-three/fiber";
+import { MathUtils } from "three/src/math/MathUtils.js";
 
 const ImageSliderMaterial = shaderMaterial(
   {
+    uProgression: 1.0,
     uTexture: undefined,
     uPrevTexture: undefined,
   },
@@ -17,15 +20,19 @@ const ImageSliderMaterial = shaderMaterial(
   }`,
   /*glsl*/ ` 
   varying vec2 vUv;
-  uniform sampler2D uTexture;
-
-  void main() {
-    vec2 uv = vUv;
-    vec4 curTexture = texture2D(uTexture, vUv);
-          
-    gl_FragColor = curTexture;
-    #include <tonemapping_fragment>
-    #include <encodings_fragment>
+    uniform sampler2D uTexture;
+    uniform sampler2D uPrevTexture;
+    uniform float uProgression;
+  
+    void main() {
+      vec2 uv = vUv;
+      vec4 curTexture = texture2D(uTexture, vUv);
+      vec4 prevTexture = texture2D(uPrevTexture, vUv);
+      
+      vec4 finalTexture = mix(prevTexture, curTexture, uProgression);
+      gl_FragColor = finalTexture;
+      #include <tonemapping_fragment>
+      #include <encodings_fragment>
   }`
 );
 
@@ -39,14 +46,24 @@ export const ImageSlider = ({ width = 3, height = 4, fillPercent = 0.75 }) => {
   const texture = useTexture(image);
   const [lastImage, setLastImage] = useState(image);
   const prevTexture = useTexture(lastImage);
+  const material = useRef();
 
   useEffect(() => {
     const newImage = image;
+    material.current.uProgression = 0;
 
     return () => {
       setLastImage(newImage);
     };
   }, [image]);
+
+  useFrame(() => {
+    material.current.uProgression = MathUtils.lerp(
+      material.current.uProgression,
+      1,
+      0.05
+    );
+  });
 
   const viewport = useThree((state) => state.viewport);
   let ratio = viewport.height / (height / fillPercent);
@@ -56,7 +73,12 @@ export const ImageSlider = ({ width = 3, height = 4, fillPercent = 0.75 }) => {
   return (
     <mesh>
       <planeGeometry args={[width * ratio, height * ratio]} />
-      <imageSliderMaterial uTexture={texture} />
+      <imageSliderMaterial
+        ref={material}
+        uTexture={texture}
+        uPrevTexture={prevTexture}
+        uProgression={0.5}
+      />
     </mesh>
   );
 };

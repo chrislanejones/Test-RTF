@@ -7,18 +7,30 @@ import { useFrame } from "@react-three/fiber";
 import { MathUtils } from "three/src/math/MathUtils.js";
 import { MirroredRepeatWrapping } from "three";
 
+const PUSH_FORCE = 1.4;
+
 const ImageSliderMaterial = shaderMaterial(
   {
     uProgression: 1.0,
     uTexture: undefined,
     uPrevTexture: undefined,
     uDirection: 1,
+    uPushForce: PUSH_FORCE,
+    uMousePosition: [0, 0],
   },
   /*glsl*/ `
   varying vec2 vUv;
+  uniform float uPushForce;
+  uniform vec2 uMousePosition;
   void main() {
     vUv = uv;
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    vec2 centeredUv = (vUv - 0.5) * 2.0;
+    float pushed = length(centeredUv - uMousePosition);
+    pushed = 1.0 - pushed;
+    pushed = -uPushForce * pushed;
+    vec3 dispPosition = position;
+    dispPosition.z = pushed;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(dispPosition, 1.0);
   }`,
   /*glsl*/ ` 
     varying vec2 vUv;
@@ -88,12 +100,16 @@ export const ImageSlider = ({ width = 3, height = 4, fillPercent = 0.75 }) => {
     };
   }, [image]);
 
-  useFrame(() => {
+  useFrame(({ mouse }) => {
     material.current.uProgression = MathUtils.lerp(
       material.current.uProgression,
       1,
       0.05
     );
+    material.current.uMousePosition = [
+      MathUtils.lerp(material.current.uMousePosition[0], mouse.x, 0.05),
+      MathUtils.lerp(material.current.uMousePosition[1], mouse.y, 0.05),
+    ];
   });
 
   const viewport = useThree((state) => state.viewport);

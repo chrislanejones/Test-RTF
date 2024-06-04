@@ -27,14 +27,18 @@ const ImageSliderMaterial = shaderMaterial(
     uniform int uDirection;
   
     void main() {
-      vec2 uv = vUv;
-      vec4 curTexture = texture2D(uTexture, vUv);
-      vec4 prevTexture = texture2D(uPrevTexture, vUv);
-      
-      vec4 finalTexture = mix(prevTexture, curTexture, uProgression);
-      gl_FragColor = finalTexture;
-      #include <tonemapping_fragment>
-      #include <encodings_fragment>
+    vec2 uv = vUv;
+    vec2 distortedPosition = vec2(uv.x - float(uDirection) * (1.0 - uProgression), uv.y);
+    vec4 curTexture = texture2D(uTexture, distortedPosition);
+              
+    vec2 distortedPositionPrev = vec2(uv.x + float(uDirection) * uProgression, uv.y);
+    vec4 prevTexture = texture2D(uPrevTexture, distortedPositionPrev);
+    
+    vec4 finalTexture = mix(prevTexture, curTexture, uProgression);
+    gl_FragColor = finalTexture;
+    #include <tonemapping_fragment>
+    #include <encodings_fragment>
+
   }`
 );
 

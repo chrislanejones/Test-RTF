@@ -5,6 +5,7 @@ import { useSlider } from "./hooks/useSlider";
 import { useEffect, useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { MathUtils } from "three/src/math/MathUtils.js";
+import { MirroredRepeatWrapping } from "three";
 
 const ImageSliderMaterial = shaderMaterial(
   {
@@ -52,6 +53,13 @@ export const ImageSlider = ({ width = 3, height = 4, fillPercent = 0.75 }) => {
   const texture = useTexture(image);
   const [lastImage, setLastImage] = useState(image);
   const prevTexture = useTexture(lastImage);
+
+  texture.wrapS =
+    texture.wrapT =
+    prevTexture.wrapS =
+    prevTexture.wrapT =
+      MirroredRepeatWrapping;
+
   const material = useRef();
 
   useEffect(() => {

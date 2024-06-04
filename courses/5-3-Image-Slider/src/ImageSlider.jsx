@@ -20,6 +20,7 @@ const ImageSliderMaterial = shaderMaterial(
   },
   /*glsl*/ `
   varying vec2 vUv;
+  varying float vPushed;
   uniform float uPushForce;
   uniform vec2 uMousePosition;
   void main() {
@@ -28,12 +29,14 @@ const ImageSliderMaterial = shaderMaterial(
     float pushed = length(centeredUv - uMousePosition);
     pushed = 1.0 - smoothstep(0.0, 1.5, pushed);
     pushed = -uPushForce * pushed;
+    vPushed = pushed;
     vec3 dispPosition = position;
     dispPosition.z = pushed;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(dispPosition, 1.0);
   }`,
   /*glsl*/ ` 
     varying vec2 vUv;
+    varying float vPushed;
     uniform sampler2D uTexture;
     uniform sampler2D uPrevTexture;
     uniform float uProgression;
@@ -59,7 +62,12 @@ const ImageSliderMaterial = shaderMaterial(
       vec2 uv = vUv;
       float noiseFactor = noise(gl_FragCoord.xy * 0.05);
       vec2 distortedPosition = vec2(uv.x - float(uDirection) * (1.0 - uProgression) * noiseFactor, uv.y);
-      vec4 curTexture = texture2D(uTexture, distortedPosition);
+
+      float curTextureR = texture2D(uTexture, distortedPosition + vec2(vPushed * 0.062)).r;
+      float curTextureG = texture2D(uTexture, distortedPosition + vec2(vPushed * 0.042)).g;
+      float curTextureB = texture2D(uTexture, distortedPosition + vec2(vPushed * -0.032)).b;
+      float curTextureA = texture2D(uTexture, distortedPosition).a;
+      vec4 curTexture = vec4(curTextureR, curTextureG, curTextureB, curTextureA);
 
       vec2 distortedPositionPrev = vec2(uv.x + float(uDirection) * uProgression * noiseFactor, uv.y);
       vec4 prevTexture = texture2D(uPrevTexture, distortedPositionPrev);

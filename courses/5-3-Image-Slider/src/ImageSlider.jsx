@@ -11,6 +11,7 @@ const ImageSliderMaterial = shaderMaterial(
     uProgression: 1.0,
     uTexture: undefined,
     uPrevTexture: undefined,
+    uDirection: 1,
   },
   /*glsl*/ `
   varying vec2 vUv;
@@ -19,10 +20,11 @@ const ImageSliderMaterial = shaderMaterial(
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
   }`,
   /*glsl*/ ` 
-  varying vec2 vUv;
+    varying vec2 vUv;
     uniform sampler2D uTexture;
     uniform sampler2D uPrevTexture;
     uniform float uProgression;
+    uniform int uDirection;
   
     void main() {
       vec2 uv = vUv;
@@ -41,7 +43,7 @@ extend({
 });
 
 export const ImageSlider = ({ width = 3, height = 4, fillPercent = 0.75 }) => {
-  const { items, curSlide } = useSlider();
+  const { items, curSlide, direction } = useSlider();
   const image = items[curSlide].image;
   const texture = useTexture(image);
   const [lastImage, setLastImage] = useState(image);
@@ -78,6 +80,7 @@ export const ImageSlider = ({ width = 3, height = 4, fillPercent = 0.75 }) => {
         uTexture={texture}
         uPrevTexture={prevTexture}
         uProgression={0.5}
+        uDirection={direction === "next" ? 1 : -1}
       />
     </mesh>
   );

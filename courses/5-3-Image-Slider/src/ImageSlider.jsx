@@ -26,7 +26,7 @@ const ImageSliderMaterial = shaderMaterial(
     vUv = uv;
     vec2 centeredUv = (vUv - 0.5) * 2.0;
     float pushed = length(centeredUv - uMousePosition);
-    pushed = 1.0 - pushed;
+    pushed = 1.0 - smoothstep(0.0, 1.5, pushed);
     pushed = -uPushForce * pushed;
     vec3 dispPosition = position;
     dispPosition.z = pushed;
@@ -82,6 +82,7 @@ export const ImageSlider = ({ width = 3, height = 4, fillPercent = 0.75 }) => {
   const texture = useTexture(image);
   const [lastImage, setLastImage] = useState(image);
   const prevTexture = useTexture(lastImage);
+  const hovered = useRef(false);
 
   texture.wrapS =
     texture.wrapT =
@@ -110,6 +111,11 @@ export const ImageSlider = ({ width = 3, height = 4, fillPercent = 0.75 }) => {
       MathUtils.lerp(material.current.uMousePosition[0], mouse.x, 0.05),
       MathUtils.lerp(material.current.uMousePosition[1], mouse.y, 0.05),
     ];
+    material.current.uPushForce = MathUtils.lerp(
+      material.current.uPushForce,
+      hovered.current ? PUSH_FORCE : 0,
+      0.05
+    );
   });
 
   const viewport = useThree((state) => state.viewport);
@@ -118,14 +124,18 @@ export const ImageSlider = ({ width = 3, height = 4, fillPercent = 0.75 }) => {
     ratio = viewport.width / (width / fillPercent);
   }
   return (
-    <mesh>
-      <planeGeometry args={[width * ratio, height * ratio]} />
+    <mesh
+      onPointerEnter={() => (hovered.current = true)}
+      onPointerLeave={() => (hovered.current = false)}
+    >
+      <planeGeometry args={[width * ratio, height * ratio, 32, 32]} />
       <imageSliderMaterial
         ref={material}
         uTexture={texture}
         uPrevTexture={prevTexture}
         uProgression={0.5}
         uDirection={direction === "next" ? 1 : -1}
+        // wireframe
       />
     </mesh>
   );

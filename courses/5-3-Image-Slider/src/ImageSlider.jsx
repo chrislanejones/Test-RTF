@@ -116,18 +116,28 @@ export const ImageSlider = ({ width = 3, height = 4, fillPercent = 0.75 }) => {
   }, [image]);
 
   useFrame(({ mouse }) => {
-    material.current.uProgression = MathUtils.lerp(
-      material.current.uProgression,
-      1,
-      0.05
-    );
     material.current.uMousePosition = [
-      MathUtils.lerp(material.current.uMousePosition[0], mouse.x, 0.05),
-      MathUtils.lerp(material.current.uMousePosition[1], mouse.y, 0.05),
+      MathUtils.lerp(
+        material.current.uMousePosition[0],
+        transition
+          ? (direction === "prev" ? 1.0 : -1.0) * material.current.uProgression
+          : mouse.x,
+        0.05
+      ),
+      MathUtils.lerp(
+        material.current.uMousePosition[1],
+        transition ? -1.0 * material.current.uProgression : mouse.y,
+        0.05
+      ),
     ];
+    // ...
     material.current.uPushForce = MathUtils.lerp(
       material.current.uPushForce,
-      hovered.current ? PUSH_FORCE : 0,
+      transition
+        ? -PUSH_FORCE * 1.52 * Math.sin(material.current.uProgression * 3.14)
+        : hovered.current
+        ? PUSH_FORCE
+        : 0,
       0.05
     );
   });

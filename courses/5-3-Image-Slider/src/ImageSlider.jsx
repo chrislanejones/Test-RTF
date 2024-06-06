@@ -90,7 +90,7 @@ export const ImageSlider = ({ width = 3, height = 4, fillPercent = 0.75 }) => {
   const texture = useTexture(image);
   const [lastImage, setLastImage] = useState(image);
   const prevTexture = useTexture(lastImage);
-  const hovered = useRef(false);
+
   const [transition, setTransition] = useState(false);
 
   texture.wrapS =
@@ -104,16 +104,19 @@ export const ImageSlider = ({ width = 3, height = 4, fillPercent = 0.75 }) => {
   useEffect(() => {
     const newImage = image;
     material.current.uProgression = 0;
+
+    material.current.uMousePosition = [direction === "prev" ? -1 : 1, 0];
     setTransition(true);
     const timeout = setTimeout(() => {
       setTransition(false);
     }, 1600);
-
     return () => {
       setLastImage(newImage);
       clearTimeout(timeout);
     };
   }, [image]);
+
+  const hovered = useRef(false);
 
   useFrame(({ mouse }) => {
     material.current.uMousePosition = [
@@ -130,7 +133,13 @@ export const ImageSlider = ({ width = 3, height = 4, fillPercent = 0.75 }) => {
         0.05
       ),
     ];
-    // ...
+
+    // material.current.uProgression = MathUtils.lerp(
+    //   material.current.uProgression,
+    //   1,
+    //   0.05
+    // );
+
     material.current.uPushForce = MathUtils.lerp(
       material.current.uPushForce,
       transition

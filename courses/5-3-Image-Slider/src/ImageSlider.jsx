@@ -91,6 +91,7 @@ export const ImageSlider = ({ width = 3, height = 4, fillPercent = 0.75 }) => {
   const [lastImage, setLastImage] = useState(image);
   const prevTexture = useTexture(lastImage);
   const hovered = useRef(false);
+  const [transition, setTransition] = useState(false);
 
   texture.wrapS =
     texture.wrapT =
@@ -103,9 +104,14 @@ export const ImageSlider = ({ width = 3, height = 4, fillPercent = 0.75 }) => {
   useEffect(() => {
     const newImage = image;
     material.current.uProgression = 0;
+    setTransition(true);
+    const timeout = setTimeout(() => {
+      setTransition(false);
+    }, 1600);
 
     return () => {
       setLastImage(newImage);
+      clearTimeout(timeout);
     };
   }, [image]);
 

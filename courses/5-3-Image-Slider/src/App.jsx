@@ -3,14 +3,15 @@ import { motion, useSpring } from "framer-motion";
 import { ImageSlider } from "./ImageSlider";
 import Slider from "./Slider";
 import { useEffect, useRef } from "react";
+import { useSlider } from "./hooks/useSlider";
 
 const AnimatedBackground = () => {
   const bgColor = useRef();
   const { curSlide, items } = useSlider();
-  const animatedColor = useSpring(itmes[curSlide].color);
+  const animatedColor = useSpring(items[curSlide].color);
   useEffect(() => {
     if (bgColor.current) {
-      bgColor.current.set(animatedColor.get());
+      animatedColor.set(items[curSlide].color);
     }
   }, [curSlide]);
   useFrame(() => {
@@ -18,6 +19,7 @@ const AnimatedBackground = () => {
       bgColor.current.set(animatedColor.get());
     }
   });
+  return <color attach="background" args={[items[0].color]} ref={bgColor} />;
 };
 
 function App() {
@@ -78,7 +80,7 @@ function App() {
               position: "absolute",
             }}
           >
-            <color attach="background" args={["#201d24"]} />
+            <AnimatedBackground />
             <ImageSlider />
           </Canvas>
         </section>

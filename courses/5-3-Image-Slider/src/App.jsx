@@ -1,7 +1,24 @@
-import { Canvas } from "@react-three/fiber";
-import { motion } from "framer-motion";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { motion, useSpring } from "framer-motion";
 import { ImageSlider } from "./ImageSlider";
 import Slider from "./Slider";
+import { useEffect, useRef } from "react";
+
+const AnimatedBackground = () => {
+  const bgColor = useRef();
+  const { curSlide, items } = useSlider();
+  const animatedColor = useSpring(itmes[curSlide].color);
+  useEffect(() => {
+    if (bgColor.current) {
+      bgColor.current.set(animatedColor.get());
+    }
+  }, [curSlide]);
+  useFrame(() => {
+    if (bgColor.current) {
+      bgColor.current.set(animatedColor.get());
+    }
+  });
+};
 
 function App() {
   return (

@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { MathUtils } from "three/src/math/MathUtils.js";
 import { MirroredRepeatWrapping } from "three";
+import { useSpring } from "framer-motion";
 
 const PUSH_FORCE = 1.4;
 
@@ -92,6 +93,11 @@ export const ImageSlider = ({ width = 3, height = 4, fillPercent = 0.75 }) => {
   const prevTexture = useTexture(lastImage);
   const hovered = useRef(false);
   const [transition, setTransition] = useState(false);
+  const progression = useSpring(0, {
+    stiffness: 1500,
+    damping: 250,
+    mass: 2,
+  });
 
   texture.wrapS =
     texture.wrapT =
@@ -104,6 +110,8 @@ export const ImageSlider = ({ width = 3, height = 4, fillPercent = 0.75 }) => {
   useEffect(() => {
     const newImage = image;
     material.current.uProgression = 0;
+    progression.setCurrent(0);
+    progression.set(1.0);
     setTransition(true);
     const timeout = setTimeout(() => {
       setTransition(false);
@@ -144,6 +152,7 @@ export const ImageSlider = ({ width = 3, height = 4, fillPercent = 0.75 }) => {
         : 0,
       0.05
     );
+    material.current.uProgression = progression.get();
   });
 
   const viewport = useThree((state) => state.viewport);

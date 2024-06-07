@@ -124,11 +124,7 @@ export const ImageSlider = ({ width = 3, height = 4, fillPercent = 0.75 }) => {
   }, [image]);
 
   useFrame(({ mouse }) => {
-    material.current.uProgression = MathUtils.lerp(
-      material.current.uProgression,
-      1,
-      0.05
-    );
+    material.current.uProgression = progression.get();
     material.current.uMousePosition = [
       MathUtils.lerp(
         material.current.uMousePosition[0],
@@ -152,7 +148,6 @@ export const ImageSlider = ({ width = 3, height = 4, fillPercent = 0.75 }) => {
         : 0,
       0.05
     );
-    material.current.uProgression = progression.get();
   });
 
   const viewport = useThree((state) => state.viewport);

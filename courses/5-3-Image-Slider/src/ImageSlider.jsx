@@ -58,6 +58,14 @@ const ImageSliderMaterial = shaderMaterial(
     mix(rand(ip+vec2(0.0,1.0)),rand(ip+vec2(1.0,1.0)),u.x),u.y);
     return res*res;
     }
+
+    float sdRoundedBox( in vec2 p, in vec2 b, in vec4 r )
+  {
+    r.xy = (p.x>0.0)?r.xy : r.zw;
+    r.x  = (p.y>0.0)?r.x  : r.y;
+    vec2 q = abs(p)-b+r.x;
+    return min(max(q.x,q.y),0.0) + length(max(q,0.0)) - r.x;
+  }
   
     void main() {
       vec2 uv = vUv;
@@ -73,6 +81,11 @@ const ImageSliderMaterial = shaderMaterial(
       vec2 distortedPositionPrev = vec2(uv.x + float(uDirection) * uProgression * noiseFactor, uv.y);
       vec4 prevTexture = texture2D(uPrevTexture, distortedPositionPrev);
       vec4 finalTexture = mix(prevTexture, curTexture, uProgression);
+
+      vec2 centeredUv = (vUv - 0.5) * 2.0;
+      float frame = sdRoundedBox(centeredUv, vec2(1.0), vec4(0.1, 0.0, 0.0, 0.1));
+      frame = smoothstep(0.0, 0.002, -frame);
+      finalTexture.a *= frame;
 
     gl_FragColor = finalTexture;
     #include <tonemapping_fragment>
@@ -167,6 +180,7 @@ export const ImageSlider = ({ width = 3, height = 4, fillPercent = 0.75 }) => {
         uPrevTexture={prevTexture}
         uProgression={0.5}
         uDirection={direction === "next" ? 1 : -1}
+        transparent
         // wireframe
       />
     </mesh>

@@ -15,6 +15,7 @@ const ImageSliderMaterial = shaderMaterial(
     uProgression: 1.0,
     uTexture: undefined,
     uPrevTexture: undefined,
+    udispTexture: undefined,
     uDirection: 1,
     uPushForce: PUSH_FORCE,
     uMousePosition: [0, 0],
@@ -40,6 +41,7 @@ const ImageSliderMaterial = shaderMaterial(
     varying float vPushed;
     uniform sampler2D uTexture;
     uniform sampler2D uPrevTexture;
+    uniform sampler2D udispTexture;
     uniform float uProgression;
     uniform int uDirection;
 
@@ -69,7 +71,11 @@ const ImageSliderMaterial = shaderMaterial(
   
     void main() {
       vec2 uv = vUv;
-      float noiseFactor = noise(gl_FragCoord.xy * 0.05);
+      // float noiseFactor = noise(gl_FragCoord.xy * 0.05);
+      float noiseFactor = 0.0;
+      float dispTexture = texture2D(udispTexture, uv).r;
+      noiseFactor = dispTexture;
+
       vec2 distortedPosition = vec2(uv.x - float(uDirection) * (1.0 - uProgression) * noiseFactor, uv.y);
 
       float curTextureR = texture2D(uTexture, distortedPosition + vec2(vPushed * 0.062)).r;
@@ -99,6 +105,7 @@ extend({
 });
 
 export const ImageSlider = ({ width = 3, height = 4, fillPercent = 0.75 }) => {
+  const dispTexture = useTexture("displacement/TCom_Ice_Cracked_header.jpg");
   const { items, curSlide, direction } = useSlider();
   const image = items[curSlide].image;
   const texture = useTexture(image);
@@ -178,8 +185,10 @@ export const ImageSlider = ({ width = 3, height = 4, fillPercent = 0.75 }) => {
         ref={material}
         uTexture={texture}
         uPrevTexture={prevTexture}
+        udispTexture={dispTexture}
         uProgression={0.5}
         uDirection={direction === "next" ? 1 : -1}
+        uPushForce={0}
         transparent
         // wireframe
       />
@@ -190,3 +199,5 @@ export const ImageSlider = ({ width = 3, height = 4, fillPercent = 0.75 }) => {
 useSlider.getState().items.forEach((item) => {
   useTexture.preload(item.image);
 });
+
+useTexture.preload("displacement/TCom_Ice_Cracked_header.jpg");

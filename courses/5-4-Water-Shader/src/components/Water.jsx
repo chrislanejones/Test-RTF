@@ -1,4 +1,5 @@
 import { useControls } from "leva";
+import { Color } from "three";
 
 export const Water = ({ ...props }) => {
   const { waterColor, waterOpacity } = useControls({

@@ -14,15 +14,16 @@ export const WaterMaterial = shaderMaterial(
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
   }`,
   resolveLygia(/*glsl*/ `
-    #include "lygia/generative/pnoise.glsl" 
-    varying vec2 vUv;
-    uniform vec3 uColor;
-    uniform float uOpacity;
-
+      #include "lygia/generative/pnoise.glsl"
+      varying vec2 vUv;
+      uniform vec3 uColor;
+      uniform float uOpacity;
+    
     void main() {
-      // pnoise - https://lygia.xyz/generative/pnoise
       float noise = pnoise(vec3(vUv * 10.0, 1.0), vec3(100.0, 24.0, 112.0));
-      gl_FragColor = vec4(uColor, uOpacity);
+      vec3 black = vec3(0.0);
+      vec3 finalColor = mix(uColor, black, noise);
+      gl_FragColor = vec4(finalColor, uOpacity);
       #include <tonemapping_fragment>
       #include <encodings_fragment>
     }`)

@@ -21,6 +21,7 @@ export const WaterMaterial = shaderMaterial(
   }`,
   resolveLygia(/*glsl*/ `
     #include "lygia/generative/pnoise.glsl"
+    #include "lygia/generative/voronoise.glsl"
     varying vec2 vUv;
     uniform vec3 uColor;
     uniform float uOpacity;
@@ -33,6 +34,9 @@ export const WaterMaterial = shaderMaterial(
     
     void main() {
       float adjustedTime = uTime * uSpeed;
+      float noise = 0.0;
+if (uNoiseType == 0)
+
       float noise = pnoise(vec3(vUv * uRepeat, adjustedTime * 0.5), vec3(100.0, 24.0, 112.0));
       noise = smoothstep(uFoam, uFoamTop, noise);
       vec3 intermediateColor = uColor * 1.8;

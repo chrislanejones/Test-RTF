@@ -31,13 +31,18 @@ export const WaterMaterial = shaderMaterial(
     uniform float uFoam;
     uniform float uFoamTop;
     
-      void main() {
-  float noise = pnoise(vec3(vUv * 10.0, 1.0), vec3(100.0, 24.0, 112.0));
-  vec3 black = vec3(0.0);
-  vec3 finalColor = mix(uColor, black, noise);
-  gl_FragColor = vec4(finalColor, uOpacity);
-  #include <tonemapping_fragment>
-  #include <encodings_fragment>
-}
-`)
+    void main() {
+      float adjustedTime = uTime * uSpeed;
+      float noise = pnoise(vec3(vUv * uRepeat, adjustedTime * 0.5), vec3(100.0, 24.0, 112.0));
+      noise = smoothstep(uFoam, uFoamTop, noise);
+      vec3 intermediateColor = uColor * 1.8;
+      vec3 topColor = intermediateColor * 2.0;
+      vec3 black = vec3(0.0);
+      vec3 finalColor = uColor;
+      finalColor = mix(uColor, intermediateColor, step(0.01, noise));
+      finalColor = mix(finalColor, topColor, step(1.0, noise));
+      gl_FragColor = vec4(finalColor, uOpacity);
+      #include <tonemapping_fragment>
+      #include <encodings_fragment>
+    }`)
 );

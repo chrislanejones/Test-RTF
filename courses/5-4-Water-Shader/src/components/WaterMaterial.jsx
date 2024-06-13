@@ -35,7 +35,15 @@ export const WaterMaterial = shaderMaterial(
     void main() {
       float adjustedTime = uTime * uSpeed;
       float noise = 0.0;
-if (uNoiseType == 0)
+if (uNoiseType == 0) {
+  noise = pnoise(vec3(vUv * uRepeat, adjustedTime * 0.5), vec3(100.0, 24.0, 112.0));
+} else if (uNoiseType == 1) {
+  vec2 p = 0.5 - 0.5*cos(adjustedTime *vec2(1.0,0.5));
+  p = p*p*(3.0-2.0*p);
+  p = p*p*(3.0-2.0*p);
+  p = p*p*(3.0-2.0*p);
+  noise = voronoise(vec3(vUv * uRepeat, adjustedTime), p.x, 1.0);
+}
 
       float noise = pnoise(vec3(vUv * uRepeat, adjustedTime * 0.5), vec3(100.0, 24.0, 112.0));
       noise = smoothstep(uFoam, uFoamTop, noise);

@@ -2,6 +2,17 @@ import { useFrame } from "@react-three/fiber";
 import { useControls } from "leva";
 import { useRef } from "react";
 import { Color } from "three";
+import {
+  Color,
+  FloatType,
+  MeshDepthMaterial,
+  NoBlending,
+  RGBADepthPacking,
+} from "three";
+
+const depthMaterial = new MeshDepthMaterial();
+depthMaterial.depthPacking = RGBADepthPacking;
+depthMaterial.blending = NoBlending;
 
 export const Water = ({ ...props }) => {
   const waterMaterialRef = useRef();
@@ -10,6 +21,7 @@ export const Water = ({ ...props }) => {
       waterOpacity: { value: 0.8, min: 0, max: 1 },
       waterColor: "#00c3ff",
       speed: { value: 0.5, min: 0, max: 5 },
+      maxDepth: { value: 2, min: 0, max: 5 },
       repeat: {
         value: 30,
         min: 1,

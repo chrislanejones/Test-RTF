@@ -53,9 +53,10 @@ export const Water = ({ ...props }) => {
   });
 
   return (
-    <mesh {...props}>
+    <mesh {...props} ref={waterRef}>
       <planeGeometry args={[15, 32, 22, 22]} />
-      <waterMaterial
+      <waterCellShading
+        uMaxDepth={maxDepth}
         ref={waterMaterialRef}
         uColor={new Color(waterColor)}
         transparent

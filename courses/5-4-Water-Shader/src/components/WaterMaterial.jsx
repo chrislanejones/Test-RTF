@@ -40,7 +40,7 @@ if (uNoiseType == 0) {
 } else if (uNoiseType == 1) {
   vec2 p = 0.5 - 0.5*cos(adjustedTime *vec2(1.0,0.5));
   p = p*p*(3.0-2.0*p);
-  p = p*p*(3.0-2.0*p);
+  p = p*p*(3.0-2.0*p);ren
   p = p*p*(3.0-2.0*p);
   noise = voronoise(vec3(vUv * uRepeat, adjustedTime), p.x, 1.0);
 }

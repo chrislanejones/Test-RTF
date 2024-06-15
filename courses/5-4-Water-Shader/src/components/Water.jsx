@@ -54,9 +54,29 @@ export const Water = ({ ...props }) => {
     },
   });
 
-  useFrame(({ clock }) => {
+  useFrame(({ gl, scene, camera, clock }) => {
+    // We hide the water mesh and render the scene to the render target
+    waterRef.current.visible = false;
+    gl.setRenderTarget(renderTarget);
+    scene.overrideMaterial = depthMaterial; // It replaces the material of all the meshes in the scene to store the depth values inside the render target
+    gl.render(scene, camera);
+
+    // We reset the scene and show the water mesh
+    scene.overrideMaterial = null; // Comment this line if you want to visualize what happens in the render target
+    waterRef.current.visible = true;
+    gl.setRenderTarget(null);
+
+    // We set the uniforms
     if (waterMaterialRef.current) {
-      waterMaterialRef.current.uniforms.uTime.value = clock.getElapsedTime();
+      // ...
+      waterMaterialRef.current.uniforms.uDepth.value = renderTarget.texture;
+      const pixelRatio = gl.getPixelRatio();
+      waterMaterialRef.current.uniforms.uResolution.value = [
+        window.innerWidth * pixelRatio,
+        window.innerHeight * pixelRatio,
+      ];
+      waterMaterialRef.current.uniforms.uCameraNear.value = camera.near;
+      waterMaterialRef.current.uniforms.uCameraFar.value = camera.far;
     }
   });
 
@@ -70,7 +90,7 @@ export const Water = ({ ...props }) => {
   return (
     <mesh {...props} ref={waterRef}>
       <planeGeometry args={[15, 32, 22, 22]} />
-      <waterCellShading
+      <waterMaterial
         uMaxDepth={maxDepth}
         ref={waterMaterialRef}
         uColor={new Color(waterColor)}

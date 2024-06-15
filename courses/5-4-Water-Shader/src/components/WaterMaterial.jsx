@@ -12,6 +12,11 @@ export const WaterMaterial = shaderMaterial(
     uNoiseType: 0,
     uFoam: 0.4,
     uFoamTop: 0.7,
+    uDepth: null,
+    uMaxDepth: 1.0,
+    uResolution: [0, 0],
+    uCameraNear: 0,
+    uCameraFar: 0,
   },
   /*glsl*/ `
   varying vec2 vUv;
@@ -31,6 +36,11 @@ export const WaterMaterial = shaderMaterial(
     uniform int uNoiseType;
     uniform float uFoam;
     uniform float uFoamTop;
+    uniform sampler2D uDepth;
+    uniform float uMaxDepth;
+    uniform vec2 uResolution;
+    uniform float uCameraNear;
+    uniform float uCameraFar;
     
     void main() {
       float adjustedTime = uTime * uSpeed;

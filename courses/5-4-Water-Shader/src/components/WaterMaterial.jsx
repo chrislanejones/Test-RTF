@@ -55,6 +55,40 @@ if (uNoiseType == 0) {
   noise = voronoise(vec3(vUv * uRepeat, adjustedTime), p.x, 1.0);
 }
 
+
+#include <packing>
+
+float getViewZ(const in float depth) {
+  return perspectiveDepthToViewZ(depth, uCameraNear, uCameraFar);
+}
+
+float getDepth(const in vec2 screenPosition ) {
+  return unpackRGBAToDepth(texture2D(uDepth, screenPosition));
+}
+
+void main() {
+  float adjustedTime = uTime * uSpeed;
+
+  // NOISE GENERATION
+  // ...
+
+
+  // DEPTH
+  vec2 screenUV = gl_FragCoord.xy / uResolution;
+  float fragmentLinearEyeDepth = getViewZ(gl_FragCoord.z);
+  float linearEyeDepth = getViewZ(getDepth(screenUV));
+
+  float depth = fragmentLinearEyeDepth - linearEyeDepth;
+  // ...
+
+  if (depth > uMaxDepth) {
+    finalColor = vec3(1.0, 0.0, 0.0);
+  } else {
+    finalColor = vec3(depth);
+  }
+  gl_FragColor = vec4(finalColor, uOpacity);
+}
+
       float noise = pnoise(vec3(vUv * uRepeat, adjustedTime * 0.5), vec3(100.0, 24.0, 112.0));
       noise = smoothstep(uFoam, uFoamTop, noise);
       vec3 intermediateColor = uColor * 1.8;

@@ -20,16 +20,15 @@ export const Water = ({ ...props }) => {
     waterColor,
     waterOpacity,
     speed,
-    maxDepth,
     noiseType,
     foam,
     foamTop,
     repeat,
+    maxDepth,
   } = useControls({
     waterOpacity: { value: 0.8, min: 0, max: 1 },
     waterColor: "#00c3ff",
     speed: { value: 0.5, min: 0, max: 5 },
-    maxDepth: { value: 2, min: 0, max: 5 },
     repeat: {
       value: 30,
       min: 1,
@@ -52,23 +51,31 @@ export const Water = ({ ...props }) => {
         Voronoi: 1,
       },
     },
+    maxDepth: { value: 2, min: 0, max: 5 },
   });
+
+  const renderTarget = useFBO({
+    depth: true,
+    type: FloatType,
+  });
+
+  const waterRef = useRef();
 
   useFrame(({ gl, scene, camera, clock }) => {
     // We hide the water mesh and render the scene to the render target
     waterRef.current.visible = false;
     gl.setRenderTarget(renderTarget);
-    scene.overrideMaterial = depthMaterial; // It replaces the material of all the meshes in the scene to store the depth values inside the render target
+    scene.overrideMaterial = depthMaterial;
     gl.render(scene, camera);
 
     // We reset the scene and show the water mesh
-    scene.overrideMaterial = null; // Comment this line if you want to visualize what happens in the render target
+    scene.overrideMaterial = null;
     waterRef.current.visible = true;
     gl.setRenderTarget(null);
 
     // We set the uniforms
     if (waterMaterialRef.current) {
-      // ...
+      waterMaterialRef.current.uniforms.uTime.value = clock.getElapsedTime();
       waterMaterialRef.current.uniforms.uDepth.value = renderTarget.texture;
       const pixelRatio = gl.getPixelRatio();
       waterMaterialRef.current.uniforms.uResolution.value = [
@@ -79,13 +86,6 @@ export const Water = ({ ...props }) => {
       waterMaterialRef.current.uniforms.uCameraFar.value = camera.far;
     }
   });
-
-  const renderTarget = useFBO({
-    depth: true,
-    type: FloatType,
-  });
-
-  const waterRef = useRef();
 
   return (
     <mesh {...props} ref={waterRef}>

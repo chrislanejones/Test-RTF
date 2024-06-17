@@ -79,6 +79,7 @@ void main() {
   float linearEyeDepth = getViewZ(getDepth(screenUV));
 
   float depth = fragmentLinearEyeDepth - linearEyeDepth;
+  noise += smoothstep(uMaxDepth, 0.0, depth);
   // ...
 
   if (depth > uMaxDepth) {

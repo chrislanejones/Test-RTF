@@ -66,6 +66,31 @@ export const UI = () => {
   return (
     <main className="select-none text-white text-xl pointer-events-none">
       {/* HOME */}
+      <motion.h1
+        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20
+     text-white text-center font-display text-7xl md:text-8xl"
+        variants={{
+          visible: {
+            opacity: 1,
+            transition: {
+              duration: TRANSITION_DURATION / 2,
+              delay: TRANSITION_DURATION - 0.3,
+            },
+          },
+          hidden: {
+            opacity: 0,
+            transition: {
+              duration: TRANSITION_DURATION / 2,
+            },
+          },
+        }}
+        initial={{
+          opacity: 1,
+        }}
+        animate={transition ? "visible" : "hidden"}
+      >
+        Wawa <span className="text-indigo-800">Cafe</span>
+      </motion.h1>
       <motion.section
         animate={screen === "home" ? "visible" : "hidden"}
         className={`z-10 fixed bottom-4 md:bottom-auto 

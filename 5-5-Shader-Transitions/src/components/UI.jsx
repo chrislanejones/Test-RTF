@@ -1,7 +1,7 @@
 import { useGLTF } from "@react-three/drei";
 import { motion } from "framer-motion";
 import { atom, useAtom } from "jotai";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export const TRANSITION_DELAY = 0.8;
 export const TRANSITION_DURATION = 3.2;

@@ -2,9 +2,13 @@ import { useGLTF } from "@react-three/drei";
 import { motion } from "framer-motion";
 import { atom, useAtom } from "jotai";
 import { useEffect } from "react";
+
+export const TRANSITION_DELAY = 0.8;
+export const TRANSITION_DURATION = 3.2;
 export const screenAtom = atom("home");
 export const cakeAtom = atom(-1);
 export const isMobileAtom = atom(false);
+export const transitionAtom = atom(true);
 
 export const cakes = [
   {
@@ -35,6 +39,17 @@ export const UI = () => {
   const [screen, setScreen] = useAtom(screenAtom);
   const [cake, setCake] = useAtom(cakeAtom);
   const [_, setIsMobile] = useAtom(isMobileAtom);
+  const [transition, setTransition] = useAtom(transitionAtom);
+  const timeout = useRef();
+
+  const transitionToScreen = (newScreen) => {
+    setTransition(true);
+    clearTimeout(timeout.current);
+    timeout.current = setTimeout(() => {
+      setScreen(newScreen);
+      setTransition(false);
+    }, TRANSITION_DURATION * 1000 + TRANSITION_DELAY * 1000);
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -113,7 +128,7 @@ export const UI = () => {
           in town!
         </motion.p>
         <motion.button
-          onClick={() => setScreen("menu")}
+          onClick={() => transitionToScreen("menu")}
           className="text-sm bg-transparent hover:bg-white font-semibold
            text-white hover:text-black border-2
             border-white  transition-colors duration-500 px-4 py-2 mt-4 rounded-lg uppercase"
@@ -282,7 +297,7 @@ export const UI = () => {
               opacity: 0,
               y: 50,
             }}
-            onClick={() => setScreen("home")}
+            onClick={() => transitionToScreen("home")}
             className="bg-transparent hover:bg-white font-medium text-white hover:text-black border-2 border-white  transition-colors duration-500 px-4 py-2 mt-4 rounded-lg"
           >
             Back

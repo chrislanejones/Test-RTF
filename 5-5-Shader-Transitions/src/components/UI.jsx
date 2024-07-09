@@ -92,7 +92,7 @@ export const UI = () => {
         Wawa <span className="text-indigo-800">Cafe</span>
       </motion.h1>
       <motion.section
-        animate={screen === "home" ? "visible" : "hidden"}
+        animate={!transition && screen === "home" ? "visible" : "hidden"}
         className={`z-10 fixed bottom-4 md:bottom-auto 
         md:top-1/2 md:-translate-y-1/2 md:left-1/2 
         text-left p-4
@@ -194,7 +194,7 @@ export const UI = () => {
           <motion.div
             key={idx}
             className="fixed top-[15%] w-full md:w-auto md:left-1/2 md:-translate-x-1/2 text-center  p-4 z-10"
-            animate={cake === idx && screen === "menu" ? "visible" : "hidden"}
+            animate={!transition && screen === "menu" ? "visible" : "hidden"}
           >
             <motion.h3
               variants={{
@@ -329,17 +329,22 @@ export const UI = () => {
           </motion.button>
         </div>
         <motion.button
+          onClick={() => transitionToScreen("menu")}
+          className="text-sm bg-transparent hover:bg-white font-semibold
+      text-white hover:text-black border-2
+      border-white  transition-colors duration-500 px-4 py-2 mt-4 rounded-lg uppercase"
           variants={{
             visible: {
               opacity: 1,
-              x: 0,
+              y: 0,
               transition: {
+                delay: TRANSITION_DURATION + 0.6,
                 duration: 1.5,
               },
             },
             hidden: {
               opacity: 0,
-              x: -50,
+              y: 50,
               transition: {
                 duration: 1.5,
               },
@@ -347,12 +352,8 @@ export const UI = () => {
           }}
           initial={{
             opacity: 0,
-            x: -50,
+            y: 50,
           }}
-          className="fixed left-4 md:left-1/4 top-1/2 -translate-y-1/2 z-10"
-          onClick={() =>
-            setCake((cake) => (cake - 1 + cakes.length) % cakes.length)
-          }
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

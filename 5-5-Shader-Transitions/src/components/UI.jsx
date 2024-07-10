@@ -162,7 +162,7 @@ export const UI = () => {
               opacity: 1,
               y: 0,
               transition: {
-                delay: 0.6,
+                delay: TRANSITION_DURATION + 0.6,
                 duration: 1.5,
               },
             },

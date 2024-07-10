@@ -1,6 +1,11 @@
-import { Hud, OrthographicCamera } from "@react-three/drei";
+import { Hud, OrthographicCamera, shaderMaterial } from "@react-three/drei";
+import { extend } from "@react-three/fiber";
+import { useRef } from "react";
+import { Color } from "three";
 
 export const ScreenTransition = ({ transition, color }) => {
+  const transitionMaterial = useRef();
+
   return (
     <Hud>
       <OrthographicCamera
@@ -14,8 +19,14 @@ export const ScreenTransition = ({ transition, color }) => {
       />
       <mesh>
         <planeGeometry args={[2, 2]} />
-        <meshBasicMaterial color={color} />
+        <screenTransitionMaterial
+          ref={transitionMaterial}
+          transparent
+          uColor={color}
+        />
       </mesh>
     </Hud>
   );
 };
+
+extend({ ScreenTransitionMaterial });

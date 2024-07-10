@@ -21,18 +21,7 @@ export const ScreenTransition = ({ transition, color }) => {
     transitionData.current.started = new Date();
   }, [transition]);
 
-  useFrame(() => {
-    if (!transitionMaterial.current) {
-      return;
-    }
-    transitionMaterial.current.uniforms.uProgression.value = MathUtils.lerp(
-      transitionData.current.from,
-      transitionData.current.to,
-      (new Date() - transitionData.current.started) /
-        (TRANSITION_DURATION * 1000)
-    );
-  );
-});
+  
 
 
 export const ScreenTransition = ({ transition, color }) => {

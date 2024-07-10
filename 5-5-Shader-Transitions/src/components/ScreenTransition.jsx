@@ -1,10 +1,33 @@
 import { Hud, OrthographicCamera, shaderMaterial } from "@react-three/drei";
 import { extend } from "@react-three/fiber";
-import { Color } from "three";
-import { useFrame } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
-import { MathUtils } from "three/src/math/MathUtils.js";
-import { TRANSITION_DURATION } from "./UI";
+import { Color } from "three";
+
+const ScreenTransitionMaterial = shaderMaterial(
+  {
+    uColor: new Color("pink"),
+    uProgression: 0,
+  },
+  /* glsl */ `
+  varying vec2 vUv;
+  void main() {
+    vUv = uv;
+    gl position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }`,
+  /* glsl */ `
+  uniform vec3 uColor;
+  varying vec2 vuv;
+  uniform float uProgression;
+
+  void main() {
+    float alpha = 1.0 - smoothstep(0.0, 1.0, uProgression);
+    vec3 finalColor = uColor;
+    gl_fragment = vec4(finalColor, alpha);
+    #include <encodings_fragment>
+  }`
+);
+
+extend({ ScreenTransitionMaterial });
 
 export const ScreenTransition = ({ transition, color }) => {
   const transitionMaterial = useRef();
@@ -17,16 +40,7 @@ export const ScreenTransition = ({ transition, color }) => {
   useEffect(() => {
     transitionData.current.from =
       transition && transitionData.current.started ? 1 : 0;
-    transitionData.current.to = transition ? 0 : 1;
-    transitionData.current.started = new Date();
   }, [transition]);
-
-  
-
-
-export const ScreenTransition = ({ transition, color }) => {
-  const transitionMaterial = useRef();
-
   return (
     <Hud>
       <OrthographicCamera
@@ -40,14 +54,8 @@ export const ScreenTransition = ({ transition, color }) => {
       />
       <mesh>
         <planeGeometry args={[2, 2]} />
-        <screenTransitionMaterial
-          ref={transitionMaterial}
-          transparent
-          uColor={color}
-        />
+        <screenTransitionMaterial ref={transitionMaterial} transparent uColor />
       </mesh>
     </Hud>
   );
 };
-
-extend({ ScreenTransitionMaterial });

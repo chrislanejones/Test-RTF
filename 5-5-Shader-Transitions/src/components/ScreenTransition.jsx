@@ -12,16 +12,24 @@ const ScreenTransitionMaterial = shaderMaterial(
   varying vec2 vUv;
   void main() {
     vUv = uv;
-    gl position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
   }`,
   /* glsl */ `
   uniform vec3 uColor;
-  varying vec2 vuv;
+  varying vec2 vUv;
   uniform float uProgression;
+  const float pi = 3.141592654;
 
   void main() {
-    float alpha = 1.0 - smoothstep(0.0, 1.0, uProgression);
-    vec3 finalColor = uColor;
+    vec2 uvs = vUv - 0.5;
+  float r = length(uvs * 0.92);
+  float theta = atan(uvs.y, uvs.x);
+  float spiral = fract(2.5 * theta / pi + 7.0 * pow(r, 0.4) - 4.5 * uProgression);
+  spiral = step(0.5, spiral);
+  float alpha = 1.0 - smoothstep(0.0, 1.0, uProgression);
+  alpha = min(alpha, spiral);
+  vec3 finalColor = uColor;
+
     gl_fragment = vec4(finalColor, alpha);
     #include <encodings_fragment>
   }`
@@ -54,7 +62,11 @@ export const ScreenTransition = ({ transition, color }) => {
       />
       <mesh>
         <planeGeometry args={[2, 2]} />
-        <screenTransitionMaterial ref={transitionMaterial} transparent uColor />
+        <screenTransitionMaterial
+          ref={transitionMaterial}
+          transparent
+          uColor={color}
+        />
       </mesh>
     </Hud>
   );

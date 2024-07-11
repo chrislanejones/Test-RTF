@@ -18,6 +18,13 @@ const ScreenTransitionMaterial = shaderMaterial(
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
   }`,
   /* glsl */ `
+  uniform vec3 uColor;
+  varying vec2 vUv;
+  uniform float uProgression;
+  const float pi = 3.141592654;
+  uniform vec2 uResolution;
+
+void main() {
   vec2 uvs = vUv - 0.5;
   float r = length(uvs * 0.92);
   float theta = atan(uvs.y, uvs.x);
@@ -29,7 +36,8 @@ const ScreenTransitionMaterial = shaderMaterial(
 
   gl_FragColor = vec4(finalColor, alpha);
   #include <encodings_fragment>
-  }`
+  }
+  `
 );
 
 extend({ ScreenTransitionMaterial });

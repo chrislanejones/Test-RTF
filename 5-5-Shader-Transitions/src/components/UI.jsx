@@ -2,14 +2,10 @@ import { useGLTF } from "@react-three/drei";
 import { motion } from "framer-motion";
 import { atom, useAtom } from "jotai";
 import { useEffect, useRef } from "react";
-
-export const TRANSITION_DELAY = 0.8;
-export const TRANSITION_DURATION = 3.2;
 export const screenAtom = atom("home");
+export const transitionAtom = atom(true);
 export const cakeAtom = atom(-1);
 export const isMobileAtom = atom(false);
-export const transitionAtom = atom(true);
-
 export const cakes = [
   {
     name: "Choco Bunny",
@@ -35,12 +31,16 @@ cakes.forEach((cake) => {
   useGLTF.preload(`/models/${cake.model}.glb`);
 });
 
+export const TRANSITION_DELAY = 0.8;
+export const TRANSITION_DURATION = 3.2;
+export const CAKE_TRANSITION_DURATION = 2.5;
+
 export const UI = () => {
   const [screen, setScreen] = useAtom(screenAtom);
   const [cake, setCake] = useAtom(cakeAtom);
-  const [_, setIsMobile] = useAtom(isMobileAtom);
   const [transition, setTransition] = useAtom(transitionAtom);
   const timeout = useRef();
+  const [_, setIsMobile] = useAtom(isMobileAtom);
 
   const transitionToScreen = (newScreen) => {
     setTransition(true);
@@ -52,20 +52,10 @@ export const UI = () => {
   };
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
     setCake(0);
   }, [screen]);
   return (
     <main className="select-none text-white text-xl pointer-events-none">
-      {/* HOME */}
       <motion.h1
         className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20
      text-white text-center font-display text-7xl md:text-8xl"
@@ -91,6 +81,7 @@ export const UI = () => {
       >
         Wawa <span className="text-indigo-800">Cafe</span>
       </motion.h1>
+      {/* HOME */}
       <motion.section
         animate={!transition && screen === "home" ? "visible" : "hidden"}
         className={`z-10 fixed bottom-4 md:bottom-auto 
@@ -104,6 +95,7 @@ export const UI = () => {
               opacity: 1,
               y: 0,
               transition: {
+                delay: TRANSITION_DURATION,
                 duration: 1.5,
               },
             },
@@ -130,7 +122,7 @@ export const UI = () => {
               opacity: 1,
               y: 0,
               transition: {
-                delay: 0.3,
+                delay: TRANSITION_DURATION + 0.3,
                 duration: 1.5,
               },
             },
@@ -185,7 +177,7 @@ export const UI = () => {
 
       {/* MENU */}
       <motion.section
-        animate={screen === "menu" ? "visible" : "hidden"}
+        animate={!transition && screen === "menu" ? "visible" : "hidden"}
         className={`${
           screen === "menu" ? "pointer-events-auto" : "pointer-events-none"
         }`}
@@ -194,7 +186,11 @@ export const UI = () => {
           <motion.div
             key={idx}
             className="fixed top-[15%] w-full md:w-auto md:left-1/2 md:-translate-x-1/2 text-center  p-4 z-10"
-            animate={!transition && screen === "menu" ? "visible" : "hidden"}
+            animate={
+              !transition && cake === idx && screen === "menu"
+                ? "visible"
+                : "hidden"
+            }
           >
             <motion.h3
               variants={{
@@ -202,6 +198,7 @@ export const UI = () => {
                   opacity: 1,
                   y: 0,
                   transition: {
+                    delay: CAKE_TRANSITION_DURATION,
                     duration: 1.5,
                   },
                 },
@@ -229,7 +226,7 @@ export const UI = () => {
                   opacity: 1,
                   y: 0,
                   transition: {
-                    delay: 0.3,
+                    delay: CAKE_TRANSITION_DURATION + 0.3,
                     duration: 1,
                   },
                 },
@@ -257,6 +254,7 @@ export const UI = () => {
                 opacity: 1,
                 y: 0,
                 transition: {
+                  delay: TRANSITION_DURATION - 0.6,
                   duration: 1.5,
                 },
               },
@@ -282,6 +280,7 @@ export const UI = () => {
                 opacity: 1,
                 y: 0,
                 transition: {
+                  delay: TRANSITION_DURATION - 0.3,
                   duration: 1.5,
                 },
               },
@@ -307,6 +306,7 @@ export const UI = () => {
                 opacity: 1,
                 y: 0,
                 transition: {
+                  delay: TRANSITION_DURATION,
                   duration: 1.5,
                 },
               },
@@ -329,22 +329,18 @@ export const UI = () => {
           </motion.button>
         </div>
         <motion.button
-          onClick={() => transitionToScreen("menu")}
-          className="text-sm bg-transparent hover:bg-white font-semibold
-      text-white hover:text-black border-2
-      border-white  transition-colors duration-500 px-4 py-2 mt-4 rounded-lg uppercase"
           variants={{
             visible: {
               opacity: 1,
-              y: 0,
+              x: 0,
               transition: {
-                delay: TRANSITION_DURATION + 0.6,
+                delay: TRANSITION_DURATION - 0.6,
                 duration: 1.5,
               },
             },
             hidden: {
               opacity: 0,
-              y: 50,
+              x: -50,
               transition: {
                 duration: 1.5,
               },
@@ -352,8 +348,12 @@ export const UI = () => {
           }}
           initial={{
             opacity: 0,
-            y: 50,
+            x: -50,
           }}
+          className="fixed left-4 md:left-1/4 top-1/2 -translate-y-1/2 z-10"
+          onClick={() =>
+            setCake((cake) => (cake - 1 + cakes.length) % cakes.length)
+          }
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -377,6 +377,7 @@ export const UI = () => {
               opacity: 1,
               x: 0,
               transition: {
+                delay: TRANSITION_DURATION - 0.6,
                 duration: 1.5,
               },
             },

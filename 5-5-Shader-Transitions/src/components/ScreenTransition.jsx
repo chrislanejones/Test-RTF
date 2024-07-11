@@ -1,8 +1,7 @@
 import { Hud, OrthographicCamera, shaderMaterial } from "@react-three/drei";
-import { extend } from "@react-three/fiber";
+import { extend, useFrame } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 import { Color } from "three";
-import { useFrame } from "@react-three/fiber";
 import { MathUtils } from "three/src/math/MathUtils.js";
 import { TRANSITION_DURATION } from "./UI";
 
@@ -67,16 +66,16 @@ export const ScreenTransition = ({ transition, color }) => {
     if (!transitionMaterial.current) {
       return;
     }
-    transitionMaterial.current.uniforms.uResolution.value = [
-      window.innerWidth,
-      window.innerHeight,
-    ];
     transitionMaterial.current.uniforms.uProgression.value = MathUtils.lerp(
       transitionData.current.from,
       transitionData.current.to,
       (new Date() - transitionData.current.started) /
         (TRANSITION_DURATION * 1000)
     );
+    transitionMaterial.current.uniforms.uResolution.value = [
+      window.innerWidth,
+      window.innerHeight,
+    ];
   });
   return (
     <Hud>

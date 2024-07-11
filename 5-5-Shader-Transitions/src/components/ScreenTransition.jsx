@@ -10,6 +10,7 @@ const ScreenTransitionMaterial = shaderMaterial(
   {
     uColor: new Color("pink"),
     uProgression: 0,
+    uResolution: [0, 0],
   },
   /* glsl */ `
   varying vec2 vUv;
@@ -19,19 +20,24 @@ const ScreenTransitionMaterial = shaderMaterial(
   }`,
   /* glsl */ `
   uniform vec3 uColor;
-  varying vec2 vUv;
-  uniform float uProgression;
-  const float pi = 3.141592654;
   uniform vec2 uResolution;
+  uniform float uProgression;
+  varying vec2 vUv;
+  const float pi = 3.141592654;
 
 void main() {
   vec2 uvs = vUv - 0.5;
+  uvs.x *= uResolution.x / uResolution.y;
   float r = length(uvs * 0.92);
   float theta = atan(uvs.y, uvs.x);
-  float spiral = fract(2.5 * theta / pi + 7.0 * pow(r, 0.4) - 4.5 * uProgression);
-  spiral = step(0.5, spiral);
-  float alpha = 1.0 - smoothstep(0.0, 1.0, uProgression);
-  alpha = min(alpha, spiral);
+  float spiral = fract(2.5 * theta / pi + 4.0 * pow(r, 0.4) - 4.5 * uProgression);
+  float animatedProgression = smoothstep(0.25, 1.0, uProgression);
+  float alphaSpiral = step(animatedProgression, spiral);
+
+  float animatedProgressionCircle = smoothstep(0.25, 0.8, uProgression);
+  float alphaCircle = step(animatedProgressionCircle, r);
+  float alpha = max(alphaSpiral, alphaCircle);
+
   vec3 finalColor = uColor;
 
   gl_FragColor = vec4(finalColor, alpha);
@@ -61,6 +67,10 @@ export const ScreenTransition = ({ transition, color }) => {
     if (!transitionMaterial.current) {
       return;
     }
+    transitionMaterial.current.uniforms.uResolution.value = [
+      window.innerWidth,
+      window.innerHeight,
+    ];
     transitionMaterial.current.uniforms.uProgression.value = MathUtils.lerp(
       transitionData.current.from,
       transitionData.current.to,

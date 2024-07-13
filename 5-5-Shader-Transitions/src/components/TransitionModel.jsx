@@ -15,17 +15,27 @@ export function TransitionModel({ model, visible, ...props }) {
   const [animatedVisible, setAnimatedVisible] = useState(visible);
 
   useEffect(() => {
-    if (visible == animatedVisible) {
+    if (visible === animatedVisible) {
       return;
     }
     if (!visible) {
       transitionData.current.from = 1;
+      transitionData.current.to = 0;
+      transitionData.current.started = new Date();
     }
-    const timeout = setTimeout(() => {}, CAKE_TRANSITION_DURATION * 1000);
+    const timeout = setTimeout(() => {
+      if (visible) {
+        transitionData.current.from = 0;
+        transitionData.current.to = 1;
+        transitionData.current.started = new Date();
+      }
+      setAnimatedVisible(visible);
+    }, CAKE_TRANSITION_DURATION * 1000);
+    return () => clearTimeout(timeout);
   }, [visible]);
 
   return (
-    <group {...props} dispose={null} visible={visible}>
+    <group {...props} dispose={null} visible={animatedVisible}>
       <primitive object={scene} />
     </group>
   );

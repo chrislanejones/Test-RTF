@@ -41,7 +41,8 @@ void main() {
   float alphaCircleOut = step(animatedProgressionOut, r);
   alpha = min(alpha, alphaCircleOut);
 
-  vec3 finalColor = uColor;
+  vec3 darkenColor = uColor * 0.2;
+  vec3 finalColor = mix(uColor, darkenColor, smoothstep(0.42, 0.8, uProgression));
 
   gl_FragColor = vec4(finalColor, alpha);
   #include <encodings_fragment>

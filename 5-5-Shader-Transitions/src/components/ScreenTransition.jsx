@@ -37,6 +37,10 @@ void main() {
   float alphaCircle = step(animatedProgressionCircle, r);
   float alpha = max(alphaSpiral, alphaCircle);
 
+  float animatedProgressionOut = smoothstep(0.5, 1.0, uProgression);
+  float alphaCircleOut = step(animatedProgressionOut, r);
+  alpha = min(alpha, alphaCircleOut);
+
   vec3 finalColor = uColor;
 
   gl_FragColor = vec4(finalColor, alpha);

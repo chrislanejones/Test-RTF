@@ -2,9 +2,20 @@ import { useGLTF } from "@react-three/drei";
 import React, { useEffect, useRef, useState } from "react";
 import { MathUtils } from "three/src/math/MathUtils.js";
 import { CAKE_TRANSITION_DURATION } from "./UI";
+import { useFrame } from "@react-three/fiber";
 
 export function TransitionModel({ model, visible, ...props }) {
-  const { scene } = useGLTF(`/models/${model}.glb`);
+  const { scene, materials } = useGLTF(`/models/${model}.glb`);
+  console.log(materials);
+
+  useEffect(() => {
+    Object.values(materials).forEach((material) => {
+      material.transparent = true;
+      material.onBeforeCompile = (shader) => {
+        console.log(shader);
+      };
+    });
+  }, [materials]);
 
   const transitionData = useRef({
     from: 0,
@@ -33,6 +44,12 @@ export function TransitionModel({ model, visible, ...props }) {
     }, CAKE_TRANSITION_DURATION * 1000);
     return () => clearTimeout(timeout);
   }, [visible]);
+
+  useFrame(() => {
+    Object.values(materials).forEach((material) => {
+      material.transparent;
+    });
+  });
 
   return (
     <group {...props} dispose={null} visible={animatedVisible}>

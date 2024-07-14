@@ -4,6 +4,14 @@ import { MathUtils } from "three/src/math/MathUtils.js";
 import { CAKE_TRANSITION_DURATION } from "./UI";
 import { useFrame } from "@react-three/fiber";
 
+const declarationsFragment = /* glsl */ `
+  uniform float uProgression;
+`;
+
+const fadeFragment = /* glsl */ `
+  diffuseColor.a = diffuseColor.a * uProgression;
+`;
+
 export function TransitionModel({ model, visible, ...props }) {
   const { scene, materials } = useGLTF(`/models/${model}.glb`);
   console.log(materials);
@@ -12,11 +20,21 @@ export function TransitionModel({ model, visible, ...props }) {
     Object.values(materials).forEach((material) => {
       material.transparent = true;
       material.onBeforeCompile = (shader) => {
-        console.log(shader);
+        shader.uniforms.uProgression = { value: 0 };
+        material.userData.shader = shader;
+        shader.fragmentShader = shader.fragmentShader.replace(
+          `void main() {`,
+          `${declarationsFragment}
+            void main() {`
+        );
+        shader.fragmentShader = shader.fragmentShader.replace(
+          `#include <alphamap_fragment>`,
+          `#include <alphamap_fragment>
+          ${fadeFragment}`
+        );
       };
     });
   }, [materials]);
-
   const transitionData = useRef({
     from: 0,
     to: 1,

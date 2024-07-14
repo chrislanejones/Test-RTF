@@ -65,7 +65,14 @@ export function TransitionModel({ model, visible, ...props }) {
 
   useFrame(() => {
     Object.values(materials).forEach((material) => {
-      material.transparent;
+      if (material.userData.shader) {
+        material.userData.shader.uniforms.uProgression.value = MathUtils.lerp(
+          transitionData.current.from,
+          transitionData.current.to,
+          (new Date() - transitionData.current.started) /
+            (CAKE_TRANSITION_DURATION * 1000)
+        );
+      }
     });
   });
 

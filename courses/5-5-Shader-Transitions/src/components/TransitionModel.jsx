@@ -69,17 +69,27 @@ export function TransitionModel({ model, visible, ...props }) {
     Object.values(materials).forEach((material) => {
       material.transparent = true;
       material.onBeforeCompile = (shader) => {
+        shader.uniforms.uProgression = { value: 0 };
+        material.userData.shader = shader;
+
+        shader.vertexShader = shader.vertexShader.replace(
+          `void main() {`,
+          `${varyingFragment}
+                  void main() {`
+        );
+        shader.vertexShader = shader.vertexShader.replace(
+          `#include <fog_vertex>`,
+          `#include <fog_vertex>
+                  ${applyVaryingFragment}`
+        );
+
         shader.fragmentShader = shader.fragmentShader.replace(
-          shader.vertexShader = shader.vertexShader.replace(
-            `void main() {`,
-            `${varyingFragment}
-                    void main() {`
-          );
-          shader.vertexShader = shader.vertexShader.replace(
-            `#include <fog_vertex>`,
-            `#include <fog_vertex>
-                    ${applyVaryingFragment}`
-          );
+          `void main() {`,
+          `${varyingFragment}
+          void main() {`
+        );
+
+        shader.fragmentShader = shader.fragmentShader.replace(
           `void main() {`,
           `${declarationsFragment}
           void main() {`
@@ -88,6 +98,11 @@ export function TransitionModel({ model, visible, ...props }) {
           `#include <alphamap_fragment>`,
           `#include <alphamap_fragment>
         ${fadeFragment}`
+        );
+        shader.fragmentShader = shader.fragmentShader.replace(
+          `#include <tonemapping_fragment>`,
+          `${colorWashFragment}
+                #include <tonemapping_fragment>`
         );
       };
     });

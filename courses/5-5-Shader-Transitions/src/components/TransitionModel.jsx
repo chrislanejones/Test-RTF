@@ -4,6 +4,8 @@ import { MathUtils } from "three/src/math/MathUtils.js";
 import { CAKE_TRANSITION_DURATION } from "./UI";
 import { useFrame } from "@react-three/fiber";
 import { shaderStages } from "three/examples/jsm/nodes/Nodes.js";
+import { motion } from "framer-motion-3d";
+import { degToRad } from "three/src/math/MathUtils.js";
 
 const declarationsFragment = /* glsl */ `
   float myRand(vec2 n) { 
@@ -24,9 +26,16 @@ const declarationsFragment = /* glsl */ `
 `;
 
 const fadeFragment = /* glsl */ `
+  float noiseFactor = noise(gl_FragCoord.xy * 0.042);
   float yProgression = smoothstep(-5.0, 5.0, vPosition.y);
   yProgression = smoothstep(0.20, yProgression, uProgression);
-  diffuseColor.a = diffuseColor.a * yProgression;
+  noiseFactor = step(1.0 - yProgression, noiseFactor);
+  diffuseColor.a = diffuseColor.a * noiseFactor;
+`;
+
+const colorWashFragment = /* glsl */ `
+  vec3 color = vec3(1.0, 1.0, 1.0);
+  gl_FragColor.rgb = mix(color, gl_FragColor.rgb, yProgression);
 `;
 
 const varyingFragment = /* glsl */ `
@@ -114,13 +123,39 @@ export function TransitionModel({ model, visible, ...props }) {
           `#include <alphamap_fragment>
         ${fadeFragment}`
         );
+        shader.fragmentShader = shader.fragmentShader.replace(
+          `#include <tonemapping_fragment>`,
+          `${colorWashFragment}
+                #include <tonemapping_fragment>`
+        );
       };
     });
   }, [materials]);
 
   return (
     <group {...props} dispose={null} visible={animatedVisible}>
-      <primitive object={scene} />
+      <motion.group
+        animate={visible ? "fadeIn" : "fadeOut"}
+        variants={{
+          fadeIn: {
+            scale: 1,
+            rotateX: 0,
+            rotateY: 0,
+            y: 0,
+            transition: {
+              delay: CAKE_TRANSITION_DURATION * 2,
+            },
+          },
+          fadeOut: {
+            rotateX: degToRad(20),
+            rotateY: degToRad(20),
+            y: 0.1,
+            scale: 0.8,
+          },
+        }}
+      >
+        <primitive object={scene} />
+      </motion.group>
     </group>
   );
 }

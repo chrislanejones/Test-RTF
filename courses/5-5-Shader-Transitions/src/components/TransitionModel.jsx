@@ -6,6 +6,20 @@ import { useFrame } from "@react-three/fiber";
 import { shaderStages } from "three/examples/jsm/nodes/Nodes.js";
 
 const declarationsFragment = /* glsl */ `
+  float myRand(vec2 n) { 
+    return fract(sin(dot(n, vec2(12.9898, 4.1414))) * 43758.5453);
+  }
+
+  float noise(vec2 p){
+    vec2 ip = floor(p);
+    vec2 u = fract(p);
+    u = u*u*(3.0-2.0*u);
+    
+    float res = mix(
+      mix(myRand(ip),myRand(ip+vec2(1.0,0.0)),u.x),
+      mix(myRand(ip+vec2(0.0,1.0)),myRand(ip+vec2(1.0,1.0)),u.x),u.y);
+    return res*res;
+  }
   uniform float uProgression;
 `;
 

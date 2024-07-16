@@ -10,7 +10,9 @@ const declarationsFragment = /* glsl */ `
 `;
 
 const fadeFragment = /* glsl */ `
-  diffuseColor.a = diffuseColor.a * uProgression;
+  float yProgression = smoothstep(-5.0, 5.0, vPosition.y);
+  yProgression = smoothstep(0.20, yProgression, uProgression);
+  diffuseColor.a = diffuseColor.a * yProgression;
 `;
 
 const varyingFragment = /* glsl */ `
@@ -69,9 +71,8 @@ export function TransitionModel({ model, visible, ...props }) {
     Object.values(materials).forEach((material) => {
       material.transparent = true;
       material.onBeforeCompile = (shader) => {
-        shader.uniforms.uProgression = { value: 0 };
         material.userData.shader = shader;
-
+        shader.uniforms.uProgression = { value: 0 };
         shader.vertexShader = shader.vertexShader.replace(
           `void main() {`,
           `${varyingFragment}
@@ -98,11 +99,6 @@ export function TransitionModel({ model, visible, ...props }) {
           `#include <alphamap_fragment>`,
           `#include <alphamap_fragment>
         ${fadeFragment}`
-        );
-        shader.fragmentShader = shader.fragmentShader.replace(
-          `#include <tonemapping_fragment>`,
-          `${colorWashFragment}
-                #include <tonemapping_fragment>`
         );
       };
     });

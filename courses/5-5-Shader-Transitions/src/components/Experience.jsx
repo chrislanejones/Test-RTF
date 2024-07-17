@@ -11,8 +11,11 @@ import {
   cakes,
   isMobileAtom,
   screenAtom,
+  TRANSITION_DELAY,
 } from "./UI";
+import { transitionAtom, TRANSITION_DURATION } from "./UI";
 import { useFrame } from "@react-three/fiber";
+import { MathUtils } from "three";
 
 export const Experience = () => {
   const [cake, setCake] = useAtom(cakeAtom);
@@ -21,6 +24,7 @@ export const Experience = () => {
     groundColor: "#4e35b5",
   });
   const [isMobile] = useAtom(isMobileAtom);
+  const [transition] = useAtom(transitionAtom);
 
   useEffect(() => {
     setCake(screen === "menu" ? 0 : -1);
@@ -36,19 +40,28 @@ export const Experience = () => {
     return () => clearTimeout(timeout);
   }, [cake]);
 
+  useFrame(() => {
+    materialShadowsHide.current.opacity = MathUtils.lerp(
+      materialShadowsHide.current.opacity,
+      fadeOutShadows ? 1 : 0,
+      0.02
+    );
+  });
+
   return (
     <>
       <group position-y={isMobile ? -0.66 : -1}>
         {/* HOME */}
         <group visible={screen === "home"}>
           <motion.group
-            animate={screen === "home" ? "visible" : "hidden"}
+            animate={!transition && screen === "home" ? "visible" : "hidden"}
             variants={{
               visible: {
                 scale: isMobile ? 0.75 : 1,
                 x: isMobile ? 0 : -1.5,
                 rotateY: degToRad(-42),
                 transition: {
+                  delay: TRANSITION_DURATION - 0.3,
                   duration: 1.2,
                 },
               },

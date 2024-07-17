@@ -1,12 +1,19 @@
 import { ContactShadows, Float, Gltf } from "@react-three/drei";
-
 import { motion } from "framer-motion-3d";
 import { useAtom } from "jotai";
 import { useControls } from "leva";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { degToRad } from "three/src/math/MathUtils.js";
 import { TransitionModel } from "./TransitionModel";
-import { cakeAtom, cakes, isMobileAtom, screenAtom } from "./UI";
+import {
+  CAKE_TRANSITION_DURATION,
+  cakeAtom,
+  cakes,
+  isMobileAtom,
+  screenAtom,
+} from "./UI";
+import { useFrame } from "@react-three/fiber";
+
 export const Experience = () => {
   const [cake, setCake] = useAtom(cakeAtom);
   const [screen] = useAtom(screenAtom);
@@ -18,6 +25,16 @@ export const Experience = () => {
   useEffect(() => {
     setCake(screen === "menu" ? 0 : -1);
   }, [screen]);
+
+  const materialShadowsHide = useRef();
+  const [fadeOutShadows, setFadeOutShadows] = useState(false);
+  useEffect(() => {
+    setFadeOutShadows(true);
+    const timeout = setTimeout(() => {
+      setFadeOutShadows(false);
+    }, CAKE_TRANSITION_DURATION * 1.42 * 1000);
+    return () => clearTimeout(timeout);
+  }, [cake]);
 
   return (
     <>
@@ -67,7 +84,16 @@ export const Experience = () => {
           </Float>
         </group>
         <ContactShadows opacity={0.42} scale={25} />
-
+        <mesh rotation-x={degToRad(-90)} position-y={0.001}>
+          <planeGeometry args={[40, 40]} />
+          <meshBasicMaterial
+            color={groundColor}
+            toneMapped={false}
+            ref={materialShadowsHide}
+            opacity={0}
+            transparent
+          />
+        </mesh>
         <mesh rotation-x={degToRad(-90)} position-y={-0.001}>
           <planeGeometry args={[40, 40]} />
           <meshBasicMaterial color={groundColor} toneMapped={false} />
